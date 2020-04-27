@@ -106,30 +106,12 @@ namespace AutoShutdown
 
         private void deleteTask(object sender, EventArgs e)
         {
-
-            if (taskList.Count() == 1)
+            foreach (var task in taskList)
             {
-                task task_1 = new task();
-                task_1.createdDate = DateTime.Now.ToString();
-                task_1.triggerType = "systemIdle";
-                task_1.value = numericUpDown_value.Value.ToString();
-
+              
             }
 
-            if (taskList.Count() == 2)
-            {
-   
-            }
 
-            if (taskList.Count() == 3)
-            {
-
-            }
-            if (taskList.Count() == 4)
-            {
-
-            }
-    
 
         }
 
@@ -166,6 +148,7 @@ namespace AutoShutdown
 
         private void button_AddToList_Click(object sender, EventArgs e)
         {
+          
             MessageBox.Show(taskList.Count().ToString());
         }
 
@@ -197,6 +180,43 @@ namespace AutoShutdown
                 dateTimePicker_time.Visible =true;
             }
 
+        }
+
+        private void deleteSelectedTaskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_taskList.Rows.Count > 0)
+            {
+                taskList.RemoveAt(dataGridView_taskList.CurrentCell.RowIndex);
+                dataGridView_taskList.DataSource = null;
+                dataGridView_taskList.DataSource = taskList;
+                dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            }
+
+        }
+
+        private void dataGridView_taskList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView_taskList_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dataGridView_taskList.Rows.Count > 0)
+            {
+
+                dataGridView_taskList.ContextMenuStrip = contextMenuStrip_mainGrid;
+            }
+
+        }
+
+        private void dataGridView_taskList_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (dataGridView_taskList.Rows.Count == 0)
+            {
+
+                dataGridView_taskList.ContextMenuStrip =null;
+            }
         }
 
 

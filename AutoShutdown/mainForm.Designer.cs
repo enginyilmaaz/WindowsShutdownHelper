@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
             this.comboBox_taskType = new System.Windows.Forms.ComboBox();
             this.label_taskType = new System.Windows.Forms.Label();
@@ -42,9 +43,12 @@
             this.dateTimePicker_date = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_time = new System.Windows.Forms.DateTimePicker();
             this.label_firstly_choose_a_trigger = new System.Windows.Forms.Label();
+            this.contextMenuStrip_mainGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteSelectedTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).BeginInit();
             this.statusStrip_default.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).BeginInit();
+            this.contextMenuStrip_mainGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // numericUpDown_value
@@ -105,8 +109,12 @@
             this.dataGridView_taskList.Name = "dataGridView_taskList";
             this.dataGridView_taskList.ReadOnly = true;
             this.dataGridView_taskList.RowHeadersVisible = false;
+            this.dataGridView_taskList.ShowCellErrors = false;
             this.dataGridView_taskList.Size = new System.Drawing.Size(390, 171);
             this.dataGridView_taskList.TabIndex = 9;
+            this.dataGridView_taskList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_taskList_CellContentClick);
+            this.dataGridView_taskList.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_taskList_RowsAdded);
+            this.dataGridView_taskList.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_taskList_RowsRemoved);
             // 
             // label_taskList
             // 
@@ -196,6 +204,20 @@
             this.label_firstly_choose_a_trigger.TabIndex = 18;
             this.label_firstly_choose_a_trigger.Text = "Firstly, choose a trigger... ";
             // 
+            // contextMenuStrip_mainGrid
+            // 
+            this.contextMenuStrip_mainGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteSelectedTaskToolStripMenuItem});
+            this.contextMenuStrip_mainGrid.Name = "contextMenuStrip_mainGrid";
+            this.contextMenuStrip_mainGrid.Size = new System.Drawing.Size(180, 26);
+            // 
+            // deleteSelectedTaskToolStripMenuItem
+            // 
+            this.deleteSelectedTaskToolStripMenuItem.Name = "deleteSelectedTaskToolStripMenuItem";
+            this.deleteSelectedTaskToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteSelectedTaskToolStripMenuItem.Text = "Delete Selected Task";
+            this.deleteSelectedTaskToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedTaskToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +243,7 @@
             this.statusStrip_default.ResumeLayout(false);
             this.statusStrip_default.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).EndInit();
+            this.contextMenuStrip_mainGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +264,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_date;
         private System.Windows.Forms.DateTimePicker dateTimePicker_time;
         private System.Windows.Forms.Label label_firstly_choose_a_trigger;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_mainGrid;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedTaskToolStripMenuItem;
     }
 }
