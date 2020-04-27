@@ -96,9 +96,15 @@
             // 
             // dataGridView_taskList
             // 
+            this.dataGridView_taskList.AllowUserToAddRows = false;
+            this.dataGridView_taskList.AllowUserToDeleteRows = false;
+            this.dataGridView_taskList.AllowUserToResizeColumns = false;
+            this.dataGridView_taskList.AllowUserToResizeRows = false;
             this.dataGridView_taskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_taskList.Location = new System.Drawing.Point(40, 244);
             this.dataGridView_taskList.Name = "dataGridView_taskList";
+            this.dataGridView_taskList.ReadOnly = true;
+            this.dataGridView_taskList.RowHeadersVisible = false;
             this.dataGridView_taskList.Size = new System.Drawing.Size(390, 171);
             this.dataGridView_taskList.TabIndex = 9;
             // 

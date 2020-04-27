@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace AutoShutdown
+namespace AutoShutdown.functions
 {
     public class Tasks { 
 

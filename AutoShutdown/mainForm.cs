@@ -70,8 +70,8 @@ namespace AutoShutdown
 
             dataGridView_taskList.DataSource = taskList;
             dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-           dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
+            dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            
         }
 
 
@@ -84,19 +84,19 @@ namespace AutoShutdown
         {
            
 
-            uint second = systemIdleDetector.GetLastInputTime();
+            uint second = functions.systemIdleDetector.GetLastInputTime();
 
             if (second == 0) timer.Stop(); timer.Start();
 
 
             if (set.task_1.triggerType == "systemIdle")
             {
-                if (second >= Convert.ToInt32(set.task_1.value)) Tasks.TurnOffMonitor.Computer();
+                if (second >= Convert.ToInt32(set.task_1.value)) functions.Tasks.TurnOffMonitor.Computer();
                     //Tasks.Lock.Computer();
             }
 
             
-
+            
 
 
 
@@ -115,9 +115,10 @@ namespace AutoShutdown
                 task_1.value = numericUpDown_value.Value.ToString();
 
             }
+
             if (taskList.Count() == 2)
             {
-
+   
             }
 
             if (taskList.Count() == 3)
