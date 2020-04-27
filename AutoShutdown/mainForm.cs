@@ -11,8 +11,8 @@ namespace AutoShutdown
     {
        
 
-        public static setting set = JsonSerializer.Deserialize<setting>(File.ReadAllText("settings.json"));
-       public static List<task> taskList = new List<task>();
+    
+       public static List<task> taskList = JsonSerializer.Deserialize<List<task>>(File.ReadAllText("settings.json"));
        public static Timer timer = new Timer();
 
 
@@ -62,11 +62,7 @@ namespace AutoShutdown
             comboBox_trigger .Items.Add("Certain Time (Everyday)");
             comboBox_trigger.SelectedIndex = 0;
 
-            if (set.task_1 != null) taskList.Add(set.task_1);
-            if (set.task_2 != null) taskList.Add(set.task_2);
-            if (set.task_3 != null) taskList.Add(set.task_3);
-            if (set.task_4 != null) taskList.Add(set.task_4);
-            if (set.task_5 != null) taskList.Add(set.task_5);
+         
 
             dataGridView_taskList.DataSource = taskList;
             dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -82,25 +78,32 @@ namespace AutoShutdown
 
         private void timerTick(object sender, EventArgs e)
         {
-           
+            toolStripStatusLabel_CurrentTime.Text = "Current Time: " + DateTime.Now.ToString();
 
-            uint second = functions.systemIdleDetector.GetLastInputTime();
+            uint idleTimeMin = functions.systemIdleDetector.GetLastInputTime();
 
-            if (second == 0) timer.Stop(); timer.Start();
+            if (idleTimeMin == 0) timer.Stop(); timer.Start();
 
 
-            if (set.task_1.triggerType == "systemIdle")
+            //if (set.task_1.triggerType == "systemIdle")
+            //{
+            //    if (second >= Convert.ToInt32(set.task_1.value)) functions.Tasks.TurnOffMonitor.Computer();
+            //        //Tasks.Lock.Computer();
+            //}
+
+
+            foreach (var task in taskList)
             {
-                if (second >= Convert.ToInt32(set.task_1.value)) functions.Tasks.TurnOffMonitor.Computer();
-                    //Tasks.Lock.Computer();
+                if (task.triggerType == "systemIdle" && idleTimeMin >= Convert.ToInt32(task.value))
+                {
+                    functions. Tasks.Lock.Computer();
+                }
+
             }
 
+
+
             
-            
-
-
-
-            toolStripStatusLabel_CurrentTime.Text = "Current Time: " + DateTime.Now.ToString();
         }
 
 
@@ -122,20 +125,20 @@ namespace AutoShutdown
             //if (radioButton_systemIdleFor.Checked)
             //{
             
-                task task_1= new task();
-                task_1.createdDate = DateTime.Now.ToString();
-                task_1.triggerType = "systemIdle";
-                task_1.value = numericUpDown_value.Value.ToString();
-                set.task_1 = task_1;
+                //task task_1= new task();
+                //task_1.createdDate = DateTime.Now.ToString();
+                //task_1.triggerType = "systemIdle";
+                //task_1.value = numericUpDown_value.Value.ToString();
+                //set.task_1 = task_1;
 
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true
                 };
 
-                var json = JsonSerializer.Serialize<setting>(set, options);
-                StreamWriter sw = new StreamWriter("settings.json", false);
-                sw.WriteLine(json); sw.Close();
+                //var json = JsonSerializer.Serialize<setting>(set, options);
+                //StreamWriter sw = new StreamWriter("settings.json", false);
+                //sw.WriteLine(json); sw.Close();
                 //string json = File.ReadAllText("en.json");
                 //var en = JsonSerializer.Deserialize<lang_English>(json);
             //}
@@ -148,8 +151,9 @@ namespace AutoShutdown
 
         private void button_AddToList_Click(object sender, EventArgs e)
         {
-          
-            MessageBox.Show(taskList.Count().ToString());
+            var json= JsonSerializer.Serialize(taskList);
+
+            MessageBox.Show(json);
         }
 
       
