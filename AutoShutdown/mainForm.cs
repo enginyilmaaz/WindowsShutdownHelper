@@ -10,7 +10,7 @@ namespace AutoShutdown
     public partial class mainForm : Form
     {
 
-        //max 5 olacak task unutma
+        //max 5 olacak task unutmad
 
         public static List<task> taskList = JsonSerializer.Deserialize<List<task>>(File.ReadAllText("settings.json"));
        public static Timer timer = new Timer();
