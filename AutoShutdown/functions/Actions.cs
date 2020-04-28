@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace AutoShutdown.functions
 {
-    public class Tasks { 
+    public class Actions { 
 
          public class Lock
     {
@@ -14,6 +14,8 @@ namespace AutoShutdown.functions
 
         public static void Computer()
         {
+
+            functions.Logger.doLog("Locked the computer");
             LockWorkStation();
 
         }
@@ -22,6 +24,7 @@ namespace AutoShutdown.functions
 
         public static void ShutdownComputer()
         {
+            functions.Logger.doLog("Shut down the computer");
             Process.Start("shutdown", "/s /t 0");    // starts the shutdown application 
                                                      // the argument /s is to shut down the computer
                                                      // the argument /t 0 is to tell the process that 
@@ -35,6 +38,7 @@ namespace AutoShutdown.functions
 
         public static void RestartComputer()
         {
+            functions.Logger.doLog("Restarted the computer");
             Process.Start("shutdown", "/r /t 0");    // starts the shutdown application 
                                                      // the argument /s is to shut down the computer
                                                      // the argument /t 0 is to tell the process that 
@@ -52,6 +56,7 @@ namespace AutoShutdown.functions
 
             public static void Computer()
             {
+                functions.Logger.doLog("Logged off the computer");
                 ExitWindowsEx(0, 0);
 
             }
@@ -66,6 +71,8 @@ namespace AutoShutdown.functions
 
             public static void Computer()
             {
+
+                functions.Logger.doLog("Slept the computer");
                 SetSuspendState(false, true, true);
 
             }
@@ -73,15 +80,16 @@ namespace AutoShutdown.functions
         }
 
 
-        public class TurnOffMonitor
+        public class TurnOff
         {
 
             [DllImport("user32.dll")]
-            static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
+            public static extern IntPtr SendMessage(int hWnd, int Msg, int wParam, int lParam);
+            [DllImport("user32.dll")]
+            public static extern IntPtr PostMessage(int hWnd, int Msg, int wParam, int lParam);
             private static int SC_MONITORPOWER = 0xF170;
             private static int WM_SYSCOMMAND = 0x0112;
-
+            private static int HWND_BROADCAST = 0xFFFF;
             public enum MonitorState
             {
                 ON = -1,
@@ -91,13 +99,20 @@ namespace AutoShutdown.functions
 
             public static void SetMonitorState(MonitorState state)
             {
-                SendMessage(Process.GetCurrentProcess().Handle, WM_SYSCOMMAND, SC_MONITORPOWER, (int)state);
+                 PostMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int)MonitorState.OFF);
+
+                //SendMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, (int)2);
+               // SendMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, (int)state);
             }
             
-            public static void Computer()
+            public static void Monitor()
             {
+                functions.Logger.doLog("Turned off the monitor");
                 SetMonitorState(MonitorState.OFF);
 
+                
+                
+               
             }
 
         }

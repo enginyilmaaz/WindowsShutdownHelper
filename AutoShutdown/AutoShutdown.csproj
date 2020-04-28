@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="functions\logSystem.cs" />
     <Compile Include="lang.cs" />
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
@@ -87,7 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="setting.cs" />
     <Compile Include="functions\systemIdleDetector.cs" />
-    <Compile Include="functions\Tasks.cs" />
+    <Compile Include="functions\Actions.cs" />
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
     </EmbeddedResource>

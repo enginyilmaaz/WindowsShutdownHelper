@@ -8,16 +8,22 @@ namespace AutoShutdown
 {
   
 
-    public class task
+    public class Action
     {
         public string triggerType { get; set; }
+        public string actionType { get; set; }
         public string value { get; set; }
         public string createdDate { get; set; }
 
     }
 
 
+    public class settings
+    {
+        public bool logsEnabled { get; set; }
+       
 
+    }
 
 
 

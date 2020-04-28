@@ -29,66 +29,75 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
             this.comboBox_taskType = new System.Windows.Forms.ComboBox();
-            this.label_taskType = new System.Windows.Forms.Label();
+            this.label_actionType = new System.Windows.Forms.Label();
             this.statusStrip_default = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_CurrentTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.dataGridView_taskList = new System.Windows.Forms.DataGridView();
-            this.label_taskList = new System.Windows.Forms.Label();
             this.button_AddToList = new System.Windows.Forms.Button();
             this.label_trigger = new System.Windows.Forms.Label();
             this.comboBox_trigger = new System.Windows.Forms.ComboBox();
             this.label_value = new System.Windows.Forms.Label();
-            this.dateTimePicker_date = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_time = new System.Windows.Forms.DateTimePicker();
             this.label_firstly_choose_a_trigger = new System.Windows.Forms.Label();
             this.contextMenuStrip_mainGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteSelectedTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dataGridView_taskList = new System.Windows.Forms.DataGridView();
+            this.groupBox_actionList = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).BeginInit();
             this.statusStrip_default.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).BeginInit();
             this.contextMenuStrip_mainGrid.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).BeginInit();
+            this.groupBox_actionList.SuspendLayout();
             this.SuspendLayout();
             // 
             // numericUpDown_value
             // 
-            this.numericUpDown_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.numericUpDown_value.Location = new System.Drawing.Point(173, 116);
+            this.numericUpDown_value.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.numericUpDown_value.Location = new System.Drawing.Point(170, 126);
             this.numericUpDown_value.Name = "numericUpDown_value";
-            this.numericUpDown_value.Size = new System.Drawing.Size(257, 24);
+            this.numericUpDown_value.Size = new System.Drawing.Size(257, 25);
             this.numericUpDown_value.TabIndex = 2;
             this.numericUpDown_value.Visible = false;
             // 
             // comboBox_taskType
             // 
-            this.comboBox_taskType.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBox_taskType.BackColor = System.Drawing.Color.White;
             this.comboBox_taskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_taskType.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox_taskType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.comboBox_taskType.FormattingEnabled = true;
-            this.comboBox_taskType.Location = new System.Drawing.Point(173, 28);
+            this.comboBox_taskType.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.comboBox_taskType.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.comboBox_taskType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBox_taskType.Location = new System.Drawing.Point(170, 38);
             this.comboBox_taskType.Name = "comboBox_taskType";
-            this.comboBox_taskType.Size = new System.Drawing.Size(257, 26);
+            this.comboBox_taskType.Size = new System.Drawing.Size(257, 28);
             this.comboBox_taskType.TabIndex = 5;
             // 
-            // label_taskType
+            // label_actionType
             // 
-            this.label_taskType.AutoSize = true;
-            this.label_taskType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_taskType.Location = new System.Drawing.Point(37, 31);
-            this.label_taskType.Name = "label_taskType";
-            this.label_taskType.Size = new System.Drawing.Size(81, 18);
-            this.label_taskType.TabIndex = 7;
-            this.label_taskType.Text = "taskType:";
+            this.label_actionType.AutoSize = true;
+            this.label_actionType.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_actionType.Location = new System.Drawing.Point(26, 41);
+            this.label_actionType.Name = "label_actionType";
+            this.label_actionType.Size = new System.Drawing.Size(92, 20);
+            this.label_actionType.TabIndex = 7;
+            this.label_actionType.Text = "actionType:";
             // 
             // statusStrip_default
             // 
             this.statusStrip_default.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel_CurrentTime});
-            this.statusStrip_default.Location = new System.Drawing.Point(0, 443);
+            this.statusStrip_default.Location = new System.Drawing.Point(0, 462);
             this.statusStrip_default.Name = "statusStrip_default";
-            this.statusStrip_default.Size = new System.Drawing.Size(492, 22);
+            this.statusStrip_default.Size = new System.Drawing.Size(529, 22);
+            this.statusStrip_default.SizingGrip = false;
             this.statusStrip_default.TabIndex = 8;
             this.statusStrip_default.Text = "statusStrip1";
             // 
@@ -98,109 +107,70 @@
             this.toolStripStatusLabel_CurrentTime.Size = new System.Drawing.Size(73, 17);
             this.toolStripStatusLabel_CurrentTime.Text = "CurrentTime";
             // 
-            // dataGridView_taskList
-            // 
-            this.dataGridView_taskList.AllowUserToAddRows = false;
-            this.dataGridView_taskList.AllowUserToDeleteRows = false;
-            this.dataGridView_taskList.AllowUserToResizeColumns = false;
-            this.dataGridView_taskList.AllowUserToResizeRows = false;
-            this.dataGridView_taskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_taskList.Location = new System.Drawing.Point(40, 244);
-            this.dataGridView_taskList.Name = "dataGridView_taskList";
-            this.dataGridView_taskList.ReadOnly = true;
-            this.dataGridView_taskList.RowHeadersVisible = false;
-            this.dataGridView_taskList.ShowCellErrors = false;
-            this.dataGridView_taskList.Size = new System.Drawing.Size(390, 171);
-            this.dataGridView_taskList.TabIndex = 9;
-            this.dataGridView_taskList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_taskList_CellContentClick);
-            this.dataGridView_taskList.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_taskList_RowsAdded);
-            this.dataGridView_taskList.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_taskList_RowsRemoved);
-            // 
-            // label_taskList
-            // 
-            this.label_taskList.AutoSize = true;
-            this.label_taskList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_taskList.Location = new System.Drawing.Point(37, 214);
-            this.label_taskList.Name = "label_taskList";
-            this.label_taskList.Size = new System.Drawing.Size(77, 18);
-            this.label_taskList.TabIndex = 10;
-            this.label_taskList.Text = "task List:";
-            // 
             // button_AddToList
             // 
-            this.button_AddToList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_AddToList.Location = new System.Drawing.Point(173, 167);
+            this.button_AddToList.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button_AddToList.Location = new System.Drawing.Point(40, 193);
             this.button_AddToList.Name = "button_AddToList";
-            this.button_AddToList.Size = new System.Drawing.Size(257, 28);
+            this.button_AddToList.Size = new System.Drawing.Size(448, 28);
             this.button_AddToList.TabIndex = 12;
-            this.button_AddToList.Text = "Add To List";
+            this.button_AddToList.Text = "Add Action";
             this.button_AddToList.UseVisualStyleBackColor = true;
             this.button_AddToList.Click += new System.EventHandler(this.button_AddToList_Click);
             // 
             // label_trigger
             // 
             this.label_trigger.AutoSize = true;
-            this.label_trigger.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_trigger.Location = new System.Drawing.Point(37, 75);
+            this.label_trigger.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_trigger.Location = new System.Drawing.Point(26, 85);
             this.label_trigger.Name = "label_trigger";
-            this.label_trigger.Size = new System.Drawing.Size(66, 18);
+            this.label_trigger.Size = new System.Drawing.Size(67, 20);
             this.label_trigger.TabIndex = 14;
             this.label_trigger.Text = "trigger: ";
             // 
             // comboBox_trigger
             // 
             this.comboBox_trigger.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_trigger.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.comboBox_trigger.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.comboBox_trigger.FormattingEnabled = true;
-            this.comboBox_trigger.Location = new System.Drawing.Point(173, 72);
+            this.comboBox_trigger.Location = new System.Drawing.Point(170, 82);
             this.comboBox_trigger.Name = "comboBox_trigger";
-            this.comboBox_trigger.Size = new System.Drawing.Size(257, 26);
+            this.comboBox_trigger.Size = new System.Drawing.Size(257, 28);
             this.comboBox_trigger.TabIndex = 13;
             this.comboBox_trigger.SelectedIndexChanged += new System.EventHandler(this.comboBox_trigger_SelectedIndexChanged);
             // 
             // label_value
             // 
             this.label_value.AutoSize = true;
-            this.label_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_value.Location = new System.Drawing.Point(37, 118);
+            this.label_value.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_value.Location = new System.Drawing.Point(26, 128);
             this.label_value.Name = "label_value";
-            this.label_value.Size = new System.Drawing.Size(57, 18);
+            this.label_value.Size = new System.Drawing.Size(59, 20);
             this.label_value.TabIndex = 15;
             this.label_value.Text = "value: ";
-            // 
-            // dateTimePicker_date
-            // 
-            this.dateTimePicker_date.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.dateTimePicker_date.CustomFormat = "dd MMMM yyyy";
-            this.dateTimePicker_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.dateTimePicker_date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_date.Location = new System.Drawing.Point(173, 116);
-            this.dateTimePicker_date.Name = "dateTimePicker_date";
-            this.dateTimePicker_date.Size = new System.Drawing.Size(179, 24);
-            this.dateTimePicker_date.TabIndex = 16;
-            this.dateTimePicker_date.Visible = false;
             // 
             // dateTimePicker_time
             // 
             this.dateTimePicker_time.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.dateTimePicker_time.CustomFormat = "HH:mm";
-            this.dateTimePicker_time.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
-            this.dateTimePicker_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.dateTimePicker_time.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.dateTimePicker_time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_time.Location = new System.Drawing.Point(358, 116);
+            this.dateTimePicker_time.Location = new System.Drawing.Point(170, 126);
             this.dateTimePicker_time.Name = "dateTimePicker_time";
+            this.dateTimePicker_time.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dateTimePicker_time.RightToLeftLayout = true;
             this.dateTimePicker_time.ShowUpDown = true;
-            this.dateTimePicker_time.Size = new System.Drawing.Size(72, 24);
+            this.dateTimePicker_time.Size = new System.Drawing.Size(257, 25);
             this.dateTimePicker_time.TabIndex = 17;
             this.dateTimePicker_time.Visible = false;
             // 
             // label_firstly_choose_a_trigger
             // 
             this.label_firstly_choose_a_trigger.AutoSize = true;
-            this.label_firstly_choose_a_trigger.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_firstly_choose_a_trigger.Location = new System.Drawing.Point(184, 118);
+            this.label_firstly_choose_a_trigger.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_firstly_choose_a_trigger.Location = new System.Drawing.Point(166, 128);
             this.label_firstly_choose_a_trigger.Name = "label_firstly_choose_a_trigger";
-            this.label_firstly_choose_a_trigger.Size = new System.Drawing.Size(207, 18);
+            this.label_firstly_choose_a_trigger.Size = new System.Drawing.Size(188, 20);
             this.label_firstly_choose_a_trigger.TabIndex = 18;
             this.label_firstly_choose_a_trigger.Text = "Firstly, choose a trigger... ";
             // 
@@ -214,36 +184,111 @@
             // deleteSelectedTaskToolStripMenuItem
             // 
             this.deleteSelectedTaskToolStripMenuItem.Name = "deleteSelectedTaskToolStripMenuItem";
-            this.deleteSelectedTaskToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteSelectedTaskToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.deleteSelectedTaskToolStripMenuItem.Text = "Delete Selected Task";
             this.deleteSelectedTaskToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedTaskToolStripMenuItem_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.comboBox_taskType);
+            this.groupBox2.Controls.Add(this.label_actionType);
+            this.groupBox2.Controls.Add(this.label_firstly_choose_a_trigger);
+            this.groupBox2.Controls.Add(this.label_trigger);
+            this.groupBox2.Controls.Add(this.comboBox_trigger);
+            this.groupBox2.Controls.Add(this.dateTimePicker_time);
+            this.groupBox2.Controls.Add(this.label_value);
+            this.groupBox2.Controls.Add(this.numericUpDown_value);
+            this.groupBox2.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.groupBox2.Location = new System.Drawing.Point(40, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(448, 175);
+            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "New Action";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dataGridView_taskList);
+            this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.panel2.Location = new System.Drawing.Point(0, 27);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(448, 174);
+            this.panel2.TabIndex = 19;
+            // 
+            // dataGridView_taskList
+            // 
+            this.dataGridView_taskList.AllowUserToAddRows = false;
+            this.dataGridView_taskList.AllowUserToDeleteRows = false;
+            this.dataGridView_taskList.AllowUserToResizeColumns = false;
+            this.dataGridView_taskList.AllowUserToResizeRows = false;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dataGridView_taskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_taskList.DefaultCellStyle = dataGridViewCellStyle20;
+            this.dataGridView_taskList.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView_taskList.Name = "dataGridView_taskList";
+            this.dataGridView_taskList.ReadOnly = true;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            this.dataGridView_taskList.RowHeadersVisible = false;
+            this.dataGridView_taskList.ShowCellErrors = false;
+            this.dataGridView_taskList.Size = new System.Drawing.Size(448, 174);
+            this.dataGridView_taskList.TabIndex = 9;
+            this.dataGridView_taskList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_taskList_CellContentClick);
+            this.dataGridView_taskList.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_taskList_RowsAdded);
+            this.dataGridView_taskList.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_taskList_RowsRemoved);
+            // 
+            // groupBox_actionList
+            // 
+            this.groupBox_actionList.Controls.Add(this.panel2);
+            this.groupBox_actionList.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.groupBox_actionList.Location = new System.Drawing.Point(40, 245);
+            this.groupBox_actionList.Name = "groupBox_actionList";
+            this.groupBox_actionList.Size = new System.Drawing.Size(448, 201);
+            this.groupBox_actionList.TabIndex = 20;
+            this.groupBox_actionList.TabStop = false;
+            this.groupBox_actionList.Text = "Action List";
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 465);
-            this.Controls.Add(this.label_firstly_choose_a_trigger);
-            this.Controls.Add(this.dateTimePicker_time);
-            this.Controls.Add(this.dateTimePicker_date);
-            this.Controls.Add(this.label_value);
-            this.Controls.Add(this.label_trigger);
-            this.Controls.Add(this.comboBox_trigger);
-            this.Controls.Add(this.button_AddToList);
-            this.Controls.Add(this.label_taskList);
-            this.Controls.Add(this.numericUpDown_value);
-            this.Controls.Add(this.dataGridView_taskList);
+            this.ClientSize = new System.Drawing.Size(529, 484);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox_actionList);
             this.Controls.Add(this.statusStrip_default);
-            this.Controls.Add(this.label_taskType);
-            this.Controls.Add(this.comboBox_taskType);
+            this.Controls.Add(this.button_AddToList);
             this.Name = "mainForm";
             this.Text = "System Shutdown Manager";
             this.Load += new System.EventHandler(this.mainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).EndInit();
             this.statusStrip_default.ResumeLayout(false);
             this.statusStrip_default.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).EndInit();
             this.contextMenuStrip_mainGrid.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).EndInit();
+            this.groupBox_actionList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,19 +297,20 @@
         #endregion
         private System.Windows.Forms.NumericUpDown numericUpDown_value;
         private System.Windows.Forms.ComboBox comboBox_taskType;
-        private System.Windows.Forms.Label label_taskType;
+        private System.Windows.Forms.Label label_actionType;
         private System.Windows.Forms.StatusStrip statusStrip_default;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_CurrentTime;
-        private System.Windows.Forms.DataGridView dataGridView_taskList;
-        private System.Windows.Forms.Label label_taskList;
         private System.Windows.Forms.Button button_AddToList;
         private System.Windows.Forms.Label label_trigger;
         private System.Windows.Forms.ComboBox comboBox_trigger;
         private System.Windows.Forms.Label label_value;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_date;
         private System.Windows.Forms.DateTimePicker dateTimePicker_time;
         private System.Windows.Forms.Label label_firstly_choose_a_trigger;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_mainGrid;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedTaskToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.DataGridView dataGridView_taskList;
+        private System.Windows.Forms.GroupBox groupBox_actionList;
     }
 }

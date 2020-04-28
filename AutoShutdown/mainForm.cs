@@ -11,8 +11,9 @@ namespace AutoShutdown
     {
 
     
-
-        public static List<task> taskList = JsonSerializer.Deserialize<List<task>>(File.ReadAllText("settings.json"));
+       
+       public static List<Action> actionList = JsonSerializer.Deserialize<List<Action>>(File.ReadAllText("actionList.json"));
+       public static int actionCounter = actionList.Count();
        public static Timer timer = new Timer();
 
 
@@ -64,7 +65,7 @@ namespace AutoShutdown
 
          
 
-            dataGridView_taskList.DataSource = taskList;
+            dataGridView_taskList.DataSource = actionList;
             dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             
@@ -92,24 +93,42 @@ namespace AutoShutdown
             //}
 
 
-            foreach (var task in taskList)
+            foreach (var action in actionList)
             {
-                if (task.triggerType == "systemIdle" && idleTimeMin >= Convert.ToInt32(task.value))
+               
+                if (action.triggerType == "systemIdle" && idleTimeMin == Convert.ToInt32(action.value))
+
                 {
-                    functions. Tasks.Lock.Computer();
+                    if (action.actionType == "lockComputer") functions.Actions.Lock.Computer();
+                    if (action.actionType == "sleepComputer") functions.Actions.Sleep.Computer();
+                    if (action.actionType == "turnOffMonitor") functions.Actions.TurnOff.Monitor();
+
+
+                }
+
+
+                if (action.triggerType == "certainTime" && DateTime.Now.ToString("HH:mm:ss") == action.value)
+
+                {
+                    if (action.actionType == "lockComputer") functions.Actions.Lock.Computer();
+                    if (action.actionType == "sleepComputer") functions.Actions.Sleep.Computer();
+                    if (action.actionType == "turnOffMonitor") functions.Actions.TurnOff.Monitor();
+
+
                 }
 
             }
 
 
 
-            
+
         }
 
 
         private void deleteTask(object sender, EventArgs e)
         {
-            foreach (var task in taskList)
+            --actionCounter;
+            foreach (var task in actionList)
             {
               
             }
@@ -151,9 +170,27 @@ namespace AutoShutdown
 
         private void button_AddToList_Click(object sender, EventArgs e)
         {
-            var json= JsonSerializer.Serialize(taskList);
+           
+            ++actionCounter;
 
-            MessageBox.Show(json);
+            if (actionCounter <= 5)
+            {
+
+
+                var json = JsonSerializer.Serialize(actionList);
+
+                MessageBox.Show(json);
+
+            }
+
+            else
+
+            {
+                string maxTaskWarn = "You can maximum 5 task";
+                string maxTaskWarnTitle = "Maximum Task";
+                MessageBox.Show(maxTaskWarn, maxTaskWarnTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
       
@@ -164,7 +201,6 @@ namespace AutoShutdown
             {
                 label_firstly_choose_a_trigger.Visible = true;
                 numericUpDown_value.Visible = false;
-                dateTimePicker_date.Visible = false;
                 dateTimePicker_time.Visible = false;
 
             }
@@ -172,7 +208,6 @@ namespace AutoShutdown
             {
                 label_firstly_choose_a_trigger.Visible = false;
                 numericUpDown_value.Visible =true;
-                dateTimePicker_date.Visible = false;
                 dateTimePicker_time.Visible = false;
             }
             else if (comboBox_trigger.SelectedIndex == 3)
@@ -180,7 +215,6 @@ namespace AutoShutdown
                 label_firstly_choose_a_trigger.Visible = false;
 
                 numericUpDown_value.Visible = false;
-                dateTimePicker_date.Visible = true;
                 dateTimePicker_time.Visible =true;
             }
 
@@ -190,9 +224,9 @@ namespace AutoShutdown
         {
             if (dataGridView_taskList.Rows.Count > 0)
             {
-                taskList.RemoveAt(dataGridView_taskList.CurrentCell.RowIndex);
+                actionList.RemoveAt(dataGridView_taskList.CurrentCell.RowIndex);
                 dataGridView_taskList.DataSource = null;
-                dataGridView_taskList.DataSource = taskList;
+                dataGridView_taskList.DataSource = actionList;
                 dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
@@ -222,6 +256,7 @@ namespace AutoShutdown
                 dataGridView_taskList.ContextMenuStrip =null;
             }
         }
+
 
 
 
