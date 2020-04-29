@@ -54,7 +54,7 @@ namespace AutoShutdown.functions
             [DllImport("user32")]
             public static extern bool ExitWindowsEx(uint uFlags, uint dwReason);
 
-            public static void Computer()
+            public static void Windows()
             {
                 functions.Logger.doLog("Logged off the computer");
                 ExitWindowsEx(0, 0);

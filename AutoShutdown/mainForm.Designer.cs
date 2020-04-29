@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
-            this.comboBox_taskType = new System.Windows.Forms.ComboBox();
+            this.comboBox_actionType = new System.Windows.Forms.ComboBox();
             this.label_actionType = new System.Windows.Forms.Label();
             this.statusStrip_default = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_CurrentTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.button_AddToList = new System.Windows.Forms.Button();
             this.label_trigger = new System.Windows.Forms.Label();
-            this.comboBox_trigger = new System.Windows.Forms.ComboBox();
+            this.comboBox_triggerType = new System.Windows.Forms.ComboBox();
             this.label_value = new System.Windows.Forms.Label();
             this.dateTimePicker_time = new System.Windows.Forms.DateTimePicker();
             this.label_firstly_choose_a_trigger = new System.Windows.Forms.Label();
@@ -67,18 +67,19 @@
             this.numericUpDown_value.TabIndex = 2;
             this.numericUpDown_value.Visible = false;
             // 
-            // comboBox_taskType
+            // comboBox_actionType
             // 
-            this.comboBox_taskType.BackColor = System.Drawing.Color.White;
-            this.comboBox_taskType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_taskType.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBox_taskType.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.comboBox_taskType.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.comboBox_taskType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBox_taskType.Location = new System.Drawing.Point(170, 38);
-            this.comboBox_taskType.Name = "comboBox_taskType";
-            this.comboBox_taskType.Size = new System.Drawing.Size(257, 28);
-            this.comboBox_taskType.TabIndex = 5;
+            this.comboBox_actionType.BackColor = System.Drawing.Color.White;
+            this.comboBox_actionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_actionType.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBox_actionType.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.comboBox_actionType.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.comboBox_actionType.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.comboBox_actionType.Location = new System.Drawing.Point(170, 38);
+            this.comboBox_actionType.Name = "comboBox_actionType";
+            this.comboBox_actionType.Size = new System.Drawing.Size(257, 28);
+            this.comboBox_actionType.TabIndex = 5;
+            this.comboBox_actionType.SelectedIndexChanged += new System.EventHandler(this.comboBox_actionType_SelectedIndexChanged);
             // 
             // label_actionType
             // 
@@ -128,16 +129,16 @@
             this.label_trigger.TabIndex = 14;
             this.label_trigger.Text = "trigger: ";
             // 
-            // comboBox_trigger
+            // comboBox_triggerType
             // 
-            this.comboBox_trigger.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_trigger.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.comboBox_trigger.FormattingEnabled = true;
-            this.comboBox_trigger.Location = new System.Drawing.Point(170, 82);
-            this.comboBox_trigger.Name = "comboBox_trigger";
-            this.comboBox_trigger.Size = new System.Drawing.Size(257, 28);
-            this.comboBox_trigger.TabIndex = 13;
-            this.comboBox_trigger.SelectedIndexChanged += new System.EventHandler(this.comboBox_trigger_SelectedIndexChanged);
+            this.comboBox_triggerType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_triggerType.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.comboBox_triggerType.FormattingEnabled = true;
+            this.comboBox_triggerType.Location = new System.Drawing.Point(170, 82);
+            this.comboBox_triggerType.Name = "comboBox_triggerType";
+            this.comboBox_triggerType.Size = new System.Drawing.Size(257, 28);
+            this.comboBox_triggerType.TabIndex = 13;
+            this.comboBox_triggerType.SelectedIndexChanged += new System.EventHandler(this.comboBox_trigger_SelectedIndexChanged);
             // 
             // label_value
             // 
@@ -190,11 +191,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBox_taskType);
+            this.groupBox2.Controls.Add(this.comboBox_actionType);
             this.groupBox2.Controls.Add(this.label_actionType);
             this.groupBox2.Controls.Add(this.label_firstly_choose_a_trigger);
             this.groupBox2.Controls.Add(this.label_trigger);
-            this.groupBox2.Controls.Add(this.comboBox_trigger);
+            this.groupBox2.Controls.Add(this.comboBox_triggerType);
             this.groupBox2.Controls.Add(this.dateTimePicker_time);
             this.groupBox2.Controls.Add(this.label_value);
             this.groupBox2.Controls.Add(this.numericUpDown_value);
@@ -221,34 +222,34 @@
             this.dataGridView_taskList.AllowUserToDeleteRows = false;
             this.dataGridView_taskList.AllowUserToResizeColumns = false;
             this.dataGridView_taskList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_taskList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_taskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_taskList.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_taskList.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_taskList.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_taskList.Name = "dataGridView_taskList";
             this.dataGridView_taskList.ReadOnly = true;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_taskList.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_taskList.RowHeadersVisible = false;
             this.dataGridView_taskList.ShowCellErrors = false;
             this.dataGridView_taskList.Size = new System.Drawing.Size(448, 174);
@@ -296,13 +297,13 @@
 
         #endregion
         private System.Windows.Forms.NumericUpDown numericUpDown_value;
-        private System.Windows.Forms.ComboBox comboBox_taskType;
+        private System.Windows.Forms.ComboBox comboBox_actionType;
         private System.Windows.Forms.Label label_actionType;
         private System.Windows.Forms.StatusStrip statusStrip_default;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_CurrentTime;
         private System.Windows.Forms.Button button_AddToList;
         private System.Windows.Forms.Label label_trigger;
-        private System.Windows.Forms.ComboBox comboBox_trigger;
+        private System.Windows.Forms.ComboBox comboBox_triggerType;
         private System.Windows.Forms.Label label_value;
         private System.Windows.Forms.DateTimePicker dateTimePicker_time;
         private System.Windows.Forms.Label label_firstly_choose_a_trigger;

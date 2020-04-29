@@ -21,7 +21,8 @@ namespace AutoShutdown
     public class settings
     {
         public bool logsEnabled { get; set; }
-       
+        public bool StartWithWindows { get; set; }
+
 
     }
 

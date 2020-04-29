@@ -10,10 +10,17 @@ namespace AutoShutdown
     public partial class mainForm : Form
     {
 
-    
-       
+        //geçici, dil sistemi gelene kadar kalacak
+        public static string systemIdle = "systemIdle";
+        public static string certainTime = "certainTime";
+        public static string fromNow =    "fromNow";
+        public static string lockComputer ="lockComputer";
+        public static string sleepComputer = "sleepComputer";
+        public static string turnOffMonitor = "turnOffMonitor";
+        public static string shutdownComputer = "shutdownComputer";
+        public static string restartComputer = "restartComputer";
+        public static string logOffWindows = "logOffWindows";
        public static List<Action> actionList = JsonSerializer.Deserialize<List<Action>>(File.ReadAllText("actionList.json"));
-       public static int actionCounter = actionList.Count();
        public static Timer timer = new Timer();
 
 
@@ -24,7 +31,7 @@ namespace AutoShutdown
         }
 
         /////////////////////////////////////////////
-
+     
         private void mainForm_Load(object sender, EventArgs e)
         {
             
@@ -48,34 +55,114 @@ namespace AutoShutdown
             //button1.Text = en.triggerTabPage.systemIdleForMin;
 
 
-            comboBox_taskType.Items.Add("Choose a task...");
-            comboBox_taskType.Items.Add("Shutdown");
-            comboBox_taskType.Items.Add("Restart");
-            comboBox_taskType.Items.Add("Log off");
-            comboBox_taskType.Items.Add("Sleep");
-            comboBox_taskType.Items.Add("Lock Computer");
-            comboBox_taskType.Items.Add("Turn off Monitor");
-            comboBox_taskType.SelectedIndex = 0;
+            comboBox_actionType.Items.Add("Choose a task...");
+            comboBox_actionType.Items.Add(shutdownComputer);
+            comboBox_actionType.Items.Add(restartComputer);
+            comboBox_actionType.Items.Add(logOffWindows);
+            comboBox_actionType.Items.Add(sleepComputer);
+            comboBox_actionType.Items.Add(lockComputer);
+            comboBox_actionType.Items.Add(turnOffMonitor);
+            comboBox_actionType.SelectedIndex = 0;
 
-            comboBox_trigger.Items.Add("Choose a trigger...");
-            comboBox_trigger.Items.Add("System Idle Time");
-            comboBox_trigger .Items.Add("From Now");
-            comboBox_trigger .Items.Add("Certain Time (Everyday)");
-            comboBox_trigger.SelectedIndex = 0;
+            comboBox_triggerType.Items.Add("Choose a trigger...");
+            comboBox_triggerType.Items.Add(systemIdle);
+            comboBox_triggerType .Items.Add(fromNow);
+            comboBox_triggerType .Items.Add(certainTime);
+            comboBox_triggerType.SelectedIndex = 0;
 
-         
+            refreshActionList();
+            addlistButtonEnabledOrDisabled();
 
+
+
+        }
+
+        public void refreshActionList()
+        {
+            dataGridView_taskList.DataSource = null;
             dataGridView_taskList.DataSource = actionList;
             dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
+           
         }
 
 
- //////////////////////////////////////////////////////////////////////
+        public void createNewAction(Action newAction)
+        {
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LockComputer) newAction.actionType = lockComputer;
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LogOff) newAction.actionType = logOffWindows;
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Restart) newAction.actionType = restartComputer;
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Shutdown) newAction.actionType = shutdownComputer;
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Sleep) newAction.actionType = sleepComputer;
+            if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.TurnOffMonitor) newAction.actionType = turnOffMonitor;
+        }
 
 
-	
+        public void addlistButtonEnabledOrDisabled()
+        {
+            if (actionList.Count > 4)
+            {
+                button_AddToList.Enabled = false;
+                button_AddToList.Text = "Exceed limit: Delete an existing one to add a new one.";
+            }
+            if (actionList.Count < 5)
+            {
+                if (comboBox_actionType.SelectedIndex > 0 && comboBox_triggerType.SelectedIndex > 0)
+                {
+                    button_AddToList.Enabled = true;
+                    button_AddToList.Text = "Add To Action List";
+                }
+                else
+                {
+                    button_AddToList.Enabled = false;
+                    button_AddToList.Text = "Firstly, choose a action and trigger.";
+                }
+            }
+        }
+
+        public void writeJsonToActionList()
+        {
+
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var json = JsonSerializer.Serialize(actionList, options);
+            StreamWriter sw = new StreamWriter("actionList.json", false);
+            sw.WriteLine(json); sw.Close();
+            refreshActionList();
+        }
+
+        public enum enum_combobox_actionType
+        {
+            Shutdown=1,
+            Restart=2,
+            LogOff=3,
+            Sleep=4,
+            LockComputer=5,
+            TurnOffMonitor=6
+
+        }
+        public enum enum_combobox_triggerType
+        {
+            SystemIdleTime = 1,
+            FromNow = 2,
+            CertainTime = 3,
+  
+        }
+
+        public void doActions(Action action)
+        {
+            if (action.actionType == "lockComputer") functions.Actions.Lock.Computer();
+            if (action.actionType == "sleepComputer") functions.Actions.Sleep.Computer();
+            if (action.actionType == "turnOffMonitor") functions.Actions.TurnOff.Monitor();
+            if (action.actionType == "shutdownComputer") functions.Actions.ShutdownComputer();
+            if (action.actionType == "restartComputer") functions.Actions.RestartComputer();
+            if (action.actionType == "logOffWindows") functions.Actions.LogOff.Windows();
+        }
+
 
         private void timerTick(object sender, EventArgs e)
         {
@@ -86,38 +173,26 @@ namespace AutoShutdown
             if (idleTimeMin == 0) timer.Stop(); timer.Start();
 
 
-            //if (set.task_1.triggerType == "systemIdle")
-            //{
-            //    if (second >= Convert.ToInt32(set.task_1.value)) functions.Tasks.TurnOffMonitor.Computer();
-            //        //Tasks.Lock.Computer();
-            //}
 
 
-            foreach (var action in actionList)
+
+            foreach (var action in actionList.ToList())
             {
-               
-                if (action.triggerType == "systemIdle" && idleTimeMin == Convert.ToInt32(action.value))
 
+             if (action.triggerType == "systemIdle" && idleTimeMin == Convert.ToInt32(action.value)) doActions(action);     
+             
+             if (action.triggerType == "certainTime" && action.value == DateTime.Now.ToString("HH:mm:ss")) doActions(action);
+
+             if (action.triggerType == "fromNow" && action.value == DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")) 
                 {
-                    if (action.actionType == "lockComputer") functions.Actions.Lock.Computer();
-                    if (action.actionType == "sleepComputer") functions.Actions.Sleep.Computer();
-                    if (action.actionType == "turnOffMonitor") functions.Actions.TurnOff.Monitor();
-
-
+                    doActions(action);
+                    actionList.Remove(action);
+                    writeJsonToActionList();
                 }
 
-
-                if (action.triggerType == "certainTime" && DateTime.Now.ToString("HH:mm:ss") == action.value)
-
-                {
-                    if (action.actionType == "lockComputer") functions.Actions.Lock.Computer();
-                    if (action.actionType == "sleepComputer") functions.Actions.Sleep.Computer();
-                    if (action.actionType == "turnOffMonitor") functions.Actions.TurnOff.Monitor();
+            }//foreach
 
 
-                }
-
-            }
 
 
 
@@ -125,43 +200,21 @@ namespace AutoShutdown
         }
 
 
-        private void deleteTask(object sender, EventArgs e)
+        private void deleteAction()
         {
-            --actionCounter;
-            foreach (var task in actionList)
-            {
-              
-            }
-
-
-
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //if (radioButton_systemIdleFor.Checked)
-            //{
             
-                //task task_1= new task();
-                //task_1.createdDate = DateTime.Now.ToString();
-                //task_1.triggerType = "systemIdle";
-                //task_1.value = numericUpDown_value.Value.ToString();
-                //set.task_1 = task_1;
+         
+            
+            if (dataGridView_taskList.Rows.Count > 0)
+            {
+                actionList.RemoveAt(dataGridView_taskList.CurrentCell.RowIndex);
+               
+                writeJsonToActionList();
+            }
+            addlistButtonEnabledOrDisabled();
 
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-
-                //var json = JsonSerializer.Serialize<setting>(set, options);
-                //StreamWriter sw = new StreamWriter("settings.json", false);
-                //sw.WriteLine(json); sw.Close();
-                //string json = File.ReadAllText("en.json");
-                //var en = JsonSerializer.Deserialize<lang_English>(json);
-            //}
         }
+
 
         private void trigger_groupBox_Enter(object sender, EventArgs e)
         {
@@ -171,65 +224,87 @@ namespace AutoShutdown
         private void button_AddToList_Click(object sender, EventArgs e)
         {
            
-            ++actionCounter;
-
-            if (actionCounter <= 5)
+           
+            
+            if (actionList.Count < 5)
             {
+                Action newAction = new Action();//fixed for all actions
+                newAction.createdDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"); //fixed for all actions 
+                DateTime now = DateTime.Now;  //fixed for all actions 
+
+                if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.FromNow)
+                {
+                    newAction.triggerType = fromNow;
+                    newAction.value = DateTime.Now.AddMinutes(Convert.ToDouble(numericUpDown_value.Value)).ToString("dd.MM.yyyy HH:mm:ss");
+
+                    createNewAction(newAction);
+
+                    
+                }
 
 
-                var json = JsonSerializer.Serialize(actionList);
 
-                MessageBox.Show(json);
+                else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.SystemIdleTime)
+                {
+                    newAction.triggerType = systemIdle;
+                    newAction.value = numericUpDown_value.Value.ToString();
 
-            }
+                    createNewAction(newAction);
 
-            else
+                   
+                }
 
-            {
-                string maxTaskWarn = "You can maximum 5 task";
-                string maxTaskWarnTitle = "Maximum Task";
-                MessageBox.Show(maxTaskWarn, maxTaskWarnTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            }
+               else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.CertainTime)
+                {
+                    newAction.triggerType = certainTime;
+                    newAction.value = dateTimePicker_time.Value.ToString("HH:mm:00");
+
+                    createNewAction(newAction);
+
+                }
+
+                actionList.Add(newAction);
+
+                writeJsonToActionList();
+
+                addlistButtonEnabledOrDisabled();
+            }// if (actionList.Count < 5)
+
+
+
         }
 
       
 
         private void comboBox_trigger_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox_trigger.SelectedIndex == 0 )
+            if (comboBox_triggerType.SelectedIndex == 0 )
             {
                 label_firstly_choose_a_trigger.Visible = true;
                 numericUpDown_value.Visible = false;
                 dateTimePicker_time.Visible = false;
 
             }
-            if (comboBox_trigger.SelectedIndex==1|| comboBox_trigger.SelectedIndex==2)
+            if (comboBox_triggerType.SelectedIndex==1|| comboBox_triggerType.SelectedIndex==2)
             {
                 label_firstly_choose_a_trigger.Visible = false;
                 numericUpDown_value.Visible =true;
                 dateTimePicker_time.Visible = false;
             }
-            else if (comboBox_trigger.SelectedIndex == 3)
+            else if (comboBox_triggerType.SelectedIndex == 3)
             {
                 label_firstly_choose_a_trigger.Visible = false;
 
                 numericUpDown_value.Visible = false;
                 dateTimePicker_time.Visible =true;
             }
-
+            addlistButtonEnabledOrDisabled();
         }
 
         private void deleteSelectedTaskToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dataGridView_taskList.Rows.Count > 0)
-            {
-                actionList.RemoveAt(dataGridView_taskList.CurrentCell.RowIndex);
-                dataGridView_taskList.DataSource = null;
-                dataGridView_taskList.DataSource = actionList;
-                dataGridView_taskList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridView_taskList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            }
+            deleteAction();
 
         }
 
@@ -255,6 +330,11 @@ namespace AutoShutdown
 
                 dataGridView_taskList.ContextMenuStrip =null;
             }
+        }
+
+        private void comboBox_actionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addlistButtonEnabledOrDisabled();
         }
 
 
