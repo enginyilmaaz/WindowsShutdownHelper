@@ -1,4 +1,4 @@
-﻿namespace AutoShutdown
+﻿namespace WindowsPowerManager
 {
     partial class mainForm
     {
@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
             this.comboBox_actionType = new System.Windows.Forms.ComboBox();
             this.label_actionType = new System.Windows.Forms.Label();
@@ -49,6 +50,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView_taskList = new System.Windows.Forms.DataGridView();
             this.groupBox_actionList = new System.Windows.Forms.GroupBox();
+            this.notifyIcon_main = new System.Windows.Forms.NotifyIcon(this.components);
+            this.pictureBox_settings = new System.Windows.Forms.PictureBox();
+            this.pictureBox_logs = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).BeginInit();
             this.statusStrip_default.SuspendLayout();
             this.contextMenuStrip_mainGrid.SuspendLayout();
@@ -56,6 +60,8 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).BeginInit();
             this.groupBox_actionList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_settings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logs)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown_value
@@ -269,18 +275,54 @@
             this.groupBox_actionList.TabStop = false;
             this.groupBox_actionList.Text = "Action List";
             // 
+            // notifyIcon_main
+            // 
+            this.notifyIcon_main.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon_main.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon_main.Icon")));
+            this.notifyIcon_main.Text = "notifyIcon1";
+            this.notifyIcon_main.Visible = true;
+            this.notifyIcon_main.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_main_MouseDoubleClick);
+            // 
+            // pictureBox_settings
+            // 
+            this.pictureBox_settings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox_settings.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_settings.Image")));
+            this.pictureBox_settings.Location = new System.Drawing.Point(502, 463);
+            this.pictureBox_settings.Name = "pictureBox_settings";
+            this.pictureBox_settings.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox_settings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_settings.TabIndex = 23;
+            this.pictureBox_settings.TabStop = false;
+            this.pictureBox_settings.Click += new System.EventHandler(this.pictureBox_settings_Click);
+            // 
+            // pictureBox_logs
+            // 
+            this.pictureBox_logs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox_logs.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_logs.Image")));
+            this.pictureBox_logs.Location = new System.Drawing.Point(475, 464);
+            this.pictureBox_logs.Name = "pictureBox_logs";
+            this.pictureBox_logs.Size = new System.Drawing.Size(21, 19);
+            this.pictureBox_logs.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_logs.TabIndex = 22;
+            this.pictureBox_logs.TabStop = false;
+            this.pictureBox_logs.Click += new System.EventHandler(this.pictureBox_logs_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 484);
+            this.Controls.Add(this.pictureBox_settings);
+            this.Controls.Add(this.pictureBox_logs);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox_actionList);
             this.Controls.Add(this.statusStrip_default);
             this.Controls.Add(this.button_AddToList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
             this.Text = "System Shutdown Manager";
             this.Load += new System.EventHandler(this.mainForm_Load);
+            this.Resize += new System.EventHandler(this.mainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).EndInit();
             this.statusStrip_default.ResumeLayout(false);
             this.statusStrip_default.PerformLayout();
@@ -290,6 +332,8 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).EndInit();
             this.groupBox_actionList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_settings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,5 +357,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView_taskList;
         private System.Windows.Forms.GroupBox groupBox_actionList;
+        private System.Windows.Forms.PictureBox pictureBox_logs;
+        private System.Windows.Forms.PictureBox pictureBox_settings;
+        private System.Windows.Forms.NotifyIcon notifyIcon_main;
     }
 }

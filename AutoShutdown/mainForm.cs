@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace AutoShutdown
+namespace WindowsPowerManager
 {
     public partial class mainForm : Form
     {
@@ -34,7 +34,6 @@ namespace AutoShutdown
      
         private void mainForm_Load(object sender, EventArgs e)
         {
-            
             timer.Interval = (1000); // 1 sec
             timer.Tick += timerTick;
             timer.Start();
@@ -123,15 +122,7 @@ namespace AutoShutdown
         public void writeJsonToActionList()
         {
 
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
-            var json = JsonSerializer.Serialize(actionList, options);
-            StreamWriter sw = new StreamWriter("actionList.json", false);
-            sw.WriteLine(json); sw.Close();
+            functions.jsonWriter.WriteJson("actionList.json", true, actionList);
             refreshActionList();
         }
 
@@ -147,7 +138,7 @@ namespace AutoShutdown
         }
         public enum enum_combobox_triggerType
         {
-            SystemIdleTime = 1,
+           SystemIdleTime = 1,
             FromNow = 2,
             CertainTime = 3,
   
@@ -211,6 +202,7 @@ namespace AutoShutdown
                
                 writeJsonToActionList();
             }
+
             addlistButtonEnabledOrDisabled();
 
         }
@@ -335,6 +327,39 @@ namespace AutoShutdown
         private void comboBox_actionType_SelectedIndexChanged(object sender, EventArgs e)
         {
             addlistButtonEnabledOrDisabled();
+        }
+
+        private void pictureBox_logs_Click(object sender, EventArgs e)
+        {
+            logViewer logViewerForm = new logViewer();
+            this.Visible = false;
+            logViewerForm .ShowDialog();
+            this.Visible = true;
+
+        }
+
+        private void pictureBox_settings_Click(object sender, EventArgs e)
+        {
+            settingsForm settingsForm = new settingsForm();
+            this.Visible = false;
+            settingsForm.ShowDialog();
+            this.Visible = true;
+        }
+
+        private void mainForm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                notifyIcon_main.Visible = true;
+            }
+        }
+
+        private void notifyIcon_main_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            
         }
 
 

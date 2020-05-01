@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace AutoShutdown.functions
+namespace WindowsPowerManager.functions
 {
     public class Actions { 
 
@@ -15,7 +15,7 @@ namespace AutoShutdown.functions
         public static void Computer()
         {
 
-            functions.Logger.doLog("Locked the computer");
+            functions.Logger.doLog("lockComputer");
             LockWorkStation();
 
         }
@@ -24,7 +24,7 @@ namespace AutoShutdown.functions
 
         public static void ShutdownComputer()
         {
-            functions.Logger.doLog("Shut down the computer");
+            functions.Logger.doLog("shutdownComputer");
             Process.Start("shutdown", "/s /t 0");    // starts the shutdown application 
                                                      // the argument /s is to shut down the computer
                                                      // the argument /t 0 is to tell the process that 
@@ -38,7 +38,7 @@ namespace AutoShutdown.functions
 
         public static void RestartComputer()
         {
-            functions.Logger.doLog("Restarted the computer");
+            functions.Logger.doLog("restartComputer");
             Process.Start("shutdown", "/r /t 0");    // starts the shutdown application 
                                                      // the argument /s is to shut down the computer
                                                      // the argument /t 0 is to tell the process that 
@@ -56,7 +56,7 @@ namespace AutoShutdown.functions
 
             public static void Windows()
             {
-                functions.Logger.doLog("Logged off the computer");
+                functions.Logger.doLog("logOffWindows");
                 ExitWindowsEx(0, 0);
 
             }
@@ -72,7 +72,7 @@ namespace AutoShutdown.functions
             public static void Computer()
             {
 
-                functions.Logger.doLog("Slept the computer");
+                functions.Logger.doLog("sleepComputer");
                 SetSuspendState(false, true, true);
 
             }
@@ -107,7 +107,7 @@ namespace AutoShutdown.functions
             
             public static void Monitor()
             {
-                functions.Logger.doLog("Turned off the monitor");
+                functions.Logger.doLog("turnOffMonitor");
                 SetMonitorState(MonitorState.OFF);
 
                 

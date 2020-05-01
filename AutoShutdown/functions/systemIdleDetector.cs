@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Timers;
 
-namespace AutoShutdown.functions
+namespace WindowsPowerManager.functions
 {
     class systemIdleDetector
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace AutoShutdown.functions
+namespace WindowsPowerManager.functions
 {
     public class logSystem
     {
@@ -49,14 +49,7 @@ namespace AutoShutdown.functions
 
             logLists.Add(newLog);
 
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-
-                var json = JsonSerializer.Serialize(logLists,options);
-            StreamWriter sw = new StreamWriter("logs.json", false);
-            sw.WriteLine(json); sw.Close();
+                functions.jsonWriter.WriteJson("logs.json", true, logLists);
 
             }//if (settings.logsEnabled == true) { 
         } //dolog

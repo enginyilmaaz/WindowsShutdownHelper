@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoShutdown
+namespace WindowsPowerManager
 {
   
 
@@ -21,7 +21,7 @@ namespace AutoShutdown
     public class settings
     {
         public bool logsEnabled { get; set; }
-        public bool StartWithWindows { get; set; }
+        public bool startWithWindows { get; set; }
 
 
     }

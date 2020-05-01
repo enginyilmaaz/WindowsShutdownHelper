@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AutoShutdown")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Windows Power Manager")]
+[assembly: AssemblyDescription("Windows Power Manager")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AutoShutdown")]
+[assembly: AssemblyCompany("EnginYilmaz")]
+[assembly: AssemblyProduct("Windows Power Manager")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("EnginYilmaz")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
