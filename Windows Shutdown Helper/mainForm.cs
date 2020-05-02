@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
 
-namespace WindowsPowerManager
+namespace WindowsShutdownHelper
 {
     public partial class mainForm : Form
     {
@@ -20,20 +20,47 @@ namespace WindowsPowerManager
         public static string shutdownComputer = "shutdownComputer";
         public static string restartComputer = "restartComputer";
         public static string logOffWindows = "logOffWindows";
-       public static List<Action> actionList = JsonSerializer.Deserialize<List<Action>>(File.ReadAllText("actionList.json"));
+        public static List<Action> actionList = new List<Action>();
+        public static settings settings=new settings(); 
        public static Timer timer = new Timer();
-
-
+        public static int runInTaskbarCounter=0;
 
         public mainForm()
         {
             InitializeComponent();
+           
+
+
         }
 
-        /////////////////////////////////////////////
-     
+        protected override void OnLoad(EventArgs e)
+        {
+            string[] args = Environment.GetCommandLineArgs();
+
+
+            foreach (var arg in args)
+
+            {
+                if (arg == "-runInTaskbar" && runInTaskbarCounter <= 0)
+                {
+                    ++runInTaskbarCounter;
+                    Visible = false; 
+                   
+                }
+            }
+
+            base.OnLoad(e);
+        }
+
+        
+
         private void mainForm_Load(object sender, EventArgs e)
         {
+            
+
+            if (File.Exists("actionList.json")) actionList = JsonSerializer.Deserialize<List<Action>>(File.ReadAllText("actionList.json"));
+             
+
             timer.Interval = (1000); // 1 sec
             timer.Tick += timerTick;
             timer.Start();
@@ -69,12 +96,16 @@ namespace WindowsPowerManager
             comboBox_triggerType .Items.Add(certainTime);
             comboBox_triggerType.SelectedIndex = 0;
 
+            notifyIcon_main.Text = "Windows Shutdown Helper is running in background";
+
             refreshActionList();
             addlistButtonEnabledOrDisabled();
 
 
 
+
         }
+        
 
         public void refreshActionList()
         {
@@ -96,7 +127,7 @@ namespace WindowsPowerManager
             if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.TurnOffMonitor) newAction.actionType = turnOffMonitor;
         }
 
-
+        
         public void addlistButtonEnabledOrDisabled()
         {
             if (actionList.Count > 4)
@@ -362,12 +393,94 @@ namespace WindowsPowerManager
             
         }
 
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+                if (File.Exists("settings.json"))
+                {
+                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+
+                if (settings.runInTaskbarWhenClosed)
+                    {
+                    e.Cancel = true;
+                    this.Hide();
+
+                }
+
+
+
+            }
 
 
 
 
+        }
+
+        private void exitTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.ExitThread();
+        }
+
+        private void addNewActionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingsForm settingsForm = new settingsForm();
+          
+            settingsForm.Show();
+          
+        }
+
+        private void showTheLogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logViewer logViewerForm = new logViewer();
+            logViewerForm.ShowDialog();
+        }
+
+        private void mainForm_Shown(object sender, EventArgs e)
+        {
+            //    string[] args = Environment.GetCommandLineArgs();
+
+            //    foreach (string param in args)
+            //    {
+            //        if (param == "-runInTaskBar")
+            //        {
+            //            this.Hide();
+            //            notifyIcon_main.Visible = true;
+            //        }
 
 
+
+            //    } //foreach (string param in args)
+        }
+
+        private void mainForm_Activated(object sender, EventArgs e)
+        {
+            string[] args = Environment.GetCommandLineArgs();
+
+
+            foreach (var arg in args)
+                           
+            {
+                if (arg=="-runInTaskbar" && runInTaskbarCounter<=0)
+                {
+                    ++runInTaskbarCounter;
+                    this.Hide();
+                }
+            }
+
+
+
+        }// mainForm_Activated
+
+        private void clearAllActionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            actionList.Clear();
+            writeJsonToActionList();
+            addlistButtonEnabledOrDisabled();
+        }
 
 
 

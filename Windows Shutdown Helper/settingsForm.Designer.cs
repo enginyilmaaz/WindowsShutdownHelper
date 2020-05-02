@@ -1,4 +1,4 @@
-﻿namespace WindowsPowerManager
+﻿namespace WindowsShutdownHelper
 {
     partial class settingsForm
     {
@@ -35,7 +35,8 @@
             this.checkBox_logEnabled = new System.Windows.Forms.CheckBox();
             this.checkBox_startWithWindowsEnabled = new System.Windows.Forms.CheckBox();
             this.button_cancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_runInTaskbarWhenClosed = new System.Windows.Forms.Label();
+            this.checkBox_runInTaskbarWhenClosed = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label_logs
@@ -61,7 +62,7 @@
             // button_save
             // 
             this.button_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_save.Location = new System.Drawing.Point(12, 183);
+            this.button_save.Location = new System.Drawing.Point(41, 149);
             this.button_save.Name = "button_save";
             this.button_save.Size = new System.Drawing.Size(133, 30);
             this.button_save.TabIndex = 2;
@@ -73,7 +74,7 @@
             // 
             this.checkBox_logEnabled.AutoSize = true;
             this.checkBox_logEnabled.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.checkBox_logEnabled.Location = new System.Drawing.Point(228, 28);
+            this.checkBox_logEnabled.Location = new System.Drawing.Point(276, 28);
             this.checkBox_logEnabled.Name = "checkBox_logEnabled";
             this.checkBox_logEnabled.Size = new System.Drawing.Size(87, 26);
             this.checkBox_logEnabled.TabIndex = 3;
@@ -84,7 +85,7 @@
             // 
             this.checkBox_startWithWindowsEnabled.AutoSize = true;
             this.checkBox_startWithWindowsEnabled.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.checkBox_startWithWindowsEnabled.Location = new System.Drawing.Point(228, 63);
+            this.checkBox_startWithWindowsEnabled.Location = new System.Drawing.Point(276, 63);
             this.checkBox_startWithWindowsEnabled.Name = "checkBox_startWithWindowsEnabled";
             this.checkBox_startWithWindowsEnabled.Size = new System.Drawing.Size(87, 26);
             this.checkBox_startWithWindowsEnabled.TabIndex = 4;
@@ -94,7 +95,7 @@
             // button_cancel
             // 
             this.button_cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_cancel.Location = new System.Drawing.Point(188, 183);
+            this.button_cancel.Location = new System.Drawing.Point(217, 149);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(131, 30);
             this.button_cancel.TabIndex = 5;
@@ -102,22 +103,34 @@
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
-            // label1
+            // label_runInTaskbarWhenClosed
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(26, 111);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 22);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Runs ";
+            this.label_runInTaskbarWhenClosed.AutoSize = true;
+            this.label_runInTaskbarWhenClosed.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_runInTaskbarWhenClosed.Location = new System.Drawing.Point(26, 100);
+            this.label_runInTaskbarWhenClosed.Name = "label_runInTaskbarWhenClosed";
+            this.label_runInTaskbarWhenClosed.Size = new System.Drawing.Size(196, 22);
+            this.label_runInTaskbarWhenClosed.TabIndex = 6;
+            this.label_runInTaskbarWhenClosed.Text = "runInTaskbarWhenClosed";
+            // 
+            // checkBox_runInTaskbarWhenClosed
+            // 
+            this.checkBox_runInTaskbarWhenClosed.AutoSize = true;
+            this.checkBox_runInTaskbarWhenClosed.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.checkBox_runInTaskbarWhenClosed.Location = new System.Drawing.Point(276, 99);
+            this.checkBox_runInTaskbarWhenClosed.Name = "checkBox_runInTaskbarWhenClosed";
+            this.checkBox_runInTaskbarWhenClosed.Size = new System.Drawing.Size(87, 26);
+            this.checkBox_runInTaskbarWhenClosed.TabIndex = 7;
+            this.checkBox_runInTaskbarWhenClosed.Text = "Enabled";
+            this.checkBox_runInTaskbarWhenClosed.UseVisualStyleBackColor = true;
             // 
             // settingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 281);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(391, 216);
+            this.Controls.Add(this.checkBox_runInTaskbarWhenClosed);
+            this.Controls.Add(this.label_runInTaskbarWhenClosed);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.checkBox_startWithWindowsEnabled);
             this.Controls.Add(this.checkBox_logEnabled);
@@ -141,6 +154,7 @@
         private System.Windows.Forms.CheckBox checkBox_logEnabled;
         private System.Windows.Forms.CheckBox checkBox_startWithWindowsEnabled;
         private System.Windows.Forms.Button button_cancel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_runInTaskbarWhenClosed;
+        private System.Windows.Forms.CheckBox checkBox_runInTaskbarWhenClosed;
     }
 }

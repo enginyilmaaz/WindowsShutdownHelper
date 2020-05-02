@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
-namespace WindowsPowerManager.functions
+namespace WindowsShutdownHelper.functions
 {
    public class startWithWindows
     {

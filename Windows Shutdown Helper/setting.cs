@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsPowerManager
+namespace WindowsShutdownHelper
 {
   
 
@@ -22,6 +22,7 @@ namespace WindowsPowerManager
     {
         public bool logsEnabled { get; set; }
         public bool startWithWindows { get; set; }
+        public bool runInTaskbarWhenClosed { get; set; }
 
 
     }

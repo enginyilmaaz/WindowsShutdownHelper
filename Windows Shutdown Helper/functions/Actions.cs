@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace WindowsPowerManager.functions
+namespace WindowsShutdownHelper.functions
 {
     public class Actions { 
 

@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsPowerManager
+namespace WindowsShutdownHelper
 {
     public partial class settingsForm : Form
     {
@@ -42,12 +42,16 @@ namespace WindowsPowerManager
 
                 if (settings.startWithWindows) checkBox_startWithWindowsEnabled.Checked = true;
                 else checkBox_startWithWindowsEnabled.Checked = false;
+
+                if (settings.runInTaskbarWhenClosed) checkBox_runInTaskbarWhenClosed.Checked = true;
+                else checkBox_runInTaskbarWhenClosed.Checked = false;
             }
 
             else
             {
-                settings.logsEnabled = true;
-                settings.startWithWindows = false;
+                checkBox_logEnabled.Checked = true;
+                checkBox_startWithWindowsEnabled.Checked = false;
+                checkBox_runInTaskbarWhenClosed.Checked = false;
 
             }
 
@@ -65,7 +69,8 @@ namespace WindowsPowerManager
           
             if (checkBox_logEnabled.Checked) settings.logsEnabled = true;
             else settings.logsEnabled = false;
-
+            if (checkBox_runInTaskbarWhenClosed.Checked) settings.runInTaskbarWhenClosed = true;
+            else settings.runInTaskbarWhenClosed = false;
 
 
             if (checkBox_startWithWindowsEnabled.Checked)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsPowerManager.lang
+namespace WindowsShutdownHelper.lang
 {
 
     public class lang_English

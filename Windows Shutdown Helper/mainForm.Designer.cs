@@ -1,4 +1,4 @@
-﻿namespace WindowsPowerManager
+﻿namespace WindowsShutdownHelper
 {
     partial class mainForm
     {
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
             this.comboBox_actionType = new System.Windows.Forms.ComboBox();
@@ -51,8 +51,14 @@
             this.dataGridView_taskList = new System.Windows.Forms.DataGridView();
             this.groupBox_actionList = new System.Windows.Forms.GroupBox();
             this.notifyIcon_main = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip_notifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addNewActionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showTheLogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox_settings = new System.Windows.Forms.PictureBox();
             this.pictureBox_logs = new System.Windows.Forms.PictureBox();
+            this.clearAllActionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).BeginInit();
             this.statusStrip_default.SuspendLayout();
             this.contextMenuStrip_mainGrid.SuspendLayout();
@@ -60,6 +66,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).BeginInit();
             this.groupBox_actionList.SuspendLayout();
+            this.contextMenuStrip_notifyIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_settings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logs)).BeginInit();
             this.SuspendLayout();
@@ -184,15 +191,16 @@
             // contextMenuStrip_mainGrid
             // 
             this.contextMenuStrip_mainGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteSelectedTaskToolStripMenuItem});
+            this.deleteSelectedTaskToolStripMenuItem,
+            this.clearAllActionToolStripMenuItem});
             this.contextMenuStrip_mainGrid.Name = "contextMenuStrip_mainGrid";
-            this.contextMenuStrip_mainGrid.Size = new System.Drawing.Size(180, 26);
+            this.contextMenuStrip_mainGrid.Size = new System.Drawing.Size(193, 70);
             // 
             // deleteSelectedTaskToolStripMenuItem
             // 
             this.deleteSelectedTaskToolStripMenuItem.Name = "deleteSelectedTaskToolStripMenuItem";
-            this.deleteSelectedTaskToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.deleteSelectedTaskToolStripMenuItem.Text = "Delete Selected Task";
+            this.deleteSelectedTaskToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.deleteSelectedTaskToolStripMenuItem.Text = "Delete Selected Action";
             this.deleteSelectedTaskToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedTaskToolStripMenuItem_Click);
             // 
             // groupBox2
@@ -228,34 +236,34 @@
             this.dataGridView_taskList.AllowUserToDeleteRows = false;
             this.dataGridView_taskList.AllowUserToResizeColumns = false;
             this.dataGridView_taskList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_taskList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_taskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_taskList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_taskList.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView_taskList.Location = new System.Drawing.Point(0, 0);
             this.dataGridView_taskList.Name = "dataGridView_taskList";
             this.dataGridView_taskList.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_taskList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_taskList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_taskList.RowHeadersVisible = false;
             this.dataGridView_taskList.ShowCellErrors = false;
             this.dataGridView_taskList.Size = new System.Drawing.Size(448, 174);
@@ -278,10 +286,53 @@
             // notifyIcon_main
             // 
             this.notifyIcon_main.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon_main.ContextMenuStrip = this.contextMenuStrip_notifyIcon;
             this.notifyIcon_main.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon_main.Icon")));
             this.notifyIcon_main.Text = "notifyIcon1";
             this.notifyIcon_main.Visible = true;
             this.notifyIcon_main.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_main_MouseDoubleClick);
+            // 
+            // contextMenuStrip_notifyIcon
+            // 
+            this.contextMenuStrip_notifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addNewActionToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.showTheLogsToolStripMenuItem,
+            this.exitTheProgramToolStripMenuItem});
+            this.contextMenuStrip_notifyIcon.Name = "contextMenuStrip_notifyIcon";
+            this.contextMenuStrip_notifyIcon.Size = new System.Drawing.Size(163, 92);
+            // 
+            // addNewActionToolStripMenuItem
+            // 
+            this.addNewActionToolStripMenuItem.Image = global::WindowsShutdownHelper.Properties.Resources.add;
+            this.addNewActionToolStripMenuItem.Name = "addNewActionToolStripMenuItem";
+            this.addNewActionToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.addNewActionToolStripMenuItem.Text = "Add new action";
+            this.addNewActionToolStripMenuItem.Click += new System.EventHandler(this.addNewActionToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Image = global::WindowsShutdownHelper.Properties.Resources.settings;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // showTheLogsToolStripMenuItem
+            // 
+            this.showTheLogsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("showTheLogsToolStripMenuItem.Image")));
+            this.showTheLogsToolStripMenuItem.Name = "showTheLogsToolStripMenuItem";
+            this.showTheLogsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.showTheLogsToolStripMenuItem.Text = "Show logs";
+            this.showTheLogsToolStripMenuItem.Click += new System.EventHandler(this.showTheLogsToolStripMenuItem_Click);
+            // 
+            // exitTheProgramToolStripMenuItem
+            // 
+            this.exitTheProgramToolStripMenuItem.Image = global::WindowsShutdownHelper.Properties.Resources.exit;
+            this.exitTheProgramToolStripMenuItem.Name = "exitTheProgramToolStripMenuItem";
+            this.exitTheProgramToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.exitTheProgramToolStripMenuItem.Text = "Exit the program";
+            this.exitTheProgramToolStripMenuItem.Click += new System.EventHandler(this.exitTheProgramToolStripMenuItem_Click);
             // 
             // pictureBox_settings
             // 
@@ -307,6 +358,13 @@
             this.pictureBox_logs.TabStop = false;
             this.pictureBox_logs.Click += new System.EventHandler(this.pictureBox_logs_Click);
             // 
+            // clearAllActionToolStripMenuItem
+            // 
+            this.clearAllActionToolStripMenuItem.Name = "clearAllActionToolStripMenuItem";
+            this.clearAllActionToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.clearAllActionToolStripMenuItem.Text = "Clear All Action";
+            this.clearAllActionToolStripMenuItem.Click += new System.EventHandler(this.clearAllActionToolStripMenuItem_Click);
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,8 +378,11 @@
             this.Controls.Add(this.button_AddToList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "mainForm";
-            this.Text = "System Shutdown Manager";
+            this.Text = "Windows Shutdown Helper";
+            this.Activated += new System.EventHandler(this.mainForm_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.Load += new System.EventHandler(this.mainForm_Load);
+            this.Shown += new System.EventHandler(this.mainForm_Shown);
             this.Resize += new System.EventHandler(this.mainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_value)).EndInit();
             this.statusStrip_default.ResumeLayout(false);
@@ -332,6 +393,7 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taskList)).EndInit();
             this.groupBox_actionList.ResumeLayout(false);
+            this.contextMenuStrip_notifyIcon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_settings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logs)).EndInit();
             this.ResumeLayout(false);
@@ -360,5 +422,11 @@
         private System.Windows.Forms.PictureBox pictureBox_logs;
         private System.Windows.Forms.PictureBox pictureBox_settings;
         private System.Windows.Forms.NotifyIcon notifyIcon_main;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_notifyIcon;
+        private System.Windows.Forms.ToolStripMenuItem exitTheProgramToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addNewActionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showTheLogsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllActionToolStripMenuItem;
     }
 }

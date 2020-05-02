@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace WindowsPowerManager.functions
+namespace WindowsShutdownHelper.functions
 {
     public class logSystem
     {

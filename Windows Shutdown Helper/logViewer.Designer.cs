@@ -1,4 +1,4 @@
-﻿namespace WindowsPowerManager
+﻿namespace WindowsShutdownHelper
 {
     partial class logViewer
     {

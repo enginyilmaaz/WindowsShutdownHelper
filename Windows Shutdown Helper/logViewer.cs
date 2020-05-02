@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
-namespace WindowsPowerManager
+namespace WindowsShutdownHelper
 {
     public partial class logViewer : Form
     {
