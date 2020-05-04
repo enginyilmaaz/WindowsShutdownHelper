@@ -40,6 +40,7 @@
             this.dataGridView_logs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_logs.Location = new System.Drawing.Point(2, 1);
             this.dataGridView_logs.Name = "dataGridView_logs";
+            this.dataGridView_logs.ReadOnly = true;
             this.dataGridView_logs.Size = new System.Drawing.Size(606, 382);
             this.dataGridView_logs.TabIndex = 0;
             // 
@@ -73,7 +74,9 @@
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.button_clearLogs);
             this.Controls.Add(this.dataGridView_logs);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "logViewer";
             this.Text = "Log Viewer";
             this.Load += new System.EventHandler(this.logViewer_Load);

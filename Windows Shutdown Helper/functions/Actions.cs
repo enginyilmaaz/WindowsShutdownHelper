@@ -4,92 +4,95 @@ using System.Runtime.InteropServices;
 
 namespace WindowsShutdownHelper.functions
 {
-    public class Actions { 
-
-         public class Lock
+    public class ActionModel
     {
-
-        [DllImport("user32.dll")]
-        public static extern void LockWorkStation();
-
-        public static void Computer()
-        {
-
-            functions.Logger.doLog("lockComputer");
-            LockWorkStation();
-
-        }
+        public string triggerType { get; set; }
+        public string actionType { get; set; }
+        public string value { get; set; }
+        public string createdDate { get; set; }
 
     }
+    public class Actions
+    {
+        public static void doActionByTypes(ActionModel action)
+        {
+            if (action.actionType == "lockComputer") Actions.Lock.Computer();
+            if (action.actionType == "sleepComputer") Actions.Sleep.Computer();
+            if (action.actionType == "turnOffMonitor") Actions.TurnOff.Monitor();
+            if (action.actionType == "shutdownComputer") Actions.ShutdownComputer();
+            if (action.actionType == "restartComputer") Actions.RestartComputer();
+            if (action.actionType == "logOffWindows") Actions.LogOff.Windows();
+
+
+         
+        }
 
         public static void ShutdownComputer()
         {
-            functions.Logger.doLog("shutdownComputer");
-            Process.Start("shutdown", "/s /t 0");    // starts the shutdown application 
-                                                     // the argument /s is to shut down the computer
-                                                     // the argument /t 0 is to tell the process that 
-                                                     // the specified operation needs to be completed 
-                                                     // after 0 seconds
-
+            Logger.doLog("shutdownComputer");
+            Process.Start("shutdown", "/s /t 0"); 
         }
-
-
 
 
         public static void RestartComputer()
         {
-            functions.Logger.doLog("restartComputer");
-            Process.Start("shutdown", "/r /t 0");    // starts the shutdown application 
-                                                     // the argument /s is to shut down the computer
-                                                     // the argument /t 0 is to tell the process that 
-                                                     // the specified operation needs to be completed 
-                                                     // after 0 seconds
+            Logger.doLog("restartComputer");
+            Process.Start("shutdown", "/r /t 0");
+        }
 
+
+        public class Lock
+        {
+            public static bool manualLocked = true;
+
+            [DllImport("user32.dll")]
+            public static extern void LockWorkStation();
+
+            public static void Computer()
+            {
+                if (detectScreen.isLockedWorkstation() == false)
+                {
+                    manualLocked = false;
+                    Logger.doLog("lockComputer");
+                    LockWorkStation();
+                }
+            }
+
+
+            public static bool isLockedManually()
+            {
+                return manualLocked;
+            }
         }
 
 
         public class LogOff
         {
-
             [DllImport("user32")]
             public static extern bool ExitWindowsEx(uint uFlags, uint dwReason);
 
             public static void Windows()
             {
-                functions.Logger.doLog("logOffWindows");
+                Logger.doLog("logOffWindows");
                 ExitWindowsEx(0, 0);
-
             }
-
         }
 
         public class Sleep
         {
-
             [DllImport("PowrProf.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
             public static extern bool SetSuspendState(bool hiberate, bool forceCritical, bool disableWakeEvent);
 
             public static void Computer()
             {
-
-                functions.Logger.doLog("sleepComputer");
+                Logger.doLog("sleepComputer");
                 SetSuspendState(false, true, true);
-
             }
-
         }
 
 
         public class TurnOff
         {
-
-            [DllImport("user32.dll")]
-            public static extern IntPtr SendMessage(int hWnd, int Msg, int wParam, int lParam);
-            [DllImport("user32.dll")]
-            public static extern IntPtr PostMessage(int hWnd, int Msg, int wParam, int lParam);
-            private static int SC_MONITORPOWER = 0xF170;
-            private static int WM_SYSCOMMAND = 0x0112;
-            private static int HWND_BROADCAST = 0xFFFF;
             public enum MonitorState
             {
                 ON = -1,
@@ -97,29 +100,28 @@ namespace WindowsShutdownHelper.functions
                 STANDBY = 1
             }
 
+            private static readonly int SC_MONITORPOWER = 0xF170;
+            private static readonly int WM_SYSCOMMAND = 0x0112;
+            private static readonly int HWND_BROADCAST = 0xFFFF;
+
+            [DllImport("user32.dll")]
+            public static extern IntPtr SendMessage(int hWnd, int Msg, int wParam, int lParam);
+
+            [DllImport("user32.dll")]
+            public static extern IntPtr PostMessage(int hWnd, int Msg, int wParam, int lParam);
+
             public static void SetMonitorState(MonitorState state)
             {
-                 PostMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int)MonitorState.OFF);
+                PostMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int) MonitorState.OFF);
 
-                //SendMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, (int)2);
-               // SendMessage(-1, WM_SYSCOMMAND, SC_MONITORPOWER, (int)state);
             }
-            
+
             public static void Monitor()
             {
-                functions.Logger.doLog("turnOffMonitor");
+                Logger.doLog("turnOffMonitor");
                 SetMonitorState(MonitorState.OFF);
-
-                
-                
-               
             }
-
         }
-
-
-
-
 
 
         /////////////
