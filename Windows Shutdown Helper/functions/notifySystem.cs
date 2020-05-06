@@ -40,7 +40,7 @@ namespace WindowsShutdownHelper.functions
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify,
                                 actionTypeName, language.messageContent_cancelForSystemIdle,
-                                settings.countdownNotifierSeconds - 2,
+                                settings.countdownNotifierSeconds ,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();
@@ -61,7 +61,7 @@ namespace WindowsShutdownHelper.functions
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify,
                                 actionTypeName, language.messageContent_youCanThat,
-                                settings.countdownNotifierSeconds - 2,
+                                settings.countdownNotifierSeconds ,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();
@@ -83,7 +83,7 @@ namespace WindowsShutdownHelper.functions
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify,
                                 actionTypeName, language.messageContent_youCanThat,
-                                settings.countdownNotifierSeconds - 2,
+                                settings.countdownNotifierSeconds ,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();
