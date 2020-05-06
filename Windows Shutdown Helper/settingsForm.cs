@@ -44,7 +44,7 @@ namespace WindowsShutdownHelper
             checkBox_logEnabled.Text = language.settingsForm_checkbox_enabled;
             checkBox_runInTaskbarWhenClosed.Text = language.settingsForm_checkbox_enabled;
             checkBox_startWithWindowsEnabled.Text = language.settingsForm_checkbox_enabled;
-
+            
             comboboxLangDataLoader();
             refrehSettings();
 

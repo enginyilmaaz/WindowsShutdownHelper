@@ -196,6 +196,7 @@
             // 
             // comboBox_lang
             // 
+            this.comboBox_lang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_lang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.comboBox_lang.FormattingEnabled = true;
             this.comboBox_lang.Location = new System.Drawing.Point(261, 25);
