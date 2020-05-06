@@ -44,8 +44,9 @@
             this.label_content.Name = "label_content";
             this.label_content.Size = new System.Drawing.Size(324, 59);
             this.label_content.TabIndex = 0;
-            this.label_content.Text = "label1";
+            this.label_content.Text = "content";
             this.label_content.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_content.Click += new System.EventHandler(this.label_content_Click);
             // 
             // panel_main
             // 
@@ -78,8 +79,9 @@
             this.label_title.Name = "label_title";
             this.label_title.Size = new System.Drawing.Size(142, 37);
             this.label_title.TabIndex = 2;
-            this.label_title.Text = "label2";
+            this.label_title.Text = "title";
             this.label_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_title.Click += new System.EventHandler(this.label_title_Click);
             // 
             // pictureBox_main
             // 

@@ -32,7 +32,7 @@ namespace WindowsShutdownHelper.functions
                 logLists.Add(newLog);
 
                 jsonWriter.WriteJson("logs.json", true, logLists);
-            } 
-        } 
+            }
+        }
     }
 }

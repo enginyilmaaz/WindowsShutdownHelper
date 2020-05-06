@@ -10,27 +10,24 @@ namespace WindowsShutdownHelper.functions
         public string actionType { get; set; }
         public string value { get; set; }
         public string createdDate { get; set; }
-
     }
+
     public class Actions
     {
         public static void doActionByTypes(ActionModel action)
         {
-            if (action.actionType == "lockComputer") Actions.Lock.Computer();
-            if (action.actionType == "sleepComputer") Actions.Sleep.Computer();
-            if (action.actionType == "turnOffMonitor") Actions.TurnOff.Monitor();
-            if (action.actionType == "shutdownComputer") Actions.ShutdownComputer();
-            if (action.actionType == "restartComputer") Actions.RestartComputer();
-            if (action.actionType == "logOffWindows") Actions.LogOff.Windows();
-
-
-         
+            if (action.actionType == "lockComputer") Lock.Computer();
+            if (action.actionType == "sleepComputer") Sleep.Computer();
+            if (action.actionType == "turnOffMonitor") TurnOff.Monitor();
+            if (action.actionType == "shutdownComputer") ShutdownComputer();
+            if (action.actionType == "restartComputer") RestartComputer();
+            if (action.actionType == "logOffWindows") LogOff.Windows();
         }
 
         public static void ShutdownComputer()
         {
             Logger.doLog("shutdownComputer");
-            Process.Start("shutdown", "/s /t 0"); 
+            Process.Start("shutdown", "/s /t 0");
         }
 
 
@@ -96,8 +93,7 @@ namespace WindowsShutdownHelper.functions
             public enum MonitorState
             {
                 ON = -1,
-                OFF = 2,
-                STANDBY = 1
+                OFF = 2
             }
 
             private static readonly int SC_MONITORPOWER = 0xF170;
@@ -113,7 +109,6 @@ namespace WindowsShutdownHelper.functions
             public static void SetMonitorState(MonitorState state)
             {
                 PostMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int) MonitorState.OFF);
-
             }
 
             public static void Monitor()

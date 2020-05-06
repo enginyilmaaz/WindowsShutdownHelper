@@ -6,6 +6,7 @@
         public bool startWithWindows { get; set; }
         public bool runInTaskbarWhenClosed { get; set; }
         public bool isCountdownNotifierEnabled { get; set; }
-        public int  countdownNotifierSeconds { get; set; }
+        public int countdownNotifierSeconds { get; set; }
+        public string language { get; set; }
     }
 }

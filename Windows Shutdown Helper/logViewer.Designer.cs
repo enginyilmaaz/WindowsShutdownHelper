@@ -28,21 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(logViewer));
-            this.dataGridView_logs = new System.Windows.Forms.DataGridView();
             this.button_clearLogs = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
+            this.dataGridView_logs = new System.Windows.Forms.DataGridView();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_logs)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView_logs
-            // 
-            this.dataGridView_logs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_logs.Location = new System.Drawing.Point(2, 1);
-            this.dataGridView_logs.Name = "dataGridView_logs";
-            this.dataGridView_logs.ReadOnly = true;
-            this.dataGridView_logs.Size = new System.Drawing.Size(606, 382);
-            this.dataGridView_logs.TabIndex = 0;
             // 
             // button_clearLogs
             // 
@@ -66,6 +62,56 @@
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
+            // dataGridView_logs
+            // 
+            this.dataGridView_logs.AllowUserToAddRows = false;
+            this.dataGridView_logs.AllowUserToDeleteRows = false;
+            this.dataGridView_logs.AllowUserToResizeColumns = false;
+            this.dataGridView_logs.AllowUserToResizeRows = false;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_logs.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridView_logs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_logs.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridView_logs.Location = new System.Drawing.Point(2, 1);
+            this.dataGridView_logs.MultiSelect = false;
+            this.dataGridView_logs.Name = "dataGridView_logs";
+            this.dataGridView_logs.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_logs.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridView_logs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_logs.ShowCellToolTips = false;
+            this.dataGridView_logs.ShowEditingIcon = false;
+            this.dataGridView_logs.Size = new System.Drawing.Size(606, 382);
+            this.dataGridView_logs.TabIndex = 0;
+            this.dataGridView_logs.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_logs_CellMouseMove);
+            this.dataGridView_logs.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_logs_ColumnHeaderMouseClick);
+            // 
+            // toolTip
+            // 
+            this.toolTip.AutoPopDelay = 100;
+            this.toolTip.InitialDelay = 500;
+            this.toolTip.IsBalloon = true;
+            this.toolTip.ReshowDelay = 100;
+            // 
             // logViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -79,6 +125,7 @@
             this.MaximizeBox = false;
             this.Name = "logViewer";
             this.Text = "Log Viewer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.logViewer_FormClosing);
             this.Load += new System.EventHandler(this.logViewer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_logs)).EndInit();
             this.ResumeLayout(false);
@@ -86,9 +133,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridView_logs;
         private System.Windows.Forms.Button button_clearLogs;
         private System.Windows.Forms.Button button_cancel;
+        private System.Windows.Forms.DataGridView dataGridView_logs;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

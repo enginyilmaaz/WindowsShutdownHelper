@@ -1,0 +1,8 @@
+{
+  "logsEnabled": true,
+  "startWithWindows": true,
+  "runInTaskbarWhenClosed": true,
+  "isCountdownNotifierEnabled": true,
+  "countdownNotifierSeconds": 15,
+  "language": "tr"
+}

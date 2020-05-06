@@ -1,20 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
 using WindowsShutdownHelper.functions;
 using WindowsShutdownHelper.Properties;
-using Microsoft.Win32;
 
 namespace WindowsShutdownHelper
 {
     public partial class settingsForm : Form
     {
+        public static language language = languageSelector.languageFile();
         public static int x;
         public static int y;
-
+        public static string firstLangValue;
         public static settings settings = new settings();
+
         public settingsForm(int _x, int _y, int _width, int _height)
         {
             InitializeComponent();
@@ -26,9 +30,69 @@ namespace WindowsShutdownHelper
         private void settingsForm_Load(object sender, EventArgs e)
         {
             Location = new Point(x, y);
+            Text = language.settingsForm_Name;
+            label_language.Text = language.settingsForm_label_language + " : ";
+            label_logs.Text = language.settingsForm_label_logs + " : ";
+            label_startWithWindows.Text = language.settingsForm_label_startWithWindows + " : ";
+            label_runInTaskbarWhenClosed.Text = language.settingsForm_label_runInTaskbarWhenClosed + " : ";
+            label_isCountdownNotifierEnabled.Text = language.settingsForm_label_isCountdownNotifierEnabled + " : ";
+            label_countdownNotifierSeconds.Text = language.settingsForm_label_countdownNotifierSeconds + " : ";
+            button_cancel.Text = language.settingsForm_button_cancel;
+            button_save.Text = language.settingsForm_button_save;
 
+            checkBox_isCountdownNotifierEnabled.Text = language.settingsForm_checkbox_enabled;
+            checkBox_logEnabled.Text = language.settingsForm_checkbox_enabled;
+            checkBox_runInTaskbarWhenClosed.Text = language.settingsForm_checkbox_enabled;
+            checkBox_startWithWindowsEnabled.Text = language.settingsForm_checkbox_enabled;
 
+            comboboxLangDataLoader();
             refrehSettings();
+
+            if (settings.language == "auto")
+            {
+                comboBox_lang.SelectedIndex = 0;
+            }
+            else
+            {
+                var selectedLang = CultureInfo.GetCultureInfo(settings.language).DisplayName;
+                var selectedIndex = comboBox_lang.FindStringExact(selectedLang);
+
+                comboBox_lang.SelectedIndex = selectedIndex;
+            }
+        }
+
+        public void comboboxLangDataLoader()
+        {
+            var existLanguages = Directory
+                .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "lang\\", "lang_??.json")
+                .Select(Path.GetFileNameWithoutExtension)
+                .ToList();
+            var langs = new List<languageNames>();
+            var autoLang = new languageNames();
+            var currentlangName = CultureInfo.GetCultureInfo(CultureInfo.CurrentCulture.TwoLetterISOLanguageName)
+                .DisplayName;
+            autoLang.langCode = "auto";
+            autoLang.LangName = language.settingsForm_combobox_auto_lang + "(" + currentlangName + ")";
+            langs.Add(autoLang);
+
+
+            foreach (var lng in existLanguages)
+            {
+                //if (lng.Length <= 2)
+                //{
+
+                var language = lng.Substring(lng.Length - 2);
+                var lang = new languageNames();
+                lang.langCode = language;
+                lang.LangName = CultureInfo.GetCultureInfo(language).DisplayName;
+                langs.Add(lang);
+                //}
+            } //foreach
+
+
+            comboBox_lang.DataSource = langs;
+            comboBox_lang.DisplayMember = "LangName";
+            comboBox_lang.ValueMember = "langCode";
         }
 
         public void refrehSettings()
@@ -36,6 +100,7 @@ namespace WindowsShutdownHelper
             if (File.Exists("settings.json"))
             {
                 settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+                firstLangValue = settings.language;
                 if (settings.logsEnabled) checkBox_logEnabled.Checked = true;
                 else checkBox_logEnabled.Checked = false;
 
@@ -51,7 +116,7 @@ namespace WindowsShutdownHelper
                 numericUpDown_countdownNotifierSeconds.Value = settings.countdownNotifierSeconds;
             }
 
-            
+
             else
             {
                 checkBox_logEnabled.Checked = true;
@@ -64,6 +129,7 @@ namespace WindowsShutdownHelper
         {
             Dispose();
             Close();
+            GC.Collect();
         }
 
         private void button_save_Click(object sender, EventArgs e)
@@ -79,34 +145,42 @@ namespace WindowsShutdownHelper
                 if (checkBox_startWithWindowsEnabled.Checked)
                 {
                     settings.startWithWindows = true;
-                    functions.startWithWindows.AddStartup("Shutwdown Helper for Windows");
-                 
+                    startWithWindows.AddStartup(language.settingsForm_addStartupAppName);
                 }
 
                 else
                 {
                     settings.startWithWindows = false;
-                    functions.startWithWindows.DeleteStartup("Shutwdown Helper for Windows");
-                 }
+                    startWithWindows.DeleteStartup(language.settingsForm_addStartupAppName);
+                }
 
                 if (checkBox_isCountdownNotifierEnabled.Checked)
-                {
                     settings.isCountdownNotifierEnabled = true;
+                else
+                    settings.isCountdownNotifierEnabled = false;
+
+                settings.countdownNotifierSeconds = Convert.ToInt16(numericUpDown_countdownNotifierSeconds.Value);
+
+                settings.language = comboBox_lang.SelectedValue.ToString();
+                jsonWriter.WriteJson("settings.json", true, settings);
+
+
+                if (firstLangValue == settings.language)
+                {
+                    var popUpViewer = new popUpViewer(language.messageTitle_success,
+                        language.messageContent_settingsSaved,
+                        2, Resources.success, Location.X, Location.Y, Width, Height);
+                    popUpViewer.ShowDialog();
                 }
                 else
                 {
-                    settings.isCountdownNotifierEnabled = false;
+                    {
+                        var popUpViewer = new popUpViewer(language.messageTitle_success,
+                            language.messageContent_settingSavedWithLangChanged,
+                            4, Resources.success, Location.X, Location.Y, Width, Height);
+                        popUpViewer.ShowDialog();
+                    }
                 }
-
-                 settings.countdownNotifierSeconds= Convert.ToInt16(numericUpDown_countdownNotifierSeconds.Value);
-
-                jsonWriter.WriteJson("settings.json", true, settings);
-
-                refrehSettings();
-
-                var popUpViewer = new popUpViewer("Success", "Setting saved successfully", 
-                    2, Resources.success,  Location.X, Location.Y, Width, Height);
-                popUpViewer.ShowDialog();
             }
 
 
@@ -118,6 +192,12 @@ namespace WindowsShutdownHelper
         private void numericUpDown_countdownNotifierSeconds_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void settingsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GC.Collect();
+            GC.SuppressFinalize(this);
         }
 
         ///////////////////////////////////////////////////////////////////////////

@@ -115,10 +115,12 @@
   <ItemGroup>
     <Compile Include="functions\detectScreen.cs" />
     <Compile Include="functions\jsonWriter.cs" />
+    <Compile Include="functions\languageSelector.cs" />
     <Compile Include="functions\Logger.cs" />
     <Compile Include="functions\logSystem.cs" />
     <Compile Include="functions\notifySystem.cs" />
     <Compile Include="functions\startWithWindows.cs" />
+    <Compile Include="language.cs" />
     <Compile Include="logViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +181,8 @@
     <EmbeddedResource Include="settingsForm.resx">
       <DependentUpon>settingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="lang\lang_en.json" />
+    <None Include="lang\lang_tr.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -189,13 +193,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="settings\actionList.json" />
+    <None Include="settings\settings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="localization\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="content\images\logs.png" />
     <None Include="Resources\logs.png" />
