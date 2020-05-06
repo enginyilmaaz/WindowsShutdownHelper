@@ -1,8 +1,0 @@
-[
-  {
-    "triggerType": "systemIdle",
-    "actionType": "turnOffMonitor",
-    "value": "1",
-    "createdDate": "06.05.2020 12:48:42"
-  }
-]

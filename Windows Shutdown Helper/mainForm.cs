@@ -167,7 +167,9 @@ namespace WindowsShutdownHelper
 
         public void refreshActionList()
         {
-            actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText("actionList.json"));
+            if (File.Exists("actionList.json"))
+                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText("actionList.json"));
+
             foreach (var act in actionListTemp)
             {
                 if (act.actionType == "logOffWindows")
