@@ -7,7 +7,7 @@ namespace WindowsShutdownHelper.functions
     public class startWithWindows
     {
         public static string keyName = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        public static string pathwithArguments = "\"" + Application.ExecutablePath + "\" - runInTaskBar";
+        public static string pathwithArguments =Application.ExecutablePath + " -runInTaskBar";
 
         public static RegistryKey startupKey;
 
@@ -16,11 +16,11 @@ namespace WindowsShutdownHelper.functions
         {
             if (Environment.Is64BitOperatingSystem)
                 startupKey = RegistryKey
-                    .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32)
+                    .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64)
                     .OpenSubKey(keyName, true);
             else
                 startupKey = RegistryKey
-                    .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64)
+                    .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32)
                     .OpenSubKey(keyName, true);
         }
 

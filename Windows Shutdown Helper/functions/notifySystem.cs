@@ -21,8 +21,8 @@ namespace WindowsShutdownHelper.functions
         {
             var settings = new settings();
 
-            if (File.Exists("settings.json"))
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
+                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
             else
                 settings.isCountdownNotifierEnabled = false;
 
@@ -34,7 +34,7 @@ namespace WindowsShutdownHelper.functions
                 if (action.triggerType == "systemIdle")
                 {
                     var actionValue = Convert.ToInt32(action.value);
-                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds -1)
+                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds)
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
@@ -51,7 +51,7 @@ namespace WindowsShutdownHelper.functions
                 else if (action.triggerType == "fromNow")
                 {
                     var actionExecuteDate = DateTime.Parse(action.value)
-                        .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds-1));
+                        .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds));
                     var nowDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
                     var executionDate = actionExecuteDate.ToString("dd.MM.yyyy HH:mm:ss");
 
@@ -73,7 +73,7 @@ namespace WindowsShutdownHelper.functions
                 else if (action.triggerType == "certainTime")
                 {
                     var actionExecuteDate = DateTime.Parse(action.value)
-                        .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds-1));
+                        .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds));
                     var nowDate = DateTime.Now.ToString("HH:mm:ss");
                     var executionDate = actionExecuteDate.ToString("HH:mm:ss");
 

@@ -63,8 +63,8 @@ namespace WindowsShutdownHelper
 
 
             foreach (var arg in args)
-
-                if (arg == "-runInTaskbar" && runInTaskbarCounter <= 0)
+                
+                if (arg == "-runInTaskBar" && runInTaskbarCounter <= 0)
                 {
                     ++runInTaskbarCounter;
                     Hide();
@@ -98,10 +98,10 @@ namespace WindowsShutdownHelper
 
 
             detectScreen.manuelLockingActionLogger();
-            if (File.Exists("actionList.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory+"\\actionList.json"))
             {
-                actionList = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText("actionList.json"));
-                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText("actionList.json"));
+                actionList = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
+                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
             }
 
             deleteExpriedAction();
@@ -167,8 +167,8 @@ namespace WindowsShutdownHelper
 
         public void refreshActionList()
         {
-            if (File.Exists("actionList.json"))
-                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText("actionList.json"));
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"))
+                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
 
             foreach (var act in actionListTemp)
             {
@@ -208,7 +208,7 @@ namespace WindowsShutdownHelper
 
         public void writeJsonToActionList()
         {
-            jsonWriter.WriteJson("actionList.json", true, actionList.ToList());
+            jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json", true, actionList.ToList());
             refreshActionList();
         }
 
@@ -344,7 +344,8 @@ namespace WindowsShutdownHelper
                             Location.Y, Width, Height);
                         popUpViewer.ShowDialog();
                         popUpViewer.Focus();
-
+                        numericUpDown_value.Text = "1";
+                      
                         actionList.Add(newAction);
 
                         writeJsonToActionList();
@@ -478,9 +479,9 @@ namespace WindowsShutdownHelper
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (File.Exists("settings.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
             {
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
 
                 if (settings.runInTaskbarWhenClosed)
                 {
@@ -529,9 +530,9 @@ namespace WindowsShutdownHelper
 
         public void showLogs()
         {
-            if (File.Exists("logs.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
             {
-                var logList = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText("logs.json"))
+                var logList = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderByDescending(a => a.actionExecutedDate).Take(250).ToList();
                 if (logList.Count > 0)
                 {

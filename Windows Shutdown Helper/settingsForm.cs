@@ -97,9 +97,9 @@ namespace WindowsShutdownHelper
 
         public void refrehSettings()
         {
-            if (File.Exists("settings.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
             {
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
                 firstLangValue = settings.language;
                 if (settings.logsEnabled) checkBox_logEnabled.Checked = true;
                 else checkBox_logEnabled.Checked = false;
@@ -162,7 +162,7 @@ namespace WindowsShutdownHelper
                 settings.countdownNotifierSeconds = Convert.ToInt16(numericUpDown_countdownNotifierSeconds.Value);
 
                 settings.language = comboBox_lang.SelectedValue.ToString();
-                jsonWriter.WriteJson("settings.json", true, settings);
+                jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json", true, settings);
 
 
                 if (firstLangValue == settings.language)

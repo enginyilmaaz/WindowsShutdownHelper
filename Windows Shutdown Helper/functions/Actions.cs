@@ -16,7 +16,7 @@ namespace WindowsShutdownHelper.functions
     {
         public static void doActionByTypes(ActionModel action)
         {
-            if (action.actionType == "lockComputer") Lock.Computer();
+            if (action.actionType == "lockComputer") Lock.Computer(); TurnOff.Monitor();
             if (action.actionType == "sleepComputer") Sleep.Computer();
             if (action.actionType == "turnOffMonitor") TurnOff.Monitor();
             if (action.actionType == "shutdownComputer") ShutdownComputer();
@@ -27,14 +27,32 @@ namespace WindowsShutdownHelper.functions
         public static void ShutdownComputer()
         {
             Logger.doLog("shutdownComputer");
-            Process.Start("shutdown", "/s /t 0");
+            var process = new Process();
+            var startInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                FileName = "shutdown",
+                Arguments = "/s /t 0"
+            };
+            process.StartInfo = startInfo;
+            process.Start();
         }
 
 
         public static void RestartComputer()
         {
             Logger.doLog("restartComputer");
-            Process.Start("shutdown", "/r /t 0");
+            var process = new Process();
+            var startInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                FileName = "shutdown",
+                Arguments = "/r /t 0"
+            };
+
+            process.StartInfo = startInfo;
+            process.Start();
+            
         }
 
 
@@ -100,15 +118,13 @@ namespace WindowsShutdownHelper.functions
             private static readonly int WM_SYSCOMMAND = 0x0112;
             private static readonly int HWND_BROADCAST = 0xFFFF;
 
+
             [DllImport("user32.dll")]
             public static extern IntPtr SendMessage(int hWnd, int Msg, int wParam, int lParam);
 
-            [DllImport("user32.dll")]
-            public static extern IntPtr PostMessage(int hWnd, int Msg, int wParam, int lParam);
-
             public static void SetMonitorState(MonitorState state)
             {
-                PostMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int) MonitorState.OFF);
+                SendMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int) MonitorState.OFF);
             }
 
             public static void Monitor()

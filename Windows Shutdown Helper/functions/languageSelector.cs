@@ -13,16 +13,16 @@ namespace WindowsShutdownHelper.functions
         public static language languageFile()
         {
             var settings = new settings();
-            if (File.Exists("settings.json"))
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText("settings.json"));
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory+"\\settings.json"))
+                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+"\\settings.json"));
 
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\lang");
-            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "lang\\"))
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\lang"))
             {
-                if (!File.Exists("/lang/lang_en.json"))
-                    jsonWriter.WriteJson("lang\\lang_en.json", true, lang_en.lang_english());
-                if (!File.Exists("/lang/lang_tr.json"))
-                    jsonWriter.WriteJson("lang\\lang_tr.json", true, lang_tr.lang_turkish());
+                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory+"\\lang\\lang_en.json"))
+                    jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory+"lang\\lang_en.json", true, lang_en.lang_english());
+                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory+"\\lang\\lang_tr.json"))
+                    jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory+"lang\\lang_tr.json", true, lang_tr.lang_turkish());
                 var existLanguages = Directory
                     .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "lang\\", "lang_??.json")
                     .Select(Path.GetFileNameWithoutExtension)
@@ -38,12 +38,12 @@ namespace WindowsShutdownHelper.functions
                     {
                         if (currentCultureLangCode == langCode)
                             return JsonSerializer.Deserialize<language>(
-                                File.ReadAllText("lang\\lang_" + langCode + ".json"));
+                                File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+"lang\\lang_" + langCode + ".json"));
                     }
                     else
                     {
                         return JsonSerializer.Deserialize<language>(
-                            File.ReadAllText("lang\\lang_" + settings.language + ".json"));
+                            File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+"lang\\lang_" + settings.language + ".json"));
                     }
                 }
 
@@ -53,7 +53,7 @@ namespace WindowsShutdownHelper.functions
                     if (settings.language == "auto")
                         if (currentCultureLangCode != lang)
                             return JsonSerializer.Deserialize<language>(
-                                File.ReadAllText("lang\\lang_" + "en" + ".json"));
+                                File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory+"lang\\lang_" + "en" + ".json"));
                 }
 
 

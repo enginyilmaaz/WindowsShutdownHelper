@@ -53,7 +53,7 @@ namespace WindowsShutdownHelper
 
         private void button_clearLogs_Click(object sender, EventArgs e)
         {
-            if (File.Exists("logs.json")) File.Delete("logs.json");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json")) File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json");
 
             logRecordShowLocally();
 
@@ -83,8 +83,8 @@ namespace WindowsShutdownHelper
 
         public void logRecordShowLocally()
         {
-            if (File.Exists("logs.json"))
-                logListLocal = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText("logs.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+                logListLocal = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderByDescending(a => a.actionExecutedDate).Take(250).ToList();
 
             foreach (var act in logListLocal)
