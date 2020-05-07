@@ -467,6 +467,7 @@ namespace WindowsShutdownHelper
         public void showMain()
         {
             Show();
+            this.Focus();
             ShowInTaskbar = true;
         }
 

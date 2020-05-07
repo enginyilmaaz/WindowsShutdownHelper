@@ -91,7 +91,7 @@
                 settingsForm_checkbox_enabled = "Aktif",
                 settingsForm_button_save = "Kaydet",
                 settingsForm_button_cancel = "Vazgeç",
-                settingsForm_addStartupAppName = "Sistem Güç Yardımcısı",
+                settingsForm_addStartupAppName = "Shutdown Helper for Windows",
                 messageContent_settingsSaved = "Ayarlar başarıyla kaydedildi",
                 messageContent_settingSavedWithLangChanged =
                     "Değişiklikleri uygulamak için lütfen programı yeniden başlatın."
