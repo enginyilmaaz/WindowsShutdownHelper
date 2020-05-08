@@ -47,7 +47,7 @@ namespace WindowsShutdownHelper
             dataGridView_logs.Columns["actionExecutedDate"].DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
             dataGridView_logs.Columns["actionType"].DefaultCellStyle.Padding =
-                new Padding(20, 1, 0, 0);
+                new Padding(20, 0, 0, 0);
         }
 
 
@@ -117,6 +117,8 @@ namespace WindowsShutdownHelper
                 if (row.IsNewRow == false) row.HeaderCell.Value = "" + rowNumber;
                 rowNumber = rowNumber + 1;
             }
+            dataGridView_logs.AutoResizeRowHeadersWidth(
+                DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
         private void dataGridView_logs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -147,13 +149,14 @@ namespace WindowsShutdownHelper
                 }
             }
 
-            cellHeaderNumerator();
+           cellHeaderNumerator();
         }
 
         private void dataGridView_logs_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex < 0)
+            if (e.RowIndex < 0 && e.ColumnIndex>=0)
             {
+               
                 dataGridView_logs.Cursor = Cursors.Hand;
 
                 if (dataGridView_logs.Columns[e.ColumnIndex].Name == "actionType")
