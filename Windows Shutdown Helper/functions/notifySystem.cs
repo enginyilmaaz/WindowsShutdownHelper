@@ -22,7 +22,8 @@ namespace WindowsShutdownHelper.functions
             var settings = new settings();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(
+                    File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
             else
                 settings.isCountdownNotifierEnabled = false;
 
@@ -38,9 +39,9 @@ namespace WindowsShutdownHelper.functions
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
-                                language.messageContent_CountdownNotify,language.messageContent_CountdownNotify_2,
+                                language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_cancelForSystemIdle,
-                                settings.countdownNotifierSeconds ,
+                                settings.countdownNotifierSeconds,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();
@@ -61,7 +62,7 @@ namespace WindowsShutdownHelper.functions
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_youCanThat,
-                                settings.countdownNotifierSeconds ,
+                                settings.countdownNotifierSeconds,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();
@@ -83,7 +84,7 @@ namespace WindowsShutdownHelper.functions
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_youCanThat,
-                                settings.countdownNotifierSeconds ,
+                                settings.countdownNotifierSeconds,
                                 Resources.info, action);
 
                             actionCountdownNotifier.Show();

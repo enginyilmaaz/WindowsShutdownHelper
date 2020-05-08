@@ -12,7 +12,8 @@ namespace WindowsShutdownHelper.functions
             var settings = new settings();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(
+                    File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
             else
                 settings.logsEnabled = true;
 
@@ -22,7 +23,8 @@ namespace WindowsShutdownHelper.functions
                 var logLists = new List<logSystem>();
 
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
-                    logLists = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"));
+                    logLists = JsonSerializer.Deserialize<List<logSystem>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"));
 
 
                 var newLog = new logSystem();

@@ -45,7 +45,7 @@ namespace WindowsShutdownHelper
             checkBox_logEnabled.Text = language.settingsForm_checkbox_enabled;
             checkBox_runInTaskbarWhenClosed.Text = language.settingsForm_checkbox_enabled;
             checkBox_startWithWindowsEnabled.Text = language.settingsForm_checkbox_enabled;
-            
+
             comboboxLangDataLoader();
             refrehSettings();
 
@@ -100,7 +100,8 @@ namespace WindowsShutdownHelper
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
             {
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(
+                    File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
                 firstLangValue = settings.language;
                 if (settings.logsEnabled) checkBox_logEnabled.Checked = true;
                 else checkBox_logEnabled.Checked = false;

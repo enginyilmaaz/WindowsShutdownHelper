@@ -12,7 +12,7 @@ namespace WindowsShutdownHelper
 {
     public partial class logViewer : Form
     {
-        public static bool sortAscending_actionExecutedDate = false;
+        public static bool sortAscending_actionExecutedDate;
         public static language language = languageSelector.languageFile();
         public static List<logSystem> logList = new List<logSystem>();
         public static int x;
@@ -53,7 +53,8 @@ namespace WindowsShutdownHelper
 
         private void button_clearLogs_Click(object sender, EventArgs e)
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json")) File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json");
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json");
 
             logRecordShowLocally();
 
@@ -84,7 +85,9 @@ namespace WindowsShutdownHelper
         public void logRecordShowLocally()
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
-                logListLocal = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+                logListLocal = JsonSerializer
+                    .Deserialize<List<logSystem>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderBy(a => a.actionExecutedDate).Take(250).ToList();
 
             foreach (var act in logListLocal)
@@ -104,8 +107,6 @@ namespace WindowsShutdownHelper
             dataGridView_logs.DataSource = logListLocal;
 
 
-
-
             cellHeaderNumerator();
         }
 
@@ -117,9 +118,11 @@ namespace WindowsShutdownHelper
                 if (row.IsNewRow == false) row.HeaderCell.Value = "" + rowNumber;
                 rowNumber = rowNumber + 1;
             }
+
             dataGridView_logs.AutoResizeRowHeadersWidth(
                 DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
+
         private void dataGridView_logs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var columnName = dataGridView_logs.Columns[e.ColumnIndex].Name;
@@ -149,14 +152,13 @@ namespace WindowsShutdownHelper
                 }
             }
 
-           cellHeaderNumerator();
+            cellHeaderNumerator();
         }
 
         private void dataGridView_logs_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex < 0 && e.ColumnIndex>=0)
+            if (e.RowIndex < 0 && e.ColumnIndex >= 0)
             {
-               
                 dataGridView_logs.Cursor = Cursors.Hand;
 
                 if (dataGridView_logs.Columns[e.ColumnIndex].Name == "actionType")

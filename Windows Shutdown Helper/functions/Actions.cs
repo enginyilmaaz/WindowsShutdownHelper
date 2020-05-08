@@ -52,7 +52,6 @@ namespace WindowsShutdownHelper.functions
 
             process.StartInfo = startInfo;
             process.Start();
-            
         }
 
 

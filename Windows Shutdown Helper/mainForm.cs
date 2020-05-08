@@ -63,7 +63,7 @@ namespace WindowsShutdownHelper
 
 
             foreach (var arg in args)
-                
+
                 if (arg == "-runInTaskBar" && runInTaskbarCounter <= 0)
                 {
                     ++runInTaskbarCounter;
@@ -98,10 +98,14 @@ namespace WindowsShutdownHelper
 
 
             detectScreen.manuelLockingActionLogger();
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory+"\\actionList.json"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"))
             {
-                actionList = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
-                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
+                actionList =
+                    JsonSerializer.Deserialize<List<ActionModel>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
+                actionListTemp =
+                    JsonSerializer.Deserialize<List<ActionModel>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
             }
 
             deleteExpriedAction();
@@ -168,7 +172,9 @@ namespace WindowsShutdownHelper
         public void refreshActionList()
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"))
-                actionListTemp = JsonSerializer.Deserialize<List<ActionModel>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
+                actionListTemp =
+                    JsonSerializer.Deserialize<List<ActionModel>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
 
             foreach (var act in actionListTemp)
             {
@@ -208,7 +214,8 @@ namespace WindowsShutdownHelper
 
         public void writeJsonToActionList()
         {
-            jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json", true, actionList.ToList());
+            jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json", true,
+                actionList.ToList());
             refreshActionList();
         }
 
@@ -345,7 +352,7 @@ namespace WindowsShutdownHelper
                         popUpViewer.ShowDialog();
                         popUpViewer.Focus();
                         numericUpDown_value.Text = "1";
-                      
+
                         actionList.Add(newAction);
 
                         writeJsonToActionList();
@@ -468,7 +475,7 @@ namespace WindowsShutdownHelper
         public void showMain()
         {
             Show();
-            this.Focus();
+            Focus();
             ShowInTaskbar = true;
         }
 
@@ -481,7 +488,8 @@ namespace WindowsShutdownHelper
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
             {
-                settings = JsonSerializer.Deserialize<settings>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
+                settings = JsonSerializer.Deserialize<settings>(
+                    File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
 
                 if (settings.runInTaskbarWhenClosed)
                 {
@@ -532,7 +540,9 @@ namespace WindowsShutdownHelper
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
             {
-                var logList = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+                var logList = JsonSerializer
+                    .Deserialize<List<logSystem>>(
+                        File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderByDescending(a => a.actionExecutedDate).Take(250).ToList();
                 if (logList.Count > 0)
                 {

@@ -7,7 +7,7 @@ namespace WindowsShutdownHelper.functions
     public class startWithWindows
     {
         public static string keyName = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        public static string pathwithArguments =Application.ExecutablePath + " -runInTaskBar";
+        public static string pathwithArguments = Application.ExecutablePath + " -runInTaskBar";
 
         public static RegistryKey startupKey;
 
