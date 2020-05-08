@@ -74,7 +74,7 @@
                 logViewerForm_tooltip_sortActionExecutedDate_descending = "Tarihe göre sırala: Önce en eski",
                 messageContent_clearedLogs = "Tüm kayıtlar başarıyla silindi",
                 messageContent_thisWillAutoClose = "Bu pencere otomatik kapanacak",
-                messageContent_CountdownNotify = "sn. içinde aşağıdaki işlem gerçekleştirilecek",
+                messageContent_CountdownNotify_2 = "sn. içinde aşağıdaki işlem gerçekleştirilecek",
                 messageContent_youCanThat = "Yapabileceğiniz işlemler",
                 messageContent_cancelForSystemIdle = "İptal için bir tuşa basın yada fareyi hareket ettirin",
                 actionCountdownNotifier_button_skip = "Atla",

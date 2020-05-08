@@ -162,5 +162,14 @@ namespace WindowsShutdownHelper
         private void label_contentCountdownNotify_Click(object sender, EventArgs e)
         {
         }
+        private void panel_main_borderPaint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(Pens.Gray,
+                e.ClipRectangle.Left,
+                e.ClipRectangle.Top,
+                e.ClipRectangle.Width - 1,
+                e.ClipRectangle.Height - 1);
+            base.OnPaint(e);
+        }
     }
 }

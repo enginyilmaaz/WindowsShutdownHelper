@@ -43,8 +43,7 @@
             // 
             // panel_main
             // 
-            this.panel_main.BackColor = System.Drawing.Color.FloralWhite;
-            this.panel_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_main.BackColor = System.Drawing.Color.Ivory;
             this.panel_main.Controls.Add(this.label_contentYouCanThat);
             this.panel_main.Controls.Add(this.label_contentActionType);
             this.panel_main.Controls.Add(this.button_skip);
@@ -56,8 +55,9 @@
             this.panel_main.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel_main.Location = new System.Drawing.Point(0, 0);
             this.panel_main.Name = "panel_main";
-            this.panel_main.Size = new System.Drawing.Size(379, 179);
+            this.panel_main.Size = new System.Drawing.Size(358, 172);
             this.panel_main.TabIndex = 0;
+            this.panel_main.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_main_borderPaint);
             this.panel_main.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_main_MouseDown);
             this.panel_main.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel_main_MouseMove);
             this.panel_main.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel_main_MouseUp);
@@ -65,9 +65,9 @@
             // label_contentYouCanThat
             // 
             this.label_contentYouCanThat.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_contentYouCanThat.Location = new System.Drawing.Point(0, 103);
+            this.label_contentYouCanThat.Location = new System.Drawing.Point(1, 103);
             this.label_contentYouCanThat.Name = "label_contentYouCanThat";
-            this.label_contentYouCanThat.Size = new System.Drawing.Size(379, 28);
+            this.label_contentYouCanThat.Size = new System.Drawing.Size(356, 28);
             this.label_contentYouCanThat.TabIndex = 0;
             this.label_contentYouCanThat.Text = "_contentYouCanThat";
             this.label_contentYouCanThat.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -80,9 +80,9 @@
             // 
             this.label_contentActionType.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label_contentActionType.ForeColor = System.Drawing.Color.Red;
-            this.label_contentActionType.Location = new System.Drawing.Point(0, 77);
+            this.label_contentActionType.Location = new System.Drawing.Point(1, 77);
             this.label_contentActionType.Name = "label_contentActionType";
-            this.label_contentActionType.Size = new System.Drawing.Size(379, 28);
+            this.label_contentActionType.Size = new System.Drawing.Size(356, 28);
             this.label_contentActionType.TabIndex = 0;
             this.label_contentActionType.Text = "label_contentActionType";
             this.label_contentActionType.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -96,7 +96,7 @@
             this.button_skip.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_skip.Enabled = false;
             this.button_skip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_skip.Location = new System.Drawing.Point(265, 140);
+            this.button_skip.Location = new System.Drawing.Point(238, 138);
             this.button_skip.Name = "button_skip";
             this.button_skip.Size = new System.Drawing.Size(100, 25);
             this.button_skip.TabIndex = 3;
@@ -109,7 +109,7 @@
             this.button_delete.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_delete.Enabled = false;
             this.button_delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_delete.Location = new System.Drawing.Point(11, 140);
+            this.button_delete.Location = new System.Drawing.Point(12, 138);
             this.button_delete.Name = "button_delete";
             this.button_delete.Size = new System.Drawing.Size(100, 25);
             this.button_delete.TabIndex = 1;
@@ -122,7 +122,7 @@
             this.button_Ignore.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_Ignore.Enabled = false;
             this.button_Ignore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button_Ignore.Location = new System.Drawing.Point(138, 140);
+            this.button_Ignore.Location = new System.Drawing.Point(125, 138);
             this.button_Ignore.Name = "button_Ignore";
             this.button_Ignore.Size = new System.Drawing.Size(100, 25);
             this.button_Ignore.TabIndex = 2;
@@ -133,9 +133,9 @@
             // label_title
             // 
             this.label_title.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_title.Location = new System.Drawing.Point(176, 11);
+            this.label_title.Location = new System.Drawing.Point(173, 11);
             this.label_title.Name = "label_title";
-            this.label_title.Size = new System.Drawing.Size(132, 31);
+            this.label_title.Size = new System.Drawing.Size(138, 31);
             this.label_title.TabIndex = 0;
             this.label_title.Text = "label_title";
             this.label_title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -146,7 +146,7 @@
             // pictureBox_main
             // 
             this.pictureBox_main.Image = global::WindowsShutdownHelper.Properties.Resources.success;
-            this.pictureBox_main.Location = new System.Drawing.Point(130, 10);
+            this.pictureBox_main.Location = new System.Drawing.Point(129, 11);
             this.pictureBox_main.Name = "pictureBox_main";
             this.pictureBox_main.Size = new System.Drawing.Size(42, 31);
             this.pictureBox_main.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -159,9 +159,9 @@
             // label_contentCountdownNotify
             // 
             this.label_contentCountdownNotify.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_contentCountdownNotify.Location = new System.Drawing.Point(0, 50);
+            this.label_contentCountdownNotify.Location = new System.Drawing.Point(1, 50);
             this.label_contentCountdownNotify.Name = "label_contentCountdownNotify";
-            this.label_contentCountdownNotify.Size = new System.Drawing.Size(379, 28);
+            this.label_contentCountdownNotify.Size = new System.Drawing.Size(356, 28);
             this.label_contentCountdownNotify.TabIndex = 0;
             this.label_contentCountdownNotify.Text = "label_contentCountdownNotify";
             this.label_contentCountdownNotify.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -174,8 +174,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 179);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(358, 172);
             this.Controls.Add(this.panel_main);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "actionCountdownNotifier";
             this.ShowInTaskbar = false;
