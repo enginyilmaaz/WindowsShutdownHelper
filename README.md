@@ -1,4 +1,4 @@
-# WindowsShutdownHelper
+# Windows Shutdown Helper
 
 for the executable file : 
 
