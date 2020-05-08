@@ -30,6 +30,7 @@ namespace WindowsShutdownHelper
         private void settingsForm_Load(object sender, EventArgs e)
         {
             Location = new Point(x, y);
+            numericUpDown_countdownNotifierSeconds.TextAlign = HorizontalAlignment.Center;
             Text = language.settingsForm_Name;
             label_language.Text = language.settingsForm_label_language + " : ";
             label_logs.Text = language.settingsForm_label_logs + " : ";
