@@ -128,9 +128,9 @@
     <Compile Include="functions\logSystem.cs" />
     <Compile Include="functions\notifySystem.cs" />
     <Compile Include="functions\startWithWindows.cs" />
-    <Compile Include="language.cs" />
-    <Compile Include="lang\lang_en.cs" />
-    <Compile Include="lang\lang_tr.cs" />
+    <Compile Include="default_settings\language.cs" />
+    <Compile Include="default_settings\lang\lang_en.cs" />
+    <Compile Include="default_settings\lang\lang_tr.cs" />
     <Compile Include="logViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,7 +209,6 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="content\images\logs.png" />
-    <None Include="Resources\logs.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="content\images\exit.png" />

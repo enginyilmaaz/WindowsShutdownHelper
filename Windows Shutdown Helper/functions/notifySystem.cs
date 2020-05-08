@@ -38,7 +38,7 @@ namespace WindowsShutdownHelper.functions
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
-                                language.messageContent_CountdownNotify,
+                                language.messageContent_CountdownNotify,language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_cancelForSystemIdle,
                                 settings.countdownNotifierSeconds ,
                                 Resources.info, action);
@@ -59,7 +59,7 @@ namespace WindowsShutdownHelper.functions
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
-                                language.messageContent_CountdownNotify,
+                                language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_youCanThat,
                                 settings.countdownNotifierSeconds ,
                                 Resources.info, action);
@@ -81,7 +81,7 @@ namespace WindowsShutdownHelper.functions
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
                             var actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
-                                language.messageContent_CountdownNotify,
+                                language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_youCanThat,
                                 settings.countdownNotifierSeconds ,
                                 Resources.info, action);

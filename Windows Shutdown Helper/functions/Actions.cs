@@ -16,7 +16,7 @@ namespace WindowsShutdownHelper.functions
     {
         public static void doActionByTypes(ActionModel action)
         {
-            if (action.actionType == "lockComputer") Lock.Computer(); TurnOff.Monitor();
+            if (action.actionType == "lockComputer") Lock.Computer();
             if (action.actionType == "sleepComputer") Sleep.Computer();
             if (action.actionType == "turnOffMonitor") TurnOff.Monitor();
             if (action.actionType == "shutdownComputer") ShutdownComputer();

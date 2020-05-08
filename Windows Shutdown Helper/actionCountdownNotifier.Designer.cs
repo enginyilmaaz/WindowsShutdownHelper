@@ -43,6 +43,7 @@
             // 
             // panel_main
             // 
+            this.panel_main.BackColor = System.Drawing.Color.FloralWhite;
             this.panel_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_main.Controls.Add(this.label_contentYouCanThat);
             this.panel_main.Controls.Add(this.label_contentActionType);
@@ -92,6 +93,7 @@
             // 
             // button_skip
             // 
+            this.button_skip.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_skip.Enabled = false;
             this.button_skip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button_skip.Location = new System.Drawing.Point(265, 140);
@@ -99,11 +101,12 @@
             this.button_skip.Size = new System.Drawing.Size(100, 25);
             this.button_skip.TabIndex = 3;
             this.button_skip.Text = "Skip";
-            this.button_skip.UseVisualStyleBackColor = true;
+            this.button_skip.UseVisualStyleBackColor = false;
             this.button_skip.Click += new System.EventHandler(this.button_skip_Click);
             // 
             // button_delete
             // 
+            this.button_delete.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_delete.Enabled = false;
             this.button_delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button_delete.Location = new System.Drawing.Point(11, 140);
@@ -111,11 +114,12 @@
             this.button_delete.Size = new System.Drawing.Size(100, 25);
             this.button_delete.TabIndex = 1;
             this.button_delete.Text = "Delete";
-            this.button_delete.UseVisualStyleBackColor = true;
+            this.button_delete.UseVisualStyleBackColor = false;
             this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
             // 
             // button_Ignore
             // 
+            this.button_Ignore.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button_Ignore.Enabled = false;
             this.button_Ignore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button_Ignore.Location = new System.Drawing.Point(138, 140);
@@ -123,7 +127,7 @@
             this.button_Ignore.Size = new System.Drawing.Size(100, 25);
             this.button_Ignore.TabIndex = 2;
             this.button_Ignore.Text = "Ignore";
-            this.button_Ignore.UseVisualStyleBackColor = true;
+            this.button_Ignore.UseVisualStyleBackColor = false;
             this.button_Ignore.Click += new System.EventHandler(this.button_Skip_Click);
             // 
             // label_title

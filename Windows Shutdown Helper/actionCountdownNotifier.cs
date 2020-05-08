@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using WindowsShutdownHelper.functions;
 
@@ -12,13 +13,11 @@ namespace WindowsShutdownHelper
         private Point dragCursorPoint;
         private Point dragFormPoint;
         private bool dragging;
-        public string messageContentActionType;
-        public string messageContentCountdownNotify;
-        public string messageContentYouCanThat;
+        public string messageContentCountdownNotify, messageContentCountdownNotify_2;
         public int showTimeSecond;
         public Timer timer = new Timer();
 
-        public actionCountdownNotifier(string messageTitle, string _messageContentCountdownNotify,
+        public actionCountdownNotifier(string messageTitle, string _messageContentCountdownNotify, string _messageContentCountdownNotify_2,
             string _messageContentActionType,
             string _messageContentYouCanThat, int _showTimeSecond,
             Image messageIconFile, ActionModel _action)
@@ -28,10 +27,9 @@ namespace WindowsShutdownHelper
             action = _action;
             showTimeSecond = _showTimeSecond;
             messageContentCountdownNotify = _messageContentCountdownNotify;
-            messageContentActionType = _messageContentActionType;
-            messageContentYouCanThat = _messageContentYouCanThat;
-            label_contentCountdownNotify.Text = showTimeSecond + " " + messageContentCountdownNotify;
-            label_contentActionType.Text = messageContentActionType;
+            messageContentCountdownNotify_2 = _messageContentCountdownNotify_2;
+            label_contentCountdownNotify.Text =messageContentCountdownNotify +" " + showTimeSecond + " " + messageContentCountdownNotify_2;
+            label_contentActionType.Text = _messageContentActionType;
             label_contentYouCanThat.Text = _messageContentYouCanThat;
             timer.Interval = 1000;
             timer.Tick += timerTick;
@@ -64,6 +62,7 @@ namespace WindowsShutdownHelper
             }
         }
 
+        
 
         private void actionCountdownNotifier_Load(object sender, EventArgs e)
         {
@@ -74,7 +73,7 @@ namespace WindowsShutdownHelper
 
         private void timerTick(object sender, EventArgs e)
         {
-            label_contentCountdownNotify.Text = showTimeSecond + " " + messageContentCountdownNotify;
+            label_contentCountdownNotify.Text = messageContentCountdownNotify + " " + showTimeSecond + " " + messageContentCountdownNotify_2;
 
 
             if (showTimeSecond == 0)
@@ -115,7 +114,7 @@ namespace WindowsShutdownHelper
         {
             mainForm.actionList.Remove(action);
             mainForm.isDeletedFromNotifier = true;
-            jsonWriter.WriteJson("actionList.json", true, mainForm.actionList);
+            jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json", true, mainForm.actionList);
 
             GC.Collect();
             GC.SuppressFinalize(this);

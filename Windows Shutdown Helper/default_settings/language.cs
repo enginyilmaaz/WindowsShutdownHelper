@@ -87,6 +87,7 @@
         public string logViewerForm_tooltip_sortActionExecutedDate_descending { get; set; }
 
         public string messageContent_CountdownNotify { get; set; }
+        public string messageContent_CountdownNotify_2 { get; set; }
         public string messageContent_youCanThat { get; set; }
         public string messageContent_cancelForSystemIdle { get; set; }
         public string actionCountdownNotifier_button_skip { get; set; }

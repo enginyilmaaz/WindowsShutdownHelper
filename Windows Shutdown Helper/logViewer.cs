@@ -12,7 +12,7 @@ namespace WindowsShutdownHelper
 {
     public partial class logViewer : Form
     {
-        public static bool sortAscending_actionExecutedDate = true;
+        public static bool sortAscending_actionExecutedDate = false;
         public static language language = languageSelector.languageFile();
         public static List<logSystem> logList = new List<logSystem>();
         public static int x;
@@ -85,7 +85,7 @@ namespace WindowsShutdownHelper
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                 logListLocal = JsonSerializer.Deserialize<List<logSystem>>(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
-                    .OrderByDescending(a => a.actionExecutedDate).Take(250).ToList();
+                    .OrderBy(a => a.actionExecutedDate).Take(250).ToList();
 
             foreach (var act in logListLocal)
             {
@@ -104,17 +104,20 @@ namespace WindowsShutdownHelper
             dataGridView_logs.DataSource = logListLocal;
 
 
+
+
+            cellHeaderNumerator();
+        }
+
+        public void cellHeaderNumerator()
+        {
             var rowNumber = 1;
             foreach (DataGridViewRow row in dataGridView_logs.Rows)
             {
                 if (row.IsNewRow == false) row.HeaderCell.Value = "" + rowNumber;
                 rowNumber = rowNumber + 1;
             }
-
-            dataGridView_logs.AutoResizeRowHeadersWidth(
-                DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
-
         private void dataGridView_logs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var columnName = dataGridView_logs.Columns[e.ColumnIndex].Name;
@@ -134,15 +137,17 @@ namespace WindowsShutdownHelper
             {
                 if (sortAscending_column_actionType)
                 {
-                    dataGridView_logs.DataSource = logListLocal.OrderBy(s => s.actionType).ToList();
+                    dataGridView_logs.DataSource = logListLocal.OrderByDescending(s => s.actionType).ToList();
                     sortAscending_column_actionType = !sortAscending_column_actionType;
                 }
                 else
                 {
-                    dataGridView_logs.DataSource = logListLocal.OrderByDescending(s => s.actionType).ToList();
+                    dataGridView_logs.DataSource = logListLocal.OrderBy(s => s.actionType).ToList();
                     sortAscending_column_actionType = !sortAscending_column_actionType;
                 }
             }
+
+            cellHeaderNumerator();
         }
 
         private void dataGridView_logs_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)

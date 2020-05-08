@@ -39,7 +39,7 @@
             lang.messageContent_actionAllDeleted = "All actions deleted successfully";
             lang.messageContent_actionCreated = "Action created successfully";
             lang.messageContent_actionChoose = "Made the missing choice, correct it";
-            lang.messageContent_maxActionWarn = "You can create up to 5 actions";
+            lang.messageContent_maxActionWarn = "You did not choose";
             lang.messageContent_datagridMain_actionChoose = "You did not choose a action";
             lang.messageContent_another = "Another";
             lang.messageContent_windowAlredyOpen = "window is already open";
@@ -73,7 +73,8 @@
             lang.logViewerForm_tooltip_sortActionExecutedDate_descending = "Sort by date: Oldest first";
             lang.messageContent_clearedLogs = "All records deleted successfully";
             lang.messageContent_thisWillAutoClose = "This window will close automatically";
-            lang.messageContent_CountdownNotify = "sec. the following action will be performed in";
+            lang.messageContent_CountdownNotify = "Within,";
+            lang.messageContent_CountdownNotify_2 = "sec. the following action will be done ";
             lang.messageContent_youCanThat = "You can do the following";
             lang.messageContent_cancelForSystemIdle = "Press a key or move the mouse to cancel";
             lang.actionCountdownNotifier_button_skip = "Skip";
