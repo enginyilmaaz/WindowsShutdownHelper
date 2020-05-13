@@ -17,6 +17,8 @@ namespace WindowsShutdownHelper
         public static List<logSystem> logList = new List<logSystem>();
         public static int x;
         public static int y;
+        public static int cursorX;
+        public static int cursorY;
         public List<logSystem> logListLocal = new List<logSystem>();
         public bool sortAscending_column_actionType = true;
 
@@ -126,7 +128,7 @@ namespace WindowsShutdownHelper
         private void dataGridView_logs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var columnName = dataGridView_logs.Columns[e.ColumnIndex].Name;
-
+            toolTip.Hide(dataGridView_logs);
             if (columnName == "actionExecutedDate")
             {
                 if (sortAscending_actionExecutedDate)
@@ -157,6 +159,7 @@ namespace WindowsShutdownHelper
 
         private void dataGridView_logs_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
+
             if (e.RowIndex < 0 && e.ColumnIndex >= 0)
             {
                 dataGridView_logs.Cursor = Cursors.Hand;
@@ -164,10 +167,39 @@ namespace WindowsShutdownHelper
                 if (dataGridView_logs.Columns[e.ColumnIndex].Name == "actionType")
                 {
                     if (sortAscending_column_actionType)
-                        toolTip.SetToolTip(dataGridView_logs, language.logViewerForm_tooltip_sortActionType_ascending);
+                    {
+                        if (toolTip.GetToolTip(dataGridView_logs) !=
+                            language.logViewerForm_tooltip_sortActionType_ascending)
+                        {
 
+                            toolTip.SetToolTip(dataGridView_logs,
+                                language.logViewerForm_tooltip_sortActionType_ascending);
+                            cursorX= Cursor.Position.X;
+                            cursorY= Cursor.Position.Y;
+                        }
+
+                        else
+                        {
+                            if (cursorX == Cursor.Position.X || cursorY == Cursor.Position.Y)
+                            {
+                                toolTip.SetToolTip(dataGridView_logs,
+                                    language.logViewerForm_tooltip_sortActionType_ascending);
+                            }
+                        }
+
+
+                    }
                     else
-                        toolTip.SetToolTip(dataGridView_logs, language.logViewerForm_tooltip_sortActionType_descending);
+                    {
+                        if (toolTip.GetToolTip(dataGridView_logs) !=
+                            language.logViewerForm_tooltip_sortActionType_descending)
+                        {
+
+                            toolTip.SetToolTip(dataGridView_logs,
+                                language.logViewerForm_tooltip_sortActionType_descending);
+                        }
+                    }
+
                 }
 
                 else
@@ -175,13 +207,27 @@ namespace WindowsShutdownHelper
                     if (dataGridView_logs.Columns[e.ColumnIndex].Name == "actionExecutedDate")
                     {
                         if (sortAscending_actionExecutedDate)
-                            toolTip.SetToolTip(dataGridView_logs,
-                                language.logViewerForm_tooltip_sortActionExecutedDate_ascending);
+                        {
+                            if (toolTip.GetToolTip(dataGridView_logs) !=
+                                language.logViewerForm_tooltip_sortActionExecutedDate_ascending)
+                            {
+                                toolTip.SetToolTip(dataGridView_logs,
+                                    language.logViewerForm_tooltip_sortActionExecutedDate_ascending);
+                            }
+                        }
 
                         else
-                            toolTip.SetToolTip(dataGridView_logs,
-                                language.logViewerForm_tooltip_sortActionExecutedDate_descending);
+                        {
+                            if (toolTip.GetToolTip(dataGridView_logs) !=
+                                language.logViewerForm_tooltip_sortActionExecutedDate_descending)
+                            {
+
+                                toolTip.SetToolTip(dataGridView_logs,
+                                    language.logViewerForm_tooltip_sortActionExecutedDate_descending);
+                            }
+                        }
                     }
+
                 }
             }
             else

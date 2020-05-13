@@ -29,7 +29,7 @@ namespace WindowsShutdownHelper.functions
 
                 var newLog = new logSystem();
                 newLog.actionType = actionType;
-                newLog.actionExecutedDate = DateTime.Now.ToString();
+                newLog.actionExecutedDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
 
                 logLists.Add(newLog);
 

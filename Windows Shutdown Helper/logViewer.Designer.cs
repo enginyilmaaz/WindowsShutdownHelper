@@ -107,7 +107,7 @@
             // 
             // toolTip
             // 
-            this.toolTip.AutoPopDelay = 100;
+            this.toolTip.AutoPopDelay = 2000;
             this.toolTip.InitialDelay = 500;
             this.toolTip.IsBalloon = true;
             this.toolTip.ReshowDelay = 100;

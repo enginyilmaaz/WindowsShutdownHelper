@@ -306,7 +306,7 @@ namespace WindowsShutdownHelper
                 {
                     var newAction = new ActionModel();
                     newAction.createdDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-                    var now = DateTime.Now;
+                
 
                     if (comboBox_triggerType.SelectedIndex == (int) enum_combobox_triggerType.FromNow)
                     {
