@@ -328,7 +328,7 @@ namespace WindowsShutdownHelper
             }
         }
 
-        
+
 
         private void button_AddToList_Click(object sender, EventArgs e)
         {
@@ -502,7 +502,7 @@ namespace WindowsShutdownHelper
             settingsFormOpen();
         }
 
-        
+
 
         public void settingsFormOpen()
         {

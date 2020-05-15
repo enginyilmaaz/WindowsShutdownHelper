@@ -166,7 +166,7 @@ namespace WindowsShutdownHelper
                     act.actionType = language.logViewerForm_appStarted;
                 }
 
-                if (act.actionType == config.actionTypes.appStarted)
+                if (act.actionType == config.actionTypes.appTerminated)
                 {
                     act.actionType = language.logViewerForm_appTerminated;
                 }
@@ -272,34 +272,34 @@ namespace WindowsShutdownHelper
 
         public void filteringAndSorting()
         {
-            int selectedSorting = comboBox_sorting.SelectedIndex;
-            int selectedfiltering = comboBox_filtering.SelectedIndex;
+            string selectedSorting = comboBox_sorting.Text;
+            string selectedfiltering = comboBox_filtering.Text;
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Choose)
+            if (selectedfiltering == language.logViewerForm_filter_choose)
             {
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal.OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
                     dataGridView_logs.DataSource = logListLocal.OrderByDescending(s => s.actionExecutedDate).ToList();
                 }
 
             }
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Lock)
+            if (selectedfiltering == language.logViewerForm_filter_locks)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_lockComputer || s.actionType == language.logViewerForm_lockComputerManually).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -310,16 +310,16 @@ namespace WindowsShutdownHelper
 
             }
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Unlock)
+            if (selectedfiltering == language.logViewerForm_filter_unlocks)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_unlockComputer).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -331,16 +331,16 @@ namespace WindowsShutdownHelper
             }
 
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.TurnOffMonitor)
+            if (selectedfiltering == language.logViewerForm_filter_turnOffsMonitor)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_turnOffMonitor).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -354,16 +354,16 @@ namespace WindowsShutdownHelper
             }
 
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Sleep)
+            if (selectedfiltering == language.logViewerForm_filter_sleeps)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_sleepComputer).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -375,16 +375,16 @@ namespace WindowsShutdownHelper
             }
 
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.LogOff)
+            if (selectedfiltering == language.logViewerForm_filter_logOffs)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_logOffWindows).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -396,16 +396,16 @@ namespace WindowsShutdownHelper
             }
 
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Shutdown)
+            if (selectedfiltering == language.logViewerForm_filter_shutdowns)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_shutdownComputer).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -416,16 +416,16 @@ namespace WindowsShutdownHelper
 
             }
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.Restart)
+            if (selectedfiltering == language.logViewerForm_filter_restarts)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_restartComputer).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -437,16 +437,16 @@ namespace WindowsShutdownHelper
 
             }
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.AppStarted)
+            if (selectedfiltering == language.logViewerForm_filter_appStarts)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_appStarted).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
@@ -457,16 +457,16 @@ namespace WindowsShutdownHelper
 
             }
 
-            if (selectedfiltering == (int)enum_logViewerForm_Filterings.AppTerminated)
+            if (selectedfiltering == language.logViewerForm_filter_appTerminates)
             {
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.oldestToNewest || selectedSorting == (int)enum_logViewerForm_Sortings.Choose)
+                if (selectedSorting == language.logViewerForm_sorting_OldestToNewest || selectedSorting == language.logViewerForm_sorting_choose)
                 {
                     dataGridView_logs.DataSource = logListLocal
                         .Where(s => s.actionType == language.logViewerForm_appTerminated).
                         OrderBy(s => s.actionExecutedDate).ToList();
                 }
 
-                if (selectedSorting == (int)enum_logViewerForm_Sortings.newestToOld)
+                if (selectedSorting == language.logViewerForm_sorting_newestToOld)
                 {
 
                     dataGridView_logs.DataSource = logListLocal
