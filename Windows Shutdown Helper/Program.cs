@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using WindowsShutdownHelper.default_settings;
+using WindowsShutdownHelper.config;
 using WindowsShutdownHelper.functions;
 
 namespace WindowsShutdownHelper

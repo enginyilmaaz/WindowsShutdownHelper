@@ -64,7 +64,7 @@ namespace WindowsShutdownHelper.functions
 
                 foreach (string lang in existLanguages)
                 {
-                    string language = lang.Substring(lang.Length - 2);
+                   
                     if (settings.language == "auto")
                     {
                         if (currentCultureLangCode != lang)
@@ -84,6 +84,6 @@ namespace WindowsShutdownHelper.functions
         }
 
 
-        ///
+     
     }
 }

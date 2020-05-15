@@ -11,11 +11,6 @@ namespace WindowsShutdownHelper.functions
     {
         public static language language = languageSelector.languageFile();
         public static string actionTypeName;
-        public static string messageTitle = "Info";
-        public static string messageContent_CountdownNotify = " seconds later it will be:";
-        public static string messageContent_youCanThat = "If you don't want that";
-        public static string messageContent_DoThatForNotWant_systemIdle = "Press a key or move the mouse";
-
 
         public static void showNotification(ActionModel action, uint idleTimeMin)
         {
@@ -35,7 +30,7 @@ namespace WindowsShutdownHelper.functions
             {
                 actionTypeLocalization(action);
 
-                if (action.triggerType == "systemIdle")
+                if (action.triggerType == config.triggerTypes.systemIdle)
                 {
                     int actionValue = Convert.ToInt32(action.value);
                     if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds)
@@ -54,7 +49,7 @@ namespace WindowsShutdownHelper.functions
                     }
                 }
 
-                else if (action.triggerType == "fromNow")
+                else if (action.triggerType == config.triggerTypes.fromNow)
                 {
                     DateTime actionExecuteDate = DateTime.Parse(action.value)
                         .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds));
@@ -78,7 +73,7 @@ namespace WindowsShutdownHelper.functions
                 }
 
 
-                else if (action.triggerType == "certainTime")
+                else if (action.triggerType == config.triggerTypes.certainTime)
                 {
                     DateTime actionExecuteDate = DateTime.Parse(action.value)
                         .AddSeconds(Convert.ToDouble(-settings.countdownNotifierSeconds));
@@ -106,27 +101,27 @@ namespace WindowsShutdownHelper.functions
 
         public static void actionTypeLocalization(ActionModel action)
         {
-            if (action.actionType == "lockComputer")
+            if (action.actionType == config.actionTypes.lockComputer)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_lockComputer;
             }
-            else if (action.actionType == "shutdownComputer")
+            else if (action.actionType == config.actionTypes.shutdownComputer)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_shutdownComputer;
             }
-            else if (action.actionType == "restartComputer")
+            else if (action.actionType == config.actionTypes.restartComputer)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_restartComputer;
             }
-            else if (action.actionType == "logOffWindows")
+            else if (action.actionType == config.actionTypes.logOffWindows)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_logOffWindows;
             }
-            else if (action.actionType == "sleepComputer")
+            else if (action.actionType == config.actionTypes.sleepComputer)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_sleepComputer;
             }
-            else if (action.actionType == "turnOffMonitor")
+            else if (action.actionType == config.actionTypes.turnOffMonitor)
             {
                 actionTypeName = language.main_cbox_ActionType_Item_turnOffMonitor;
             }

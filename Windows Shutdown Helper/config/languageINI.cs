@@ -77,16 +77,26 @@
         public string logViewerForm_restartComputer { get; set; }
         public string logViewerForm_logOffWindows { get; set; }
         public string logViewerForm_appStarted { get; set; }
-        public string logViewerForm_appClosed { get; set; }
+        public string logViewerForm_appTerminated { get; set; }
         public string logViewerForm_button_clearLogs { get; set; }
         public string logViewerForm_button_cancel { get; set; }
         public string messageContent_clearedLogs { get; set; }
         public string messageContent_thisWillAutoClose { get; set; }
-
-        public string logViewerForm_tooltip_sortActionType_ascending { get; set; }
-        public string logViewerForm_tooltip_sortActionType_descending { get; set; }
-        public string logViewerForm_tooltip_sortActionExecutedDate_ascending { get; set; }
-        public string logViewerForm_tooltip_sortActionExecutedDate_descending { get; set; }
+        public string logViewerForm_sorting_choose { get; set; }
+        public string logViewerForm_sorting_newestToOld { get; set; }
+        public string logViewerForm_sorting_OldestToNewest { get; set; }
+        public string logViewerForm_label_filtering { get; set; }
+        public string logViewerForm_label_sorting { get; set; }
+        public string logViewerForm_filter_choose { get; set; }
+        public string logViewerForm_filter_locks { get; set; }
+        public string logViewerForm_filter_unlocks { get; set; }
+        public string logViewerForm_filter_turnOffsMonitor { get; set; }
+        public string logViewerForm_filter_restarts { get; set; }
+        public string logViewerForm_filter_shutdowns { get; set; }
+        public string logViewerForm_filter_logOffs { get; set; }
+        public string logViewerForm_filter_sleeps { get; set; }
+        public string logViewerForm_filter_appStarts { get; set; }
+        public string logViewerForm_filter_appTerminates { get; set; }
 
         public string messageContent_CountdownNotify { get; set; }
         public string messageContent_CountdownNotify_2 { get; set; }

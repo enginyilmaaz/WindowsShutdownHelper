@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>WindowsShutdownHelper</RootNamespace>
     <AssemblyName>Windows Shutdown Helper</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -87,9 +87,7 @@
       <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -108,8 +106,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.5.0.0-preview.3.20214.6\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.4.7.1\lib\net461\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.5.0.0-preview.3.20214.6\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -121,11 +119,15 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="config\actionTypes.cs" />
+    <Compile Include="config\triggerTypes.cs" />
+    <Compile Include="Enums\enum_logViewerForm_Sortings.cs" />
     <Compile Include="Enums\enum_cmStrip_notifyIcon.cs" />
     <Compile Include="Enums\enum_combobox_actionType.cs" />
     <Compile Include="Enums\enum_combobox_triggerType.cs" />
     <Compile Include="Enums\enum_cmStrip_MainForm.cs" />
     <Compile Include="Enums\enum_cmStrip_mainGrid.cs" />
+    <Compile Include="Enums\enum_logViewerForm_Filterings.cs" />
     <Compile Include="functions\detectScreen.cs" />
     <Compile Include="functions\jsonWriter.cs" />
     <Compile Include="functions\languageSelector.cs" />
@@ -133,9 +135,9 @@
     <Compile Include="functions\logSystem.cs" />
     <Compile Include="functions\notifySystem.cs" />
     <Compile Include="functions\startWithWindows.cs" />
-    <Compile Include="default_settings\languageINI.cs" />
-    <Compile Include="default_settings\lang\lang_en.cs" />
-    <Compile Include="default_settings\lang\lang_tr.cs" />
+    <Compile Include="config\languageINI.cs" />
+    <Compile Include="config\lang\lang_en.cs" />
+    <Compile Include="config\lang\lang_tr.cs" />
     <Compile Include="logViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,7 +173,7 @@
     <Compile Include="settingsForm.Designer.cs">
       <DependentUpon>settingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="default_settings\settingsINI.cs" />
+    <Compile Include="config\settingsINI.cs" />
     <EmbeddedResource Include="logViewer.resx">
       <DependentUpon>logViewer.cs</DependentUpon>
     </EmbeddedResource>

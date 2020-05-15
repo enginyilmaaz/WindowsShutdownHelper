@@ -56,7 +56,7 @@ namespace WindowsShutdownHelper
         {
             foreach (ActionModel action in actionList.ToList())
             {
-                if (action.triggerType == "fromNow")
+                if (action.triggerType == config.triggerTypes.fromNow)
                 {
                     DateTime actionDate = DateTime.Parse(action.value);
                     if (DateTime.Now > actionDate)
@@ -70,7 +70,7 @@ namespace WindowsShutdownHelper
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            Logger.doLog("appStarted");
+            Logger.doLog(config.actionTypes.appStarted);
             Text = language.main_FormName;
             toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now;
             notifyIcon_main.Text = language.main_FormName + " " + language.notifyIcon_main;
@@ -175,47 +175,47 @@ namespace WindowsShutdownHelper
 
             foreach (ActionModel act in actionListTemp)
             {
-                if (act.actionType == "logOffWindows")
+                if (act.actionType == config.actionTypes.logOffWindows)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_logOffWindows;
                 }
 
-                if (act.actionType == "lockComputer")
+                if (act.actionType == config.actionTypes.lockComputer)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_lockComputer;
                 }
 
-                if (act.actionType == "shutdownComputer")
+                if (act.actionType == config.actionTypes.shutdownComputer)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_shutdownComputer;
                 }
 
-                if (act.actionType == "restartComputer")
+                if (act.actionType == config.actionTypes.restartComputer)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_restartComputer;
                 }
 
-                if (act.actionType == "turnOffMonitor")
+                if (act.actionType == config.actionTypes.turnOffMonitor)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_turnOffMonitor;
                 }
 
-                if (act.actionType == "sleepComputer")
+                if (act.actionType == config.actionTypes.sleepComputer)
                 {
                     act.actionType = language.main_cbox_ActionType_Item_sleepComputer;
                 }
 
-                if (act.triggerType == "systemIdle")
+                if (act.triggerType == config.triggerTypes.systemIdle)
                 {
                     act.triggerType = language.main_cbox_TriggerType_Item_systemIdle;
                 }
 
-                if (act.triggerType == "certainTime")
+                if (act.triggerType == config.triggerTypes.certainTime)
                 {
                     act.triggerType = language.main_cbox_TriggerType_Item_certainTime;
                 }
 
-                if (act.triggerType == "fromNow")
+                if (act.triggerType == config.triggerTypes.fromNow)
                 {
                     act.triggerType = language.main_cbox_TriggerType_Item_fromNow;
                 }
@@ -247,12 +247,12 @@ namespace WindowsShutdownHelper
 
         private void doAction(ActionModel action, uint idleTimeMin)
         {
-            if (action.triggerType == "systemIdle" && idleTimeMin == Convert.ToInt32(action.value) * 60)
+            if (action.triggerType == config.triggerTypes.systemIdle && idleTimeMin == Convert.ToInt32(action.value) * 60)
             {
                 Actions.doActionByTypes(action);
             }
 
-            if (action.triggerType == "certainTime" && action.value == DateTime.Now.ToString("HH:mm:ss")
+            if (action.triggerType == config.triggerTypes.certainTime && action.value == DateTime.Now.ToString("HH:mm:ss")
             )
             {
                 if (isSkippedCertainTimeAction == false)
@@ -265,7 +265,7 @@ namespace WindowsShutdownHelper
                 }
             }
 
-            if (action.triggerType == "fromNow" && action.value == DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
+            if (action.triggerType == config.triggerTypes.fromNow && action.value == DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
             {
                 Actions.doActionByTypes(action);
                 actionList.Remove(action);
@@ -328,9 +328,7 @@ namespace WindowsShutdownHelper
             }
         }
 
-        private void trigger_groupBox_Enter(object sender, EventArgs e)
-        {
-        }
+        
 
         private void button_AddToList_Click(object sender, EventArgs e)
         {
@@ -346,7 +344,7 @@ namespace WindowsShutdownHelper
 
                     if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.FromNow)
                     {
-                        newAction.triggerType = "fromNow";
+                        newAction.triggerType = config.triggerTypes.fromNow;
                         newAction.value = DateTime.Now.AddMinutes(Convert.ToDouble(numericUpDown_value.Value))
                             .ToString("dd.MM.yyyy HH:mm:ss");
                     }
@@ -354,45 +352,45 @@ namespace WindowsShutdownHelper
 
                     else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.SystemIdleTime)
                     {
-                        newAction.triggerType = "systemIdle";
+                        newAction.triggerType = config.triggerTypes.systemIdle;
                         newAction.value = numericUpDown_value.Value.ToString();
                     }
 
 
                     else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.CertainTime)
                     {
-                        newAction.triggerType = "certainTime";
+                        newAction.triggerType = config.triggerTypes.certainTime;
                         newAction.value = dateTimePicker_time.Value.ToString("HH:mm:00");
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LockComputer)
                     {
-                        newAction.actionType = "lockComputer";
+                        newAction.actionType = config.actionTypes.lockComputer;
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LogOff)
                     {
-                        newAction.actionType = "logOffWindows";
+                        newAction.actionType = config.actionTypes.logOffWindows;
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Restart)
                     {
-                        newAction.actionType = "restartComputer";
+                        newAction.actionType = config.actionTypes.restartComputer;
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Shutdown)
                     {
-                        newAction.actionType = "shutdownComputer";
+                        newAction.actionType = config.actionTypes.shutdownComputer;
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Sleep)
                     {
-                        newAction.actionType = "sleepComputer";
+                        newAction.actionType = config.actionTypes.sleepComputer;
                     }
 
                     if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.TurnOffMonitor)
                     {
-                        newAction.actionType = "turnOffMonitor";
+                        newAction.actionType = config.actionTypes.turnOffMonitor;
                     }
 
                     if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
@@ -504,9 +502,7 @@ namespace WindowsShutdownHelper
             settingsFormOpen();
         }
 
-        private void mainForm_Resize(object sender, EventArgs e)
-        {
-        }
+        
 
         public void settingsFormOpen()
         {
@@ -559,7 +555,7 @@ namespace WindowsShutdownHelper
 
         private void exitTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Logger.doLog("appClosed");
+            Logger.doLog(config.actionTypes.appTerminated);
             Application.ExitThread();
         }
 
@@ -648,7 +644,7 @@ namespace WindowsShutdownHelper
 
         private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Logger.doLog("appClosed");
+            Logger.doLog(config.actionTypes.appTerminated);
         }
 
         private void toolStripMenuItem_showSetting_Click(object sender, EventArgs e)
@@ -663,7 +659,7 @@ namespace WindowsShutdownHelper
 
         private void toolStripMenuItem_exit_Click(object sender, EventArgs e)
         {
-            Logger.doLog("appClosed");
+            Logger.doLog(config.actionTypes.appTerminated);
             Application.ExitThread();
         }
 

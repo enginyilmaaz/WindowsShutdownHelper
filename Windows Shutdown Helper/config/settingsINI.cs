@@ -1,4 +1,4 @@
-﻿namespace WindowsShutdownHelper.default_settings
+﻿namespace WindowsShutdownHelper.config
 {
     public static class settingsINI
     {

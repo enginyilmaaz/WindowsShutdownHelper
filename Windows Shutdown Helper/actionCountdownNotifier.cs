@@ -41,21 +41,21 @@ namespace WindowsShutdownHelper
             label_title.Text = messageTitle;
 
 
-            if (action.triggerType == "systemIdle")
+            if (action.triggerType == config.triggerTypes.systemIdle)
             {
                 button_Ignore.Enabled = true;
                 button_skip.Enabled = false;
                 button_delete.Enabled = false;
             }
 
-            if (action.triggerType == "fromNow")
+            if (action.triggerType == config.triggerTypes.fromNow)
             {
                 button_Ignore.Enabled = true;
                 button_skip.Enabled = false;
                 button_delete.Enabled = true;
             }
 
-            if (action.triggerType == "certainTime")
+            if (action.triggerType == config.triggerTypes.certainTime)
             {
                 button_Ignore.Enabled = true;
                 button_skip.Enabled = true;
@@ -86,7 +86,7 @@ namespace WindowsShutdownHelper
                 Close();
             }
 
-            if (action.triggerType == "systemIdle")
+            if (action.triggerType == config.triggerTypes.systemIdle)
             {
                 uint idleTimeMin = systemIdleDetector.GetLastInputTime();
                 if (idleTimeMin == 0)
