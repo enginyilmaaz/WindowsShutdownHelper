@@ -31,7 +31,7 @@ namespace WindowsShutdownHelper.functions
                 TurnOff.Monitor();
             }
 
-            if (action.actionType == config.actionTypes.turnOffMonitor)
+            if (action.actionType == config.actionTypes.shutdownComputer)
             {
                 ShutdownComputer();
             }
@@ -41,7 +41,7 @@ namespace WindowsShutdownHelper.functions
                 RestartComputer();
             }
 
-            if (action.actionType == config.actionTypes.lockComputer)
+            if (action.actionType == config.actionTypes.logOffWindows)
             {
                 LogOff.Windows();
             }
