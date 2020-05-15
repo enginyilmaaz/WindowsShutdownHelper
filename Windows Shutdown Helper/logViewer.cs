@@ -141,7 +141,7 @@ namespace WindowsShutdownHelper
                     act.actionType = language.logViewerForm_restartComputer;
                 }
 
-                if (act.actionType == config.actionTypes.restartComputer)
+                if (act.actionType == config.actionTypes.turnOffMonitor)
                 {
                     act.actionType = language.logViewerForm_turnOffMonitor;
                 }
