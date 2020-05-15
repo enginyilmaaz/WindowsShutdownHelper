@@ -56,11 +56,13 @@ namespace WindowsShutdownHelper
         private void button_clearLogs_Click(object sender, EventArgs e)
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+            {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json");
+            }
 
             logRecordShowLocally();
 
-            var popUpViewer = new popUpViewer(language.messageTitle_success,
+            popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                 language.messageContent_clearedLogs + "\n" + language.messageContent_thisWillAutoClose,
                 3, Resources.success, Location.X, Location.Y, Width, Height);
             popUpViewer.ShowDialog();
@@ -87,22 +89,64 @@ namespace WindowsShutdownHelper
         public void logRecordShowLocally()
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+            {
                 logListLocal = JsonSerializer
                     .Deserialize<List<logSystem>>(
                         File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderBy(a => a.actionExecutedDate).Take(250).ToList();
+            }
 
-            foreach (var act in logListLocal)
+            foreach (logSystem act in logListLocal)
             {
-                if (act.actionType == "logOffWindows") act.actionType = language.logViewerForm_logOffWindows;
-                if (act.actionType == "lockComputer") act.actionType = language.logViewerForm_lockComputer;
-                if (act.actionType == "shutdownComputer") act.actionType = language.logViewerForm_shutdownComputer;
-                if (act.actionType == "restartComputer") act.actionType = language.logViewerForm_restartComputer;
-                if (act.actionType == "turnOffMonitor") act.actionType = language.logViewerForm_turnOffMonitor;
-                if (act.actionType == "sleepComputer") act.actionType = language.logViewerForm_sleepComputer;
+                if (act.actionType == "logOffWindows")
+                {
+                    act.actionType = language.logViewerForm_logOffWindows;
+                }
+
+                if (act.actionType == "lockComputer")
+                {
+                    act.actionType = language.logViewerForm_lockComputer;
+                }
+
+                if (act.actionType == "shutdownComputer")
+                {
+                    act.actionType = language.logViewerForm_shutdownComputer;
+                }
+
+                if (act.actionType == "restartComputer")
+                {
+                    act.actionType = language.logViewerForm_restartComputer;
+                }
+
+                if (act.actionType == "turnOffMonitor")
+                {
+                    act.actionType = language.logViewerForm_turnOffMonitor;
+                }
+
+                if (act.actionType == "sleepComputer")
+                {
+                    act.actionType = language.logViewerForm_sleepComputer;
+                }
+
                 if (act.actionType == "lockComputerManually")
+                {
                     act.actionType = language.logViewerForm_lockComputerManually;
-                if (act.actionType == "unlockComputer") act.actionType = language.logViewerForm_unlockComputer;
+                }
+
+                if (act.actionType == "unlockComputer")
+                {
+                    act.actionType = language.logViewerForm_unlockComputer;
+                }
+
+                if (act.actionType == "appStarted")
+                {
+                    act.actionType = language.logViewerForm_appStarted;
+                }
+
+                if (act.actionType == "appClosed")
+                {
+                    act.actionType = language.logViewerForm_appClosed;
+                }
             }
 
             dataGridView_logs.DataSource = null;
@@ -114,10 +158,14 @@ namespace WindowsShutdownHelper
 
         public void cellHeaderNumerator()
         {
-            var rowNumber = 1;
+            int rowNumber = 1;
             foreach (DataGridViewRow row in dataGridView_logs.Rows)
             {
-                if (row.IsNewRow == false) row.HeaderCell.Value = "" + rowNumber;
+                if (row.IsNewRow == false)
+                {
+                    row.HeaderCell.Value = "" + rowNumber;
+                }
+
                 rowNumber = rowNumber + 1;
             }
 
@@ -127,14 +175,18 @@ namespace WindowsShutdownHelper
 
         private void dataGridView_logs_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var columnName = dataGridView_logs.Columns[e.ColumnIndex].Name;
+            string columnName = dataGridView_logs.Columns[e.ColumnIndex].Name;
             toolTip.Hide(dataGridView_logs);
             if (columnName == "actionExecutedDate")
             {
                 if (sortAscending_actionExecutedDate)
+                {
                     dataGridView_logs.DataSource = logListLocal.OrderBy(s => s.actionExecutedDate).ToList();
+                }
                 else
+                {
                     dataGridView_logs.DataSource = logListLocal.OrderByDescending(s => s.actionExecutedDate).ToList();
+                }
 
                 sortAscending_actionExecutedDate = !sortAscending_actionExecutedDate;
             }
@@ -174,8 +226,8 @@ namespace WindowsShutdownHelper
 
                             toolTip.SetToolTip(dataGridView_logs,
                                 language.logViewerForm_tooltip_sortActionType_ascending);
-                            cursorX= Cursor.Position.X;
-                            cursorY= Cursor.Position.Y;
+                            cursorX = Cursor.Position.X;
+                            cursorY = Cursor.Position.Y;
                         }
 
                         else

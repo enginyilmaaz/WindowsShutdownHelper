@@ -1,10 +1,10 @@
 ﻿namespace WindowsShutdownHelper.default_settings
 {
-    public static class settingFileGenerator
+    public static class settingsINI
     {
         public static settings defaulSettingFile()
         {
-            var setting = new settings
+            settings setting = new settings
             {
                 logsEnabled = true,
                 startWithWindows = false,

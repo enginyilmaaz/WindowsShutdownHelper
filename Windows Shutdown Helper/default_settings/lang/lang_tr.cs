@@ -4,7 +4,7 @@
     {
         public static language lang_turkish()
         {
-            var lang = new language
+            language lang = new language
             {
                 main_FormName = "Sistem Güç Yardımcısı",
                 main_groupbox_newAction = "Yeni Görev",
@@ -65,6 +65,8 @@
                 logViewerForm_shutdownComputer = "Bilgisayar otomatik olarak  kapatıldı",
                 logViewerForm_restartComputer = "Bilgisayar otomatik olarak  yeniden başlatıldı",
                 logViewerForm_logOffWindows = "Oturum otomatik olarak  kapatıldı",
+                logViewerForm_appStarted = "Uygulama başlatıldı",
+                logViewerForm_appClosed = "Uygulama sonlandırıldı",
                 logViewerForm_button_clearLogs = "Kayıtları Sil",
                 logViewerForm_button_cancel = "Kapat",
                 logViewerForm_tooltip_sortActionType_ascending = "Yapılan işlemleri sırala:  A -> Z",
@@ -94,6 +96,7 @@
                 messageContent_settingsSaved = "Ayarlar başarıyla kaydedildi",
                 messageContent_settingSavedWithLangChanged =
                     "Değişiklikleri uygulamak için lütfen programı yeniden başlatın."
+
             };
 
 

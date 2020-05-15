@@ -7,13 +7,13 @@ namespace WindowsShutdownHelper.functions
     {
         public static void WriteJson(string fileNameWithExtension, bool writeIndented, object willWriteListOrClass)
         {
-            var options = new JsonSerializerOptions
+            JsonSerializerOptions options = new JsonSerializerOptions
             {
                 WriteIndented = writeIndented
             };
 
-            var json = JsonSerializer.Serialize(willWriteListOrClass, options);
-            var sw = new StreamWriter(fileNameWithExtension, false);
+            string json = JsonSerializer.Serialize(willWriteListOrClass, options);
+            StreamWriter sw = new StreamWriter(fileNameWithExtension, false);
             sw.WriteLine(json);
             sw.Close();
         }

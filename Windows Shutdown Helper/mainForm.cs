@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
+using WindowsShutdownHelper.Enums;
 using WindowsShutdownHelper.functions;
 using WindowsShutdownHelper.Properties;
 
@@ -12,36 +13,7 @@ namespace WindowsShutdownHelper
 {
     public partial class mainForm : Form
     {
-        public enum enum_cmStrip_mainGrid
-        {
-            DeleteSelectedAction = 0,
-            DeleteAllAction = 1
-        }
 
-        public enum enum_cmStrip_notifyIcon
-        {
-            AddNewAction = 0,
-            Settings = 1,
-            ShowLogs = 2,
-            ExitTheProgram = 3
-        }
-
-        public enum enum_combobox_actionType
-        {
-            Shutdown = 1,
-            Restart = 2,
-            LogOff = 3,
-            Sleep = 4,
-            LockComputer = 5,
-            TurnOffMonitor = 6
-        }
-
-        public enum enum_combobox_triggerType
-        {
-            SystemIdleTime = 1,
-            FromNow = 2,
-            CertainTime = 3
-        }
 
         public static language language = languageSelector.languageFile();
         public static List<ActionModel> actionList = new List<ActionModel>();
@@ -59,38 +31,46 @@ namespace WindowsShutdownHelper
 
         protected override void OnLoad(EventArgs e)
         {
-            var args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
 
 
-            foreach (var arg in args)
-
+            foreach (string arg in args)
+            {
                 if (arg == "-runInTaskBar" && runInTaskbarCounter <= 0)
                 {
                     ++runInTaskbarCounter;
                     Hide();
                     ShowInTaskbar = false;
                 }
+            }
 
             base.OnLoad(e);
         }
 
 
+
+
+
+
         public void deleteExpriedAction()
         {
-            foreach (var action in actionList.ToList())
+            foreach (ActionModel action in actionList.ToList())
+            {
                 if (action.triggerType == "fromNow")
                 {
-                    var actionDate = DateTime.Parse(action.value);
+                    DateTime actionDate = DateTime.Parse(action.value);
                     if (DateTime.Now > actionDate)
                     {
                         actionList.Remove(action);
                         writeJsonToActionList();
                     }
                 }
+            }
         }
 
         private void mainForm_Load(object sender, EventArgs e)
         {
+            Logger.doLog("appStarted");
             Text = language.main_FormName;
             toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now;
             notifyIcon_main.Text = language.main_FormName + " " + language.notifyIcon_main;
@@ -139,22 +119,37 @@ namespace WindowsShutdownHelper
             groupBox_actionList.Text = language.main_groupBox_actionList;
 
 
-            contextMenuStrip_mainGrid.Items[(int) enum_cmStrip_mainGrid.DeleteAllAction].Text =
+            contextMenuStrip_mainGrid.Items[(int)enum_cmStrip_mainGrid.DeleteAllAction].Text =
                 language.contextMenuStrip_mainGrid_deleteAllAction;
-            contextMenuStrip_mainGrid.Items[(int) enum_cmStrip_mainGrid.DeleteSelectedAction].Text =
+            contextMenuStrip_mainGrid.Items[(int)enum_cmStrip_mainGrid.DeleteSelectedAction].Text =
                 language.contextMenuStrip_mainGrid_deleteSelectedAction;
 
-            contextMenuStrip_notifyIcon.Items[(int) enum_cmStrip_notifyIcon.AddNewAction].Text =
+
+
+
+            contextMenuStrip_notifyIcon.Items[(int)enum_cmStrip_notifyIcon.AddNewAction].Text =
                 language.contextMenuStrip_notifyIcon_addNewAction;
 
-            contextMenuStrip_notifyIcon.Items[(int) enum_cmStrip_notifyIcon.ExitTheProgram].Text =
+            contextMenuStrip_notifyIcon.Items[(int)enum_cmStrip_notifyIcon.ExitTheProgram].Text =
                 language.contextMenuStrip_notifyIcon_exitProgram;
 
-            contextMenuStrip_notifyIcon.Items[(int) enum_cmStrip_notifyIcon.Settings].Text =
+            contextMenuStrip_notifyIcon.Items[(int)enum_cmStrip_notifyIcon.Settings].Text =
                 language.contextMenuStrip_notifyIcon_showSettings;
 
-            contextMenuStrip_notifyIcon.Items[(int) enum_cmStrip_notifyIcon.ShowLogs].Text =
+            contextMenuStrip_notifyIcon.Items[(int)enum_cmStrip_notifyIcon.ShowLogs].Text =
                 language.contextMenuStrip_notifyIcon_showLogs;
+
+
+
+            contextMenuStrip_MainForm.Items[(int)enum_cmStrip_MainForm.Settings].Text =
+                language.contextMenuStrip_notifyIcon_showSettings;
+
+            contextMenuStrip_MainForm.Items[(int)enum_cmStrip_MainForm.ShowLogs].Text =
+                language.contextMenuStrip_notifyIcon_showLogs;
+
+            contextMenuStrip_MainForm.Items[(int)enum_cmStrip_MainForm.ExitTheProgram].Text =
+                language.contextMenuStrip_notifyIcon_exitProgram;
+
 
             toolTip.SetToolTip(pictureBox_logs, language.toolTip_showLogs);
             toolTip.SetToolTip(pictureBox_settings, language.toolTip_settings);
@@ -172,27 +167,58 @@ namespace WindowsShutdownHelper
         public void refreshActionList()
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"))
+            {
                 actionListTemp =
                     JsonSerializer.Deserialize<List<ActionModel>>(
                         File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json"));
+            }
 
-            foreach (var act in actionListTemp)
+            foreach (ActionModel act in actionListTemp)
             {
                 if (act.actionType == "logOffWindows")
+                {
                     act.actionType = language.main_cbox_ActionType_Item_logOffWindows;
-                if (act.actionType == "lockComputer") act.actionType = language.main_cbox_ActionType_Item_lockComputer;
-                if (act.actionType == "shutdownComputer")
-                    act.actionType = language.main_cbox_ActionType_Item_shutdownComputer;
-                if (act.actionType == "restartComputer")
-                    act.actionType = language.main_cbox_ActionType_Item_restartComputer;
-                if (act.actionType == "turnOffMonitor")
-                    act.actionType = language.main_cbox_ActionType_Item_turnOffMonitor;
-                if (act.actionType == "sleepComputer")
-                    act.actionType = language.main_cbox_ActionType_Item_sleepComputer;
+                }
 
-                if (act.triggerType == "systemIdle") act.triggerType = language.main_cbox_TriggerType_Item_systemIdle;
-                if (act.triggerType == "certainTime") act.triggerType = language.main_cbox_TriggerType_Item_certainTime;
-                if (act.triggerType == "fromNow") act.triggerType = language.main_cbox_TriggerType_Item_fromNow;
+                if (act.actionType == "lockComputer")
+                {
+                    act.actionType = language.main_cbox_ActionType_Item_lockComputer;
+                }
+
+                if (act.actionType == "shutdownComputer")
+                {
+                    act.actionType = language.main_cbox_ActionType_Item_shutdownComputer;
+                }
+
+                if (act.actionType == "restartComputer")
+                {
+                    act.actionType = language.main_cbox_ActionType_Item_restartComputer;
+                }
+
+                if (act.actionType == "turnOffMonitor")
+                {
+                    act.actionType = language.main_cbox_ActionType_Item_turnOffMonitor;
+                }
+
+                if (act.actionType == "sleepComputer")
+                {
+                    act.actionType = language.main_cbox_ActionType_Item_sleepComputer;
+                }
+
+                if (act.triggerType == "systemIdle")
+                {
+                    act.triggerType = language.main_cbox_TriggerType_Item_systemIdle;
+                }
+
+                if (act.triggerType == "certainTime")
+                {
+                    act.triggerType = language.main_cbox_TriggerType_Item_certainTime;
+                }
+
+                if (act.triggerType == "fromNow")
+                {
+                    act.triggerType = language.main_cbox_TriggerType_Item_fromNow;
+                }
             }
 
             dataGridView_taskList.DataSource = null;
@@ -222,15 +248,21 @@ namespace WindowsShutdownHelper
         private void doAction(ActionModel action, uint idleTimeMin)
         {
             if (action.triggerType == "systemIdle" && idleTimeMin == Convert.ToInt32(action.value) * 60)
+            {
                 Actions.doActionByTypes(action);
+            }
 
             if (action.triggerType == "certainTime" && action.value == DateTime.Now.ToString("HH:mm:ss")
             )
             {
                 if (isSkippedCertainTimeAction == false)
+                {
                     Actions.doActionByTypes(action);
+                }
                 else
+                {
                     isSkippedCertainTimeAction = false;
+                }
             }
 
             if (action.triggerType == "fromNow" && action.value == DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss"))
@@ -246,7 +278,7 @@ namespace WindowsShutdownHelper
         {
             toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now;
 
-            var idleTimeMin = systemIdleDetector.GetLastInputTime();
+            uint idleTimeMin = systemIdleDetector.GetLastInputTime();
 
             if (idleTimeMin == 0)
             {
@@ -260,7 +292,7 @@ namespace WindowsShutdownHelper
                 isDeletedFromNotifier = false;
             }
 
-            foreach (var action in actionList.ToList())
+            foreach (ActionModel action in actionList.ToList())
             {
                 doAction(action, idleTimeMin);
                 notifySystem.showNotification(action, idleTimeMin);
@@ -271,11 +303,12 @@ namespace WindowsShutdownHelper
         private void deleteAction()
         {
             if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
+            {
                 if (dataGridView_taskList.Rows.Count > 0)
                 {
                     if (dataGridView_taskList.CurrentRow != null)
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_success,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                             language.messageContent_actionDeleted, 2,
                             Resources.success, Location.X, Location.Y, Width, Height);
                         popUpViewer.ShowDialog();
@@ -285,13 +318,14 @@ namespace WindowsShutdownHelper
                     }
                     else
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_warn,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_warn,
                             language.messageContent_datagridMain_actionChoose, 2,
                             Resources.warn, Location.X, Location.Y, Width, Height);
                         popUpViewer.ShowDialog();
                         popUpViewer.Focus();
                     }
                 }
+            }
         }
 
         private void trigger_groupBox_Enter(object sender, EventArgs e)
@@ -304,11 +338,13 @@ namespace WindowsShutdownHelper
             {
                 if (comboBox_actionType.SelectedIndex > 0 && comboBox_triggerType.SelectedIndex > 0)
                 {
-                    var newAction = new ActionModel();
-                    newAction.createdDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-                
+                    ActionModel newAction = new ActionModel
+                    {
+                        createdDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                    };
 
-                    if (comboBox_triggerType.SelectedIndex == (int) enum_combobox_triggerType.FromNow)
+
+                    if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.FromNow)
                     {
                         newAction.triggerType = "fromNow";
                         newAction.value = DateTime.Now.AddMinutes(Convert.ToDouble(numericUpDown_value.Value))
@@ -316,36 +352,52 @@ namespace WindowsShutdownHelper
                     }
 
 
-                    else if (comboBox_triggerType.SelectedIndex == (int) enum_combobox_triggerType.SystemIdleTime)
+                    else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.SystemIdleTime)
                     {
                         newAction.triggerType = "systemIdle";
                         newAction.value = numericUpDown_value.Value.ToString();
                     }
 
 
-                    else if (comboBox_triggerType.SelectedIndex == (int) enum_combobox_triggerType.CertainTime)
+                    else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.CertainTime)
                     {
                         newAction.triggerType = "certainTime";
                         newAction.value = dateTimePicker_time.Value.ToString("HH:mm:00");
                     }
 
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.LockComputer)
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LockComputer)
+                    {
                         newAction.actionType = "lockComputer";
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.LogOff)
-                        newAction.actionType = "logOffWindows";
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.Restart)
-                        newAction.actionType = "restartComputer";
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.Shutdown)
-                        newAction.actionType = "shutdownComputer";
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.Sleep)
-                        newAction.actionType = "sleepComputer";
-                    if (comboBox_actionType.SelectedIndex == (int) enum_combobox_actionType.TurnOffMonitor)
-                        newAction.actionType = "turnOffMonitor";
+                    }
 
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.LogOff)
+                    {
+                        newAction.actionType = "logOffWindows";
+                    }
+
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Restart)
+                    {
+                        newAction.actionType = "restartComputer";
+                    }
+
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Shutdown)
+                    {
+                        newAction.actionType = "shutdownComputer";
+                    }
+
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.Sleep)
+                    {
+                        newAction.actionType = "sleepComputer";
+                    }
+
+                    if (comboBox_actionType.SelectedIndex == (int)enum_combobox_actionType.TurnOffMonitor)
+                    {
+                        newAction.actionType = "turnOffMonitor";
+                    }
 
                     if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_success,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                             language.messageContent_actionCreated,
                             2, Resources.success, Location.X,
                             Location.Y, Width, Height);
@@ -363,7 +415,7 @@ namespace WindowsShutdownHelper
                 {
                     if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_warn,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_warn,
                             language.messageContent_actionChoose,
                             2, Resources.warn, Location.X,
                             Location.Y, Width, Height);
@@ -377,7 +429,7 @@ namespace WindowsShutdownHelper
             {
                 if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
                 {
-                    var popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_maxActionWarn,
+                    popUpViewer popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_maxActionWarn,
                         2, Resources.warn, Location.X,
                         Location.Y, Width, Height);
                     popUpViewer.ShowDialog();
@@ -425,12 +477,17 @@ namespace WindowsShutdownHelper
         private void dataGridView_taskList_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (dataGridView_taskList.Rows.Count > 0)
+            {
                 dataGridView_taskList.ContextMenuStrip = contextMenuStrip_mainGrid;
+            }
         }
 
         private void dataGridView_taskList_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            if (dataGridView_taskList.Rows.Count == 0) dataGridView_taskList.ContextMenuStrip = null;
+            if (dataGridView_taskList.Rows.Count == 0)
+            {
+                dataGridView_taskList.ContextMenuStrip = null;
+            }
         }
 
         private void comboBox_actionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -453,7 +510,7 @@ namespace WindowsShutdownHelper
 
         public void settingsFormOpen()
         {
-            var settingsForm = new settingsForm(Location.X, Location.Y, Width, Height);
+            settingsForm settingsForm = new settingsForm(Location.X, Location.Y, Width, Height);
             if (Application.OpenForms.OfType<settingsForm>().Any() == false)
             {
                 settingsForm.Show();
@@ -461,7 +518,7 @@ namespace WindowsShutdownHelper
             }
             else if (Application.OpenForms.OfType<settingsForm>().Any())
             {
-                var popUpViewer = new popUpViewer(language.messageTitle_info, language.messageContent_another + " '" +
+                popUpViewer popUpViewer = new popUpViewer(language.messageTitle_info, language.messageContent_another + " '" +
                                                                               language.settingsForm_Name + "' " +
                                                                               language.messageContent_windowAlredyOpen,
                     3,
@@ -496,11 +553,13 @@ namespace WindowsShutdownHelper
                     e.Cancel = true;
                     Hide();
                 }
+
             }
         }
 
         private void exitTheProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Logger.doLog("appClosed");
             Application.ExitThread();
         }
 
@@ -526,7 +585,7 @@ namespace WindowsShutdownHelper
 
             if (Application.OpenForms.OfType<popUpViewer>().Any() == false)
             {
-                var popUpViewer = new popUpViewer(language.messageTitle_success,
+                popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                     language.messageContent_actionAllDeleted, 2, Resources.success,
                     Location.X,
                     Location.Y, Width, Height);
@@ -540,20 +599,20 @@ namespace WindowsShutdownHelper
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
             {
-                var logList = JsonSerializer
+                List<logSystem> logList = JsonSerializer
                     .Deserialize<List<logSystem>>(
                         File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
                     .OrderByDescending(a => a.actionExecutedDate).Take(250).ToList();
                 if (logList.Count > 0)
                 {
-                    var logViewerForm = new logViewer(logList, Location.X, Location.Y, Width, Height);
+                    logViewer logViewerForm = new logViewer(logList, Location.X, Location.Y, Width, Height);
                     if (Application.OpenForms.OfType<logViewer>().Any() == false)
                     {
                         logViewerForm.Show();
                     }
                     else if (Application.OpenForms.OfType<logViewer>().Any())
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_info,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_info,
                             language.messageContent_another + " '" +
                             language.logViewerForm_Name + "' " + language.messageContent_windowAlredyOpen, 3,
                             Resources.info, Location.X, Location.Y, Width, Height);
@@ -565,7 +624,7 @@ namespace WindowsShutdownHelper
 
                 else
                 {
-                    var popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_noLog, 3,
+                    popUpViewer popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_noLog, 3,
                         Resources.warn, Location.X,
                         Location.Y, Width, Height);
                     popUpViewer.ShowDialog();
@@ -575,7 +634,7 @@ namespace WindowsShutdownHelper
 
             else
             {
-                var popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_noLog, 3,
+                popUpViewer popUpViewer = new popUpViewer(language.messageTitle_warn, language.messageContent_noLog, 3,
                     Resources.warn, Location.X,
                     Location.Y, Width, Height);
                 popUpViewer.ShowDialog();
@@ -585,6 +644,27 @@ namespace WindowsShutdownHelper
 
         private void contextMenuStrip_notifyIcon_Opening(object sender, CancelEventArgs e)
         {
+        }
+
+        private void mainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Logger.doLog("appClosed");
+        }
+
+        private void toolStripMenuItem_showSetting_Click(object sender, EventArgs e)
+        {
+            settingsFormOpen();
+        }
+
+        private void toolStripMenuItem_showLog_Click(object sender, EventArgs e)
+        {
+            showLogs();
+        }
+
+        private void toolStripMenuItem_exit_Click(object sender, EventArgs e)
+        {
+            Logger.doLog("appClosed");
+            Application.ExitThread();
         }
 
 

@@ -9,27 +9,33 @@ namespace WindowsShutdownHelper.functions
     {
         public static void doLog(string actionType)
         {
-            var settings = new settings();
+            settings settings = new settings();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"))
+            {
                 settings = JsonSerializer.Deserialize<settings>(
                     File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
+            }
             else
+            {
                 settings.logsEnabled = true;
-
+            }
 
             if (settings.logsEnabled)
             {
-                var logLists = new List<logSystem>();
+                List<logSystem> logLists = new List<logSystem>();
 
                 if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"))
+                {
                     logLists = JsonSerializer.Deserialize<List<logSystem>>(
                         File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\logs.json"));
+                }
 
-
-                var newLog = new logSystem();
-                newLog.actionType = actionType;
-                newLog.actionExecutedDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                logSystem newLog = new logSystem
+                {
+                    actionType = actionType,
+                    actionExecutedDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss")
+                };
 
                 logLists.Add(newLog);
 

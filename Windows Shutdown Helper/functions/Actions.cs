@@ -16,19 +16,42 @@ namespace WindowsShutdownHelper.functions
     {
         public static void doActionByTypes(ActionModel action)
         {
-            if (action.actionType == "lockComputer") Lock.Computer();
-            if (action.actionType == "sleepComputer") Sleep.Computer();
-            if (action.actionType == "turnOffMonitor") TurnOff.Monitor();
-            if (action.actionType == "shutdownComputer") ShutdownComputer();
-            if (action.actionType == "restartComputer") RestartComputer();
-            if (action.actionType == "logOffWindows") LogOff.Windows();
+            if (action.actionType == "lockComputer")
+            {
+                Lock.Computer();
+            }
+
+            if (action.actionType == "sleepComputer")
+            {
+                Sleep.Computer();
+            }
+
+            if (action.actionType == "turnOffMonitor")
+            {
+                TurnOff.Monitor();
+            }
+
+            if (action.actionType == "shutdownComputer")
+            {
+                ShutdownComputer();
+            }
+
+            if (action.actionType == "restartComputer")
+            {
+                RestartComputer();
+            }
+
+            if (action.actionType == "logOffWindows")
+            {
+                LogOff.Windows();
+            }
         }
 
         public static void ShutdownComputer()
         {
             Logger.doLog("shutdownComputer");
-            var process = new Process();
-            var startInfo = new ProcessStartInfo
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = "shutdown",
@@ -42,8 +65,8 @@ namespace WindowsShutdownHelper.functions
         public static void RestartComputer()
         {
             Logger.doLog("restartComputer");
-            var process = new Process();
-            var startInfo = new ProcessStartInfo
+            Process process = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = "shutdown",
@@ -123,7 +146,7 @@ namespace WindowsShutdownHelper.functions
 
             public static void SetMonitorState(MonitorState state)
             {
-                SendMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int) MonitorState.OFF);
+                SendMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (int)MonitorState.OFF);
             }
 
             public static void Monitor()

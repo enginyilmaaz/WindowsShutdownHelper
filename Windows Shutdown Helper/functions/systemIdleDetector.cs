@@ -11,15 +11,15 @@ namespace WindowsShutdownHelper.functions
         public static uint GetLastInputTime()
         {
             uint idleTime = 0;
-            var lastInputInfo = new LASTINPUTINFO();
-            lastInputInfo.cbSize = (uint) Marshal.SizeOf(lastInputInfo);
+            LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
+            lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
             lastInputInfo.dwTime = 0;
 
-            var envTicks = (uint) Environment.TickCount;
+            uint envTicks = (uint)Environment.TickCount;
 
             if (GetLastInputInfo(ref lastInputInfo))
             {
-                var lastInputTick = lastInputInfo.dwTime;
+                uint lastInputTick = lastInputInfo.dwTime;
 
                 idleTime = envTicks - lastInputTick;
             }

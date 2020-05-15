@@ -121,6 +121,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\enum_cmStrip_notifyIcon.cs" />
+    <Compile Include="Enums\enum_combobox_actionType.cs" />
+    <Compile Include="Enums\enum_combobox_triggerType.cs" />
+    <Compile Include="Enums\enum_cmStrip_MainForm.cs" />
+    <Compile Include="Enums\enum_cmStrip_mainGrid.cs" />
     <Compile Include="functions\detectScreen.cs" />
     <Compile Include="functions\jsonWriter.cs" />
     <Compile Include="functions\languageSelector.cs" />
@@ -128,7 +133,7 @@
     <Compile Include="functions\logSystem.cs" />
     <Compile Include="functions\notifySystem.cs" />
     <Compile Include="functions\startWithWindows.cs" />
-    <Compile Include="default_settings\language.cs" />
+    <Compile Include="default_settings\languageINI.cs" />
     <Compile Include="default_settings\lang\lang_en.cs" />
     <Compile Include="default_settings\lang\lang_tr.cs" />
     <Compile Include="logViewer.cs">
@@ -166,7 +171,7 @@
     <Compile Include="settingsForm.Designer.cs">
       <DependentUpon>settingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="default_settings\settingFileGenerator.cs" />
+    <Compile Include="default_settings\settingsINI.cs" />
     <EmbeddedResource Include="logViewer.resx">
       <DependentUpon>logViewer.cs</DependentUpon>
     </EmbeddedResource>

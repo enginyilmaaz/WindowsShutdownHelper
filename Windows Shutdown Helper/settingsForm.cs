@@ -55,8 +55,8 @@ namespace WindowsShutdownHelper
             }
             else
             {
-                var selectedLang = CultureInfo.GetCultureInfo(settings.language).DisplayName;
-                var selectedIndex = comboBox_lang.FindStringExact(selectedLang);
+                string selectedLang = CultureInfo.GetCultureInfo(settings.language).DisplayName;
+                int selectedIndex = comboBox_lang.FindStringExact(selectedLang);
 
                 comboBox_lang.SelectedIndex = selectedIndex;
             }
@@ -64,28 +64,30 @@ namespace WindowsShutdownHelper
 
         public void comboboxLangDataLoader()
         {
-            var existLanguages = Directory
+            List<string> existLanguages = Directory
                 .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "lang\\", "lang_??.json")
                 .Select(Path.GetFileNameWithoutExtension)
                 .ToList();
-            var langs = new List<languageNames>();
-            var autoLang = new languageNames();
-            var currentlangName = CultureInfo.GetCultureInfo(CultureInfo.CurrentCulture.TwoLetterISOLanguageName)
+            List<languageNames> langs = new List<languageNames>();
+            languageNames autoLang = new languageNames();
+            string currentlangName = CultureInfo.GetCultureInfo(CultureInfo.CurrentCulture.TwoLetterISOLanguageName)
                 .DisplayName;
             autoLang.langCode = "auto";
             autoLang.LangName = language.settingsForm_combobox_auto_lang + "(" + currentlangName + ")";
             langs.Add(autoLang);
 
 
-            foreach (var lng in existLanguages)
+            foreach (string lng in existLanguages)
             {
                 //if (lng.Length <= 2)
                 //{
 
-                var language = lng.Substring(lng.Length - 2);
-                var lang = new languageNames();
-                lang.langCode = language;
-                lang.LangName = CultureInfo.GetCultureInfo(language).DisplayName;
+                string language = lng.Substring(lng.Length - 2);
+                languageNames lang = new languageNames
+                {
+                    langCode = language,
+                    LangName = CultureInfo.GetCultureInfo(language).DisplayName
+                };
                 langs.Add(lang);
                 //}
             } //foreach
@@ -103,17 +105,41 @@ namespace WindowsShutdownHelper
                 settings = JsonSerializer.Deserialize<settings>(
                     File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\settings.json"));
                 firstLangValue = settings.language;
-                if (settings.logsEnabled) checkBox_logEnabled.Checked = true;
-                else checkBox_logEnabled.Checked = false;
+                if (settings.logsEnabled)
+                {
+                    checkBox_logEnabled.Checked = true;
+                }
+                else
+                {
+                    checkBox_logEnabled.Checked = false;
+                }
 
-                if (settings.startWithWindows) checkBox_startWithWindowsEnabled.Checked = true;
-                else checkBox_startWithWindowsEnabled.Checked = false;
+                if (settings.startWithWindows)
+                {
+                    checkBox_startWithWindowsEnabled.Checked = true;
+                }
+                else
+                {
+                    checkBox_startWithWindowsEnabled.Checked = false;
+                }
 
-                if (settings.runInTaskbarWhenClosed) checkBox_runInTaskbarWhenClosed.Checked = true;
-                else checkBox_runInTaskbarWhenClosed.Checked = false;
+                if (settings.runInTaskbarWhenClosed)
+                {
+                    checkBox_runInTaskbarWhenClosed.Checked = true;
+                }
+                else
+                {
+                    checkBox_runInTaskbarWhenClosed.Checked = false;
+                }
 
-                if (settings.isCountdownNotifierEnabled) checkBox_isCountdownNotifierEnabled.Checked = true;
-                else checkBox_isCountdownNotifierEnabled.Checked = false;
+                if (settings.isCountdownNotifierEnabled)
+                {
+                    checkBox_isCountdownNotifierEnabled.Checked = true;
+                }
+                else
+                {
+                    checkBox_isCountdownNotifierEnabled.Checked = false;
+                }
 
                 numericUpDown_countdownNotifierSeconds.Value = settings.countdownNotifierSeconds;
             }
@@ -138,11 +164,23 @@ namespace WindowsShutdownHelper
         {
             try
             {
-                if (checkBox_logEnabled.Checked) settings.logsEnabled = true;
-                else settings.logsEnabled = false;
-                if (checkBox_runInTaskbarWhenClosed.Checked) settings.runInTaskbarWhenClosed = true;
-                else settings.runInTaskbarWhenClosed = false;
+                if (checkBox_logEnabled.Checked)
+                {
+                    settings.logsEnabled = true;
+                }
+                else
+                {
+                    settings.logsEnabled = false;
+                }
 
+                if (checkBox_runInTaskbarWhenClosed.Checked)
+                {
+                    settings.runInTaskbarWhenClosed = true;
+                }
+                else
+                {
+                    settings.runInTaskbarWhenClosed = false;
+                }
 
                 if (checkBox_startWithWindowsEnabled.Checked)
                 {
@@ -157,9 +195,13 @@ namespace WindowsShutdownHelper
                 }
 
                 if (checkBox_isCountdownNotifierEnabled.Checked)
+                {
                     settings.isCountdownNotifierEnabled = true;
+                }
                 else
+                {
                     settings.isCountdownNotifierEnabled = false;
+                }
 
                 settings.countdownNotifierSeconds = Convert.ToInt16(numericUpDown_countdownNotifierSeconds.Value);
 
@@ -169,7 +211,7 @@ namespace WindowsShutdownHelper
 
                 if (firstLangValue == settings.language)
                 {
-                    var popUpViewer = new popUpViewer(language.messageTitle_success,
+                    popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                         language.messageContent_settingsSaved,
                         2, Resources.success, Location.X, Location.Y, Width, Height);
                     popUpViewer.ShowDialog();
@@ -177,7 +219,7 @@ namespace WindowsShutdownHelper
                 else
                 {
                     {
-                        var popUpViewer = new popUpViewer(language.messageTitle_success,
+                        popUpViewer popUpViewer = new popUpViewer(language.messageTitle_success,
                             language.messageContent_settingSavedWithLangChanged,
                             4, Resources.success, Location.X, Location.Y, Width, Height);
                         popUpViewer.ShowDialog();

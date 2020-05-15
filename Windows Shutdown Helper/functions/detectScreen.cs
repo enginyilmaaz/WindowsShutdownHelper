@@ -15,7 +15,11 @@ namespace WindowsShutdownHelper.functions
         {
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
-                if (Actions.Lock.isLockedManually()) Logger.doLog("lockComputerManually");
+                if (Actions.Lock.isLockedManually())
+                {
+                    Logger.doLog("lockComputerManually");
+                }
+
                 isLocked = true;
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)

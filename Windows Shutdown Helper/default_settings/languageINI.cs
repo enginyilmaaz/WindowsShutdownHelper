@@ -76,6 +76,8 @@
         public string logViewerForm_shutdownComputer { get; set; }
         public string logViewerForm_restartComputer { get; set; }
         public string logViewerForm_logOffWindows { get; set; }
+        public string logViewerForm_appStarted { get; set; }
+        public string logViewerForm_appClosed { get; set; }
         public string logViewerForm_button_clearLogs { get; set; }
         public string logViewerForm_button_cancel { get; set; }
         public string messageContent_clearedLogs { get; set; }
@@ -108,9 +110,5 @@
         public string messageContent_settingsSaved { get; set; }
         public string messageContent_settingSavedWithLangChanged { get; set; }
 
-
-        //public string main_datagrid_main_actionType { get; set; }
-        //public string main_datagrid_main_value { get; set; }
-        //public string main_datagrid_main_createdDate { get; set; }
     }
 }

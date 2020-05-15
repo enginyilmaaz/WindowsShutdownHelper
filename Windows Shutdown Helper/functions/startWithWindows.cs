@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace WindowsShutdownHelper.functions
 {
@@ -15,13 +15,17 @@ namespace WindowsShutdownHelper.functions
         public static void Is64BitOS()
         {
             if (Environment.Is64BitOperatingSystem)
+            {
                 startupKey = RegistryKey
                     .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64)
                     .OpenSubKey(keyName, true);
+            }
             else
+            {
                 startupKey = RegistryKey
                     .OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32)
                     .OpenSubKey(keyName, true);
+            }
         }
 
         public static void AddStartup(string appTitle)
@@ -29,7 +33,9 @@ namespace WindowsShutdownHelper.functions
             Is64BitOS();
 
             if (startupKey.GetValue(appTitle) == null)
+            {
                 startupKey.SetValue(appTitle, pathwithArguments, RegistryValueKind.String);
+            }
 
             startupKey.Close();
         }
@@ -38,7 +44,11 @@ namespace WindowsShutdownHelper.functions
         public static void DeleteStartup(string appTitle)
         {
             Is64BitOS();
-            if (startupKey.GetValue(appTitle) != null) startupKey.DeleteValue(appTitle);
+            if (startupKey.GetValue(appTitle) != null)
+            {
+                startupKey.DeleteValue(appTitle);
+            }
+
             startupKey.Close();
         }
     }

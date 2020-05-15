@@ -88,7 +88,7 @@ namespace WindowsShutdownHelper
 
             if (action.triggerType == "systemIdle")
             {
-                var idleTimeMin = systemIdleDetector.GetLastInputTime();
+                uint idleTimeMin = systemIdleDetector.GetLastInputTime();
                 if (idleTimeMin == 0)
                 {
                     timer.Stop();
@@ -139,7 +139,7 @@ namespace WindowsShutdownHelper
         {
             if (dragging)
             {
-                var dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
                 Location = Point.Add(dragFormPoint, new Size(dif));
             }
         }
