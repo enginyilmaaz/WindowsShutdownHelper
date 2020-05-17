@@ -17,10 +17,11 @@ namespace WindowsShutdownHelper.functions
             {
                 if (Actions.Lock.isLockedManually())
                 {
-                    Logger.doLog(config.actionTypes.lockComputerManually);
+                    Logger.doLog(config.actionTypes.lockComputerManually); 
+                    isLocked = true;
                 }
 
-                isLocked = true;
+             
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {

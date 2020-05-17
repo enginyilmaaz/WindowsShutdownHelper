@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,7 +35,6 @@
             this.button_clearLogs = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
             this.dataGridView_logs = new System.Windows.Forms.DataGridView();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.comboBox_filtering = new System.Windows.Forms.ComboBox();
             this.comboBox_sorting = new System.Windows.Forms.ComboBox();
             this.label_filtering = new System.Windows.Forms.Label();
@@ -106,13 +104,6 @@
             this.dataGridView_logs.ShowEditingIcon = false;
             this.dataGridView_logs.Size = new System.Drawing.Size(614, 379);
             this.dataGridView_logs.TabIndex = 0;
-            // 
-            // toolTip
-            // 
-            this.toolTip.AutoPopDelay = 2000;
-            this.toolTip.InitialDelay = 500;
-            this.toolTip.IsBalloon = true;
-            this.toolTip.ReshowDelay = 100;
             // 
             // comboBox_filtering
             // 
@@ -185,7 +176,6 @@
         private System.Windows.Forms.Button button_clearLogs;
         private System.Windows.Forms.Button button_cancel;
         private System.Windows.Forms.DataGridView dataGridView_logs;
-        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ComboBox comboBox_filtering;
         private System.Windows.Forms.ComboBox comboBox_sorting;
         private System.Windows.Forms.Label label_filtering;
