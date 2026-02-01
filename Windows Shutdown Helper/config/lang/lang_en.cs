@@ -30,6 +30,7 @@
                 main_datagrid_main_triggerType = "Trigger",
                 main_datagrid_main_actionType = "Action Type",
                 main_datagrid_main_value = "Duration / Date",
+                main_datagrid_main_valueUnit = "Unit",
                 main_datagrid_main_createdDate = "Created",
                 notifyIcon_main = "now working in background.",
                 messageTitle_success = "Success",

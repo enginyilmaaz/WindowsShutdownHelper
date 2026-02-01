@@ -36,6 +36,7 @@
         public string main_datagrid_main_triggerType { get; set; }
         public string main_datagrid_main_actionType { get; set; }
         public string main_datagrid_main_value { get; set; }
+        public string main_datagrid_main_valueUnit { get; set; }
         public string main_datagrid_main_createdDate { get; set; }
 
 
