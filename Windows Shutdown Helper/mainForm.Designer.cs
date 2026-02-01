@@ -34,6 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.numericUpDown_value = new System.Windows.Forms.NumericUpDown();
+            this.comboBox_timeUnit = new System.Windows.Forms.ComboBox();
             this.comboBox_actionType = new System.Windows.Forms.ComboBox();
             this.label_actionType = new System.Windows.Forms.Label();
             this.statusStrip_default = new System.Windows.Forms.StatusStrip();
@@ -87,7 +88,7 @@
             0,
             0});
             this.numericUpDown_value.Name = "numericUpDown_value";
-            this.numericUpDown_value.Size = new System.Drawing.Size(257, 25);
+            this.numericUpDown_value.Size = new System.Drawing.Size(155, 25);
             this.numericUpDown_value.TabIndex = 3;
             this.numericUpDown_value.Value = new decimal(new int[] {
             1,
@@ -95,7 +96,17 @@
             0,
             0});
             this.numericUpDown_value.Visible = false;
-            // 
+            //
+            // comboBox_timeUnit
+            //
+            this.comboBox_timeUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_timeUnit.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.comboBox_timeUnit.Location = new System.Drawing.Point(331, 125);
+            this.comboBox_timeUnit.Name = "comboBox_timeUnit";
+            this.comboBox_timeUnit.Size = new System.Drawing.Size(96, 28);
+            this.comboBox_timeUnit.TabIndex = 30;
+            this.comboBox_timeUnit.Visible = false;
+            //
             // comboBox_actionType
             // 
             this.comboBox_actionType.BackColor = System.Drawing.Color.White;
@@ -227,6 +238,7 @@
             // 
             // groupBox_newAction
             // 
+            this.groupBox_newAction.Controls.Add(this.comboBox_timeUnit);
             this.groupBox_newAction.Controls.Add(this.comboBox_actionType);
             this.groupBox_newAction.Controls.Add(this.label_actionType);
             this.groupBox_newAction.Controls.Add(this.label_firstly_choose_a_trigger);
@@ -460,6 +472,7 @@
 
         #endregion
         private System.Windows.Forms.NumericUpDown numericUpDown_value;
+        private System.Windows.Forms.ComboBox comboBox_timeUnit;
         private System.Windows.Forms.ComboBox comboBox_actionType;
         private System.Windows.Forms.Label label_actionType;
         private System.Windows.Forms.StatusStrip statusStrip_default;

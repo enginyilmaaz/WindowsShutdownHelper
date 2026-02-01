@@ -110,6 +110,11 @@ namespace WindowsShutdownHelper
             comboBox_triggerType.Items.Add(language.main_cbox_TriggerType_Item_certainTime);
             comboBox_triggerType.SelectedIndex = 0;
 
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_seconds);
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_minutes);
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_hours);
+            comboBox_timeUnit.SelectedIndex = 1;
+
             label_trigger.Text = language.main_label_trigger + " : ";
             label_value.Text = language.main_label_value + " : ";
             label_firstly_choose_a_trigger.Text = language.label_firstly_choose_a_trigger;
@@ -247,7 +252,7 @@ namespace WindowsShutdownHelper
 
         private void doAction(ActionModel action, uint idleTimeMin)
         {
-            if (action.triggerType == config.triggerTypes.systemIdle && idleTimeMin == Convert.ToInt32(action.value) * 60)
+            if (action.triggerType == config.triggerTypes.systemIdle && idleTimeMin == Convert.ToUInt32(action.value))
             {
                 Actions.doActionByTypes(action);
             }
@@ -346,15 +351,30 @@ namespace WindowsShutdownHelper
                     if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.FromNow)
                     {
                         newAction.triggerType = config.triggerTypes.fromNow;
-                        newAction.value = DateTime.Now.AddMinutes(Convert.ToDouble(numericUpDown_value.Value))
-                            .ToString("dd.MM.yyyy HH:mm:ss");
+                        double inputValue = Convert.ToDouble(numericUpDown_value.Value);
+                        DateTime targetTime;
+                        if (comboBox_timeUnit.SelectedIndex == 0)
+                            targetTime = DateTime.Now.AddSeconds(inputValue);
+                        else if (comboBox_timeUnit.SelectedIndex == 2)
+                            targetTime = DateTime.Now.AddHours(inputValue);
+                        else
+                            targetTime = DateTime.Now.AddMinutes(inputValue);
+                        newAction.value = targetTime.ToString("dd.MM.yyyy HH:mm:ss");
                     }
 
 
                     else if (comboBox_triggerType.SelectedIndex == (int)enum_combobox_triggerType.SystemIdleTime)
                     {
                         newAction.triggerType = config.triggerTypes.systemIdle;
-                        newAction.value = numericUpDown_value.Value.ToString();
+                        int inputValue = Convert.ToInt32(numericUpDown_value.Value);
+                        int valueInSeconds;
+                        if (comboBox_timeUnit.SelectedIndex == 0)
+                            valueInSeconds = inputValue;
+                        else if (comboBox_timeUnit.SelectedIndex == 2)
+                            valueInSeconds = inputValue * 3600;
+                        else
+                            valueInSeconds = inputValue * 60;
+                        newAction.value = valueInSeconds.ToString();
                     }
 
 
@@ -444,6 +464,7 @@ namespace WindowsShutdownHelper
             {
                 label_firstly_choose_a_trigger.Visible = true;
                 numericUpDown_value.Visible = false;
+                comboBox_timeUnit.Visible = false;
                 dateTimePicker_time.Visible = false;
             }
 
@@ -451,6 +472,7 @@ namespace WindowsShutdownHelper
             {
                 label_firstly_choose_a_trigger.Visible = false;
                 numericUpDown_value.Visible = true;
+                comboBox_timeUnit.Visible = true;
                 dateTimePicker_time.Visible = false;
                 label_value.Text = language.main_label_value_duration + " : ";
             }
@@ -459,6 +481,7 @@ namespace WindowsShutdownHelper
                 label_firstly_choose_a_trigger.Visible = false;
 
                 numericUpDown_value.Visible = false;
+                comboBox_timeUnit.Visible = false;
                 dateTimePicker_time.Visible = true;
                 label_value.Text = language.main_label_value_time + " : ";
             }

@@ -120,5 +120,9 @@
         public string messageContent_settingsSaved { get; set; }
         public string messageContent_settingSavedWithLangChanged { get; set; }
 
+        public string main_timeUnit_seconds { get; set; }
+        public string main_timeUnit_minutes { get; set; }
+        public string main_timeUnit_hours { get; set; }
+
     }
 }

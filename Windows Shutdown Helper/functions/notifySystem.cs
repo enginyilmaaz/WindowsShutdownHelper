@@ -42,7 +42,7 @@ namespace WindowsShutdownHelper.functions
                     int actionValue = Convert.ToInt32(action.value);
                     string actionKey = action.createdDate + "_" + action.actionType;
 
-                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds
+                    if (idleTimeMin >= actionValue - settings.countdownNotifierSeconds
                         && !_notifiedIdleActions.Contains(actionKey))
                     {
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)

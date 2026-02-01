@@ -11,7 +11,7 @@
                 main_label_actionType = "Action Type",
                 main_label_trigger = "Trigger",
                 main_label_value = "Value",
-                main_label_value_duration = "Duration (min)",
+                main_label_value_duration = "Duration",
                 main_label_value_time = "Time(hour)",
                 main_button_addAction = "Add to Action List",
                 main_groupBox_actionList = "Action List",
@@ -108,6 +108,10 @@
                 settingsForm_addStartupAppName = "Shutdown Helper for Windows",
                 messageContent_settingsSaved = "Settings saved successfully",
                 messageContent_settingSavedWithLangChanged = "Please restart the program to apply the changes",
+
+                main_timeUnit_seconds = "Seconds",
+                main_timeUnit_minutes = "Minutes",
+                main_timeUnit_hours = "Hours",
 
             };
             return lang;

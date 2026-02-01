@@ -11,7 +11,7 @@
                 main_label_actionType = "Görev Türü",
                 main_label_trigger = "Tetikleyici",
                 main_label_value = "Değer",
-                main_label_value_duration = "Süre(dk)",
+                main_label_value_duration = "Süre",
                 main_label_value_time = "Zaman(saat)",
                 main_button_addAction = "Görev Listesine Ekle",
                 main_groupBox_actionList = "Görev Listesi",
@@ -108,7 +108,11 @@
                 settingsForm_addStartupAppName = "Shutdown Helper for Windows",
                 messageContent_settingsSaved = "Ayarlar başarıyla kaydedildi",
                 messageContent_settingSavedWithLangChanged =
-                    "Değişiklikleri uygulamak için lütfen programı yeniden başlatın."
+                    "Değişiklikleri uygulamak için lütfen programı yeniden başlatın.",
+
+                main_timeUnit_seconds = "Saniye",
+                main_timeUnit_minutes = "Dakika",
+                main_timeUnit_hours = "Saat"
 
             };
 
