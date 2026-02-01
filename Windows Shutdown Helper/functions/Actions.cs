@@ -9,6 +9,7 @@ namespace WindowsShutdownHelper.functions
         public string triggerType { get; set; }
         public string actionType { get; set; }
         public string value { get; set; }
+        public string valueUnit { get; set; }
         public string createdDate { get; set; }
     }
 

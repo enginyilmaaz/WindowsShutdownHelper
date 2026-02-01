@@ -252,7 +252,10 @@ namespace WindowsShutdownHelper
 
         private void doAction(ActionModel action, uint idleTimeMin)
         {
-            if (action.triggerType == config.triggerTypes.systemIdle && idleTimeMin == Convert.ToUInt32(action.value))
+            uint actionValueSeconds = string.IsNullOrEmpty(action.valueUnit)
+                ? Convert.ToUInt32(action.value) * 60
+                : Convert.ToUInt32(action.value);
+            if (action.triggerType == config.triggerTypes.systemIdle && idleTimeMin == actionValueSeconds)
             {
                 Actions.doActionByTypes(action);
             }
@@ -375,6 +378,7 @@ namespace WindowsShutdownHelper
                         else
                             valueInSeconds = inputValue * 60;
                         newAction.value = valueInSeconds.ToString();
+                        newAction.valueUnit = "seconds";
                     }
 
 
