@@ -2,7 +2,12 @@
 ; Build: Once projeyi Visual Studio'da Release olarak build edin, sonra bu .iss dosyasini Inno Setup ile derleyin.
 
 #define MyAppName "Windows Shutdown Helper"
-#define MyAppVersion "1.0.0"
+#ifndef MyAppVersion
+  #define MyAppVersion "1.0.0"
+#endif
+#ifndef OutputName
+  #define OutputName "WindowsShutdownHelper_Setup_" + MyAppVersion
+#endif
 #define MyAppPublisher "enginyilmaaz"
 #define MyAppExeName "Windows Shutdown Helper.exe"
 
@@ -15,7 +20,7 @@ DefaultDirName={localappdata}\Programs\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=installer_output
-OutputBaseFilename=WindowsShutdownHelper_Setup_{#MyAppVersion}
+OutputBaseFilename={#OutputName}
 SetupIconFile=Windows Shutdown Helper\setup.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2/max
