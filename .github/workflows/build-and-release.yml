@@ -26,8 +26,21 @@ jobs:
       - name: Build Release
         run: msbuild "Windows Shutdown Helper.sln" /p:Configuration=Release /p:Platform="Any CPU"
 
+      - name: Build Installer
+        run: |
+          $url = "https://files.jrsoftware.org/is/6/innosetup-6.4.2.exe"
+          Invoke-WebRequest -Uri $url -OutFile innosetup.exe
+          Start-Process -Wait -FilePath .\innosetup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=C:\InnoSetup"
+          C:\InnoSetup\ISCC.exe installer.iss
+
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: WindowsShutdownHelper
+          name: WindowsShutdownHelper_Portable
           path: Windows Shutdown Helper/bin/Release/Windows Shutdown Helper.exe
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: WindowsShutdownHelper_Setup
+          path: installer_output/WindowsShutdownHelper_Setup_1.0.0.exe
