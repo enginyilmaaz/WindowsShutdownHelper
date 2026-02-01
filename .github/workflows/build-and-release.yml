@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - master
-      - win11
+      - dev
 
 permissions:
   contents: write
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -27,24 +29,84 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore "Windows Shutdown Helper.sln"
 
+      - name: Determine version and commit info
+        id: version
+        shell: pwsh
+        run: |
+          $commitHash = git rev-parse --short=6 HEAD
+          echo "commit_short=$commitHash" >> $env:GITHUB_OUTPUT
+
+          if ("${{ github.ref_name }}" -eq "master") {
+            $latestTag = git tag -l "v*" --sort=-v:refname | Select-Object -First 1
+            if ($latestTag) {
+              $ver = $latestTag -replace '^v', ''
+              $parts = $ver.Split('.')
+              $major = [int]$parts[0]
+              $minor = [int]$parts[1]
+              $patch = [int]$parts[2] + 1
+              $newVersion = "$major.$minor.$patch"
+            } else {
+              $newVersion = "1.0.1"
+            }
+            echo "version=$newVersion" >> $env:GITHUB_OUTPUT
+            echo "is_release=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "version=dev" >> $env:GITHUB_OUTPUT
+            echo "is_release=false" >> $env:GITHUB_OUTPUT
+          }
+
+      - name: Inject Build ID
+        shell: pwsh
+        run: |
+          $file = "Windows Shutdown Helper/BuildInfo.cs"
+          (Get-Content $file) -replace 'public const string CommitId = "dev"', "public const string CommitId = ""${{ steps.version.outputs.commit_short }}""" | Set-Content $file
+
       - name: Build Release
         run: msbuild "Windows Shutdown Helper.sln" /p:Configuration=Release /p:Platform="Any CPU" /p:SignManifests=false
 
       - name: Build Installer
+        shell: pwsh
         run: |
           $url = "https://github.com/jrsoftware/issrc/releases/download/is-6_7_0/innosetup-6.7.0.exe"
           Invoke-WebRequest -Uri $url -OutFile innosetup.exe
           Start-Process -Wait -FilePath .\innosetup.exe -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=C:\InnoSetup"
-          C:\InnoSetup\ISCC.exe installer.iss
 
-      - name: Upload EXE
+          if ("${{ steps.version.outputs.is_release }}" -eq "true") {
+            C:\InnoSetup\ISCC.exe "/DMyAppVersion=${{ steps.version.outputs.version }}" installer.iss
+          } else {
+            C:\InnoSetup\ISCC.exe "/DMyAppVersion=dev" "/DOutputName=setup_${{ steps.version.outputs.commit_short }}" installer.iss
+          }
+
+      - name: Upload Portable EXE
         uses: actions/upload-artifact@v4
         with:
           name: WindowsShutdownHelper_Portable
           path: Windows Shutdown Helper/bin/Release/Windows Shutdown Helper.exe
 
-      - name: Upload Installer
+      - name: Upload Installer (dev)
+        if: steps.version.outputs.is_release != 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: WindowsShutdownHelper_Setup
-          path: installer_output/WindowsShutdownHelper_Setup_1.0.0.exe
+          name: WindowsShutdownHelper_Setup_Dev
+          path: installer_output/setup_${{ steps.version.outputs.commit_short }}.exe
+
+      - name: Create Release (master)
+        if: steps.version.outputs.is_release == 'true'
+        shell: pwsh
+        run: |
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+      - name: Publish GitHub Release
+        if: steps.version.outputs.is_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          body: |
+            ## Windows Shutdown Helper v${{ steps.version.outputs.version }}
+
+            Build Id: `${{ steps.version.outputs.commit_short }}`
+          files: |
+            installer_output/WindowsShutdownHelper_Setup_${{ steps.version.outputs.version }}.exe
+            Windows Shutdown Helper/bin/Release/Windows Shutdown Helper.exe
