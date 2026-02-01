@@ -1,0 +1,33 @@
+name: Build and Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore "Windows Shutdown Helper.sln"
+
+      - name: Build Release
+        run: msbuild "Windows Shutdown Helper.sln" /p:Configuration=Release /p:Platform="Any CPU"
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: WindowsShutdownHelper
+          path: Windows Shutdown Helper/bin/Release/Windows Shutdown Helper.exe
