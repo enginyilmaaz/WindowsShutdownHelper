@@ -5,8 +5,11 @@
 #ifndef MyAppVersion
   #define MyAppVersion "1.0.0"
 #endif
+#ifndef CommitHash
+  #define CommitHash "000000"
+#endif
 #ifndef OutputName
-  #define OutputName "WindowsShutdownHelper_Setup_" + MyAppVersion
+  #define OutputName "WindowsShutdownHelper_Setup_" + MyAppVersion + "_" + CommitHash
 #endif
 #define MyAppPublisher "enginyilmaaz"
 #define MyAppExeName "Windows Shutdown Helper.exe"
