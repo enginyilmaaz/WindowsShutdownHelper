@@ -224,6 +224,15 @@ namespace WindowsShutdownHelper
                 {
                     act.triggerType = language.main_cbox_TriggerType_Item_fromNow;
                 }
+
+                if (act.valueUnit == "seconds")
+                {
+                    act.valueUnit = language.main_timeUnit_seconds ?? "Seconds";
+                }
+                else if (string.IsNullOrEmpty(act.valueUnit))
+                {
+                    act.valueUnit = language.main_timeUnit_minutes ?? "Minutes";
+                }
             }
 
             dataGridView_taskList.DataSource = null;
@@ -231,12 +240,15 @@ namespace WindowsShutdownHelper
             dataGridView_taskList.Columns["triggerType"].HeaderText = language.main_datagrid_main_triggerType;
             dataGridView_taskList.Columns["actionType"].HeaderText = language.main_datagrid_main_actionType;
             dataGridView_taskList.Columns["value"].HeaderText = language.main_datagrid_main_value;
+            dataGridView_taskList.Columns["valueUnit"].HeaderText = language.main_datagrid_main_valueUnit ?? "Unit";
             dataGridView_taskList.Columns["createdDate"].HeaderText = language.main_datagrid_main_createdDate;
             dataGridView_taskList.Columns["triggerType"].DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
             dataGridView_taskList.Columns["actionType"].DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
             dataGridView_taskList.Columns["value"].DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
+            dataGridView_taskList.Columns["valueUnit"].DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
             dataGridView_taskList.Columns["createdDate"].DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleCenter;
