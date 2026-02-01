@@ -45,17 +45,10 @@ namespace WindowsShutdownHelper.functions
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\lang");
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\lang"))
             {
-                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\lang\\lang_en.json"))
-                {
-                    jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "lang\\lang_en.json", true,
-                        lang_en.lang_english());
-                }
-
-                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\lang\\lang_tr.json"))
-                {
-                    jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "lang\\lang_tr.json", true,
-                        lang_tr.lang_turkish());
-                }
+                jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "lang\\lang_en.json", true,
+                    lang_en.lang_english());
+                jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "lang\\lang_tr.json", true,
+                    lang_tr.lang_turkish());
 
                 System.Collections.Generic.List<string> existLanguages = Directory
                     .GetFiles(AppDomain.CurrentDomain.BaseDirectory + "lang\\", "lang_??.json")
