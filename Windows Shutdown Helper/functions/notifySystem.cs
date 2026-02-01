@@ -39,10 +39,12 @@ namespace WindowsShutdownHelper.functions
 
                 if (action.triggerType == config.triggerTypes.systemIdle)
                 {
-                    int actionValue = Convert.ToInt32(action.value);
+                    int actionValue = string.IsNullOrEmpty(action.valueUnit)
+                        ? Convert.ToInt32(action.value) * 60
+                        : Convert.ToInt32(action.value);
                     string actionKey = action.createdDate + "_" + action.actionType;
 
-                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds
+                    if (idleTimeMin >= actionValue - settings.countdownNotifierSeconds
                         && !_notifiedIdleActions.Contains(actionKey))
                     {
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
