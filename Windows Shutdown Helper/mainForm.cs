@@ -72,7 +72,7 @@ namespace WindowsShutdownHelper
         {
             Logger.doLog(config.actionTypes.appStarted);
             Text = language.main_FormName;
-            toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now;
+            toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now + "  |  Build Id: " + BuildInfo.CommitId;
             notifyIcon_main.Text = language.main_FormName + " " + language.notifyIcon_main;
             numericUpDown_value.TextAlign = HorizontalAlignment.Center;
 
@@ -284,7 +284,7 @@ namespace WindowsShutdownHelper
 
         private void timerTick(object sender, EventArgs e)
         {
-            toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now;
+            toolStripStatusLabel_CurrentTime.Text = language.main_statusBar_currentTime + " : " + DateTime.Now + "  |  Build Id: " + BuildInfo.CommitId;
 
             uint idleTimeMin = systemIdleDetector.GetLastInputTime();
 
