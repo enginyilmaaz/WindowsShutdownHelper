@@ -282,6 +282,7 @@ namespace WindowsShutdownHelper
 
             if (idleTimeMin == 0)
             {
+                notifySystem.ResetIdleNotifications();
                 timer.Stop();
                 timer.Start();
             }

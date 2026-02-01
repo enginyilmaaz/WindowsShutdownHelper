@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -11,6 +12,12 @@ namespace WindowsShutdownHelper.functions
     {
         public static language language = languageSelector.languageFile();
         public static string actionTypeName;
+        private static HashSet<string> _notifiedIdleActions = new HashSet<string>();
+
+        public static void ResetIdleNotifications()
+        {
+            _notifiedIdleActions.Clear();
+        }
 
         public static void showNotification(ActionModel action, uint idleTimeMin)
         {
@@ -33,10 +40,14 @@ namespace WindowsShutdownHelper.functions
                 if (action.triggerType == config.triggerTypes.systemIdle)
                 {
                     int actionValue = Convert.ToInt32(action.value);
-                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds)
+                    string actionKey = action.createdDate + "_" + action.actionType;
+
+                    if (idleTimeMin >= actionValue * 60 - settings.countdownNotifierSeconds
+                        && !_notifiedIdleActions.Contains(actionKey))
                     {
                         if (Application.OpenForms.OfType<actionCountdownNotifier>().Any() == false)
                         {
+                            _notifiedIdleActions.Add(actionKey);
                             actionCountdownNotifier actionCountdownNotifier = new actionCountdownNotifier(language.messageTitle_info,
                                 language.messageContent_CountdownNotify, language.messageContent_CountdownNotify_2,
                                 actionTypeName, language.messageContent_cancelForSystemIdle,

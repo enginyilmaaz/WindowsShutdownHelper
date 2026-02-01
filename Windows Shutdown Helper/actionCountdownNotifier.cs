@@ -80,10 +80,8 @@ namespace WindowsShutdownHelper
             if (showTimeSecond == 0)
             {
                 timer.Stop();
-
-                GC.Collect();
-                GC.SuppressFinalize(this);
                 Close();
+                return;
             }
 
             if (action.triggerType == config.triggerTypes.systemIdle)
@@ -92,10 +90,8 @@ namespace WindowsShutdownHelper
                 if (idleTimeMin == 0)
                 {
                     timer.Stop();
-
-                    GC.Collect();
-                    GC.SuppressFinalize(this);
                     Close();
+                    return;
                 }
             }
 
@@ -106,20 +102,18 @@ namespace WindowsShutdownHelper
 
         private void button_Skip_Click(object sender, EventArgs e)
         {
-            GC.Collect();
-            GC.SuppressFinalize(this);
+            timer.Stop();
             Close();
         }
 
         private void button_delete_Click(object sender, EventArgs e)
         {
+            timer.Stop();
             mainForm.actionList.Remove(action);
             mainForm.isDeletedFromNotifier = true;
             jsonWriter.WriteJson(AppDomain.CurrentDomain.BaseDirectory + "\\actionList.json", true,
                 mainForm.actionList);
 
-            GC.Collect();
-            GC.SuppressFinalize(this);
             Close();
         }
 
@@ -146,10 +140,8 @@ namespace WindowsShutdownHelper
 
         private void button_skip_Click(object sender, EventArgs e)
         {
+            timer.Stop();
             mainForm.isSkippedCertainTimeAction = true;
-
-            GC.Collect();
-            GC.SuppressFinalize(this);
             Close();
         }
 
