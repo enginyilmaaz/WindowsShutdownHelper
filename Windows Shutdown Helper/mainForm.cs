@@ -110,9 +110,9 @@ namespace WindowsShutdownHelper
             comboBox_triggerType.Items.Add(language.main_cbox_TriggerType_Item_certainTime);
             comboBox_triggerType.SelectedIndex = 0;
 
-            comboBox_timeUnit.Items.Add(language.main_timeUnit_seconds);
-            comboBox_timeUnit.Items.Add(language.main_timeUnit_minutes);
-            comboBox_timeUnit.Items.Add(language.main_timeUnit_hours);
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_seconds ?? "Seconds");
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_minutes ?? "Minutes");
+            comboBox_timeUnit.Items.Add(language.main_timeUnit_hours ?? "Hours");
             comboBox_timeUnit.SelectedIndex = 1;
 
             label_trigger.Text = language.main_label_trigger + " : ";
