@@ -28,7 +28,7 @@ jobs:
         run: nuget restore "Windows Shutdown Helper.sln"
 
       - name: Build Release
-        run: msbuild "Windows Shutdown Helper.sln" /p:Configuration=Release /p:Platform="Any CPU"
+        run: msbuild "Windows Shutdown Helper.sln" /p:Configuration=Release /p:Platform="Any CPU" /p:SignManifests=false
 
       - name: Build Installer
         run: |
