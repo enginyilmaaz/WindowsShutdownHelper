@@ -1974,6 +1974,10 @@ namespace WindowsAutoPowerManager
                 NotifySystem.ResetIdleNotifications();
             }
 
+            // Re-sends a monitor off the driver undid moments after it was issued; a no-op unless
+            // such a wake is pending.
+            Actions.TurnOff.TryRetryAfterSpuriousWake(idleTimeSec);
+
             if (_cachedSettings == null)
             {
                 _cachedSettings = Config.SettingsINI.DefaulSettingFile();

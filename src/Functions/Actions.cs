@@ -166,6 +166,17 @@ namespace WindowsAutoPowerManager.Functions
             // 1 while a monitor off we issued has not been followed by the display coming back on.
             private static int _monitorOffInEffect;
 
+            // A display-on this soon after our own off cannot be the user. The trace shows the
+            // driver re-waking the panel 0-5 s after the request; Windows counts that as input,
+            // which resets the idle counter and restarts the whole cycle one threshold later.
+            private const long SpuriousWakeWindowMs = 5000;
+            private const long SpuriousRetryDelayMs = 3000;
+            private const int MaxSpuriousRetries = 2;
+            private const uint SpuriousRetryQuietIdleSeconds = 2;
+            private static long _spuriousWakeTick;
+            private static int _spuriousRetryPending;
+            private static int _spuriousRetryCount;
+
             [DllImport("user32.dll", SetLastError = true)]
             private static extern IntPtr SendMessageTimeout(
                 IntPtr hWnd,
@@ -234,8 +245,23 @@ namespace WindowsAutoPowerManager.Functions
                     return;
                 }
 
+                long nowTick = Environment.TickCount64;
+                long sinceOffMs = nowTick - Interlocked.Read(ref _lastMonitorOffTick);
+                if (Interlocked.CompareExchange(ref _monitorOffInEffect, 1, 1) == 1 &&
+                    sinceOffMs < SpuriousWakeWindowMs)
+                {
+                    // Not treated as a wake: the guard stays down so the retry is allowed, and the
+                    // off stays in effect so the idle drop that follows is not read as the user.
+                    Interlocked.Exchange(ref _spuriousWakeTick, nowTick);
+                    Interlocked.Exchange(ref _spuriousRetryPending, 1);
+                    DebugLog.Write("monitor", "display back on " + sinceOffMs + "ms after off, suspect spurious wake");
+                    return;
+                }
+
+                Interlocked.Exchange(ref _spuriousRetryPending, 0);
+                Interlocked.Exchange(ref _spuriousRetryCount, 0);
                 Interlocked.Exchange(ref _monitorOffInEffect, 0);
-                Interlocked.Exchange(ref _lastWakeInteractionTick, Environment.TickCount64);
+                Interlocked.Exchange(ref _lastWakeInteractionTick, nowTick);
             }
 
             public static void RecordPotentialWakeInteraction()
@@ -244,6 +270,13 @@ namespace WindowsAutoPowerManager.Functions
                 // state if a display on notification was missed while the recipient window handle
                 // was being recreated, which would otherwise suppress monitor off permanently.
                 Interlocked.CompareExchange(ref _displayState, DisplayStateOn, DisplayStateOff);
+
+                // Input inside the spurious window is the same driver blip the display notification
+                // reports. Treating it as the user would arm the guard and block the retry.
+                if (Environment.TickCount64 - Interlocked.Read(ref _lastMonitorOffTick) < SpuriousWakeWindowMs)
+                {
+                    return;
+                }
 
                 // The wake guard is only meaningful while a monitor off we issued is still in
                 // effect. Arming it on ordinary activity would delay every later monitor off by
@@ -297,13 +330,24 @@ namespace WindowsAutoPowerManager.Functions
                     return;
                 }
 
+                // A fresh idle cycle starts with a clean retry budget.
+                Interlocked.Exchange(ref _spuriousRetryCount, 0);
+                Interlocked.Exchange(ref _spuriousRetryPending, 0);
+                SendMonitorOff("off sent", recordInActionLog: true);
+            }
+
+            private static void SendMonitorOff(string traceMessage, bool recordInActionLog)
+            {
                 if (!SetMonitorState(MonitorState.OFF))
                 {
                     DebugLog.Write("monitor", "off FAILED (driver rejected the request)");
-                    // Without this the action leaves no trace at all when the display refuses to
-                    // turn off, which makes the difference between "suppressed" and "attempted and
-                    // failed" invisible in the log.
-                    Logger.DoLog(Config.ActionTypes.TurnOffMonitorFailed);
+                    if (recordInActionLog)
+                    {
+                        // Without this the action leaves no trace at all when the display refuses
+                        // to turn off, which makes the difference between "suppressed" and
+                        // "attempted and failed" invisible in the log.
+                        Logger.DoLog(Config.ActionTypes.TurnOffMonitorFailed);
+                    }
                     return;
                 }
 
@@ -311,8 +355,56 @@ namespace WindowsAutoPowerManager.Functions
                 Interlocked.Exchange(ref _lastWakeInteractionTick, -MonitorWakeGuardMs);
                 Interlocked.Exchange(ref _lastMonitorOffTick, nowTick);
                 Interlocked.Exchange(ref _monitorOffInEffect, 1);
-                DebugLog.Write("monitor", "off sent");
-                Logger.DoLog(Config.ActionTypes.TurnOffMonitor);
+                DebugLog.Write("monitor", traceMessage);
+
+                // Retries are the same action still being carried out, not a new one; the action
+                // log records the attempt once, the trace records every send.
+                if (recordInActionLog)
+                {
+                    Logger.DoLog(Config.ActionTypes.TurnOffMonitor);
+                }
+            }
+
+            /// <summary>
+            ///     Driven by the one-second tick. Re-sends the off after a suspected spurious wake,
+            ///     but only once the blip has gone quiet: a person who woke the screen keeps
+            ///     producing input, a driver blip is a single event followed by silence.
+            /// </summary>
+            public static void TryRetryAfterSpuriousWake(uint idleSeconds)
+            {
+                if (Interlocked.CompareExchange(ref _spuriousRetryPending, 1, 1) != 1)
+                {
+                    return;
+                }
+
+                long nowTick = Environment.TickCount64;
+                if (nowTick - Interlocked.Read(ref _spuriousWakeTick) < SpuriousRetryDelayMs)
+                {
+                    return;
+                }
+
+                if (idleSeconds < SpuriousRetryQuietIdleSeconds)
+                {
+                    Interlocked.Exchange(ref _spuriousRetryPending, 0);
+                    Interlocked.Exchange(ref _spuriousRetryCount, 0);
+                    Interlocked.Exchange(ref _monitorOffInEffect, 0);
+                    Interlocked.Exchange(ref _lastWakeInteractionTick, nowTick);
+                    DebugLog.Write("monitor", "spurious wake dismissed: input continued (idle=" + idleSeconds + "s)");
+                    return;
+                }
+
+                Interlocked.Exchange(ref _spuriousRetryPending, 0);
+                int attempt = Interlocked.Increment(ref _spuriousRetryCount);
+                if (attempt > MaxSpuriousRetries)
+                {
+                    Interlocked.Exchange(ref _monitorOffInEffect, 0);
+                    DebugLog.Write("monitor", "spurious wake: retry limit reached, leaving the display on");
+                    return;
+                }
+
+                SendMonitorOff(
+                    "off re-sent after spurious wake (retry " + attempt + "/" + MaxSpuriousRetries + ")",
+                    recordInActionLog: false);
             }
         }
 
